@@ -39,6 +39,22 @@
             margin-bottom: 10px;
         }
 
+        .user-info {
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .user-info button {
+            margin-left: 10px;
+            padding: 5px 15px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid white;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
         .main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -94,12 +110,11 @@
             box-shadow: 0 4px 12px rgba(107, 93, 79, 0.4);
         }
 
-        button:disabled, .file-label.disabled {
+        button:disabled {
             background: #ccc;
             cursor: not-allowed;
             transform: none;
             opacity: 0.5;
-            pointer-events: none;
         }
 
         .search-box {
@@ -118,197 +133,33 @@
             border-color: #6B5D4F;
         }
 
-        .filter-section {
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
             background: white;
-            padding: 15px;
+            padding: 15px 20px;
             border-radius: 10px;
-            margin-bottom: 15px;
-            border: 2px solid #e0e0e0;
-        }
-
-        .filter-section-title {
-            font-weight: 600;
-            color: #6B5D4F;
-            margin-bottom: 10px;
-            font-size: 1em;
-        }
-
-        .randomizer-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .number-input-group {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 5px;
-        }
-
-        .number-btn {
-            width: 32px;
-            height: 32px;
-            min-width: 32px;
-            min-height: 32px;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            background: #6B5D4F;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .number-btn:hover {
-            background: #8B7355;
-        }
-
-        .number-input {
-            width: 50px;
+            flex: 1;
+            min-width: 150px;
             text-align: center;
-            border: none;
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #6B5D4F;
-            padding: 5px;
-            background: transparent;
-        }
-
-        .number-input:focus {
-            outline: none;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .filter-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 8px 15px;
-            background: white;
             border: 2px solid #e0e0e0;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            user-select: none;
-            min-height: 44px;
         }
 
-        .filter-tag:hover {
-            border-color: #6B5D4F;
-        }
-
-        .filter-tag.active {
-            background: #6B5D4F;
-            color: white;
-            border-color: #6B5D4F;
-        }
-
-        .filter-tag input[type="checkbox"] {
-            cursor: pointer;
-            width: 18px;
-            height: 18px;
-        }
-
-        .filter-tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-            min-height: 40px;
-        }
-
-        .filter-ingredient-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.95em;
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.3s;
-            animation: tagPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .filter-ingredient-tag.include {
-            background: #28a745;
-            color: white;
-            border: 2px solid #28a745;
-        }
-
-        .filter-ingredient-tag.exclude {
-            background: #dc3545;
-            color: white;
-            border: 2px solid #dc3545;
-        }
-
-        .filter-ingredient-tag:hover {
-            opacity: 0.85;
-            transform: scale(1.02);
-        }
-
-        .filter-ingredient-tag .remove-btn {
-            margin-left: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-
-        .filter-ingredient-tag .remove-btn:hover {
-            transform: scale(1.3);
-        }
-
-        @keyframes tagPop {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .criteria-toggle {
-            background: transparent;
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
             color: #6B5D4F;
-            border: 2px solid #6B5D4F;
-            padding: 8px 16px;
+        }
+
+        .stat-label {
+            color: #666;
             font-size: 0.9em;
-            margin-top: 10px;
-        }
-
-        .criteria-toggle:hover {
-            background: #f5f0eb;
-        }
-
-        .criteria-content {
-            display: none;
-            margin-top: 10px;
-        }
-
-        .criteria-content.show {
-            display: block;
+            margin-top: 5px;
         }
 
         .recipe-list {
@@ -346,181 +197,15 @@
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
 
-        .recipe-item.favorite.selected {
-            border: 3px solid #FFD700;
-            background: #fffef5;
-        }
-
-        .recipe-checkbox {
-            width: 28px;
-            height: 28px;
-            min-width: 28px;
-            border: 3px solid #6B5D4F;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            background: white;
-            margin-top: 2px;
-        }
-
-        .recipe-item.selected .recipe-checkbox {
-            background: #6B5D4F;
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .recipe-checkbox::after {
-            content: '✓';
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            opacity: 0;
-            transform: scale(0) rotate(45deg);
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .recipe-item.selected .recipe-checkbox::after {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
-        }
-
         .recipe-content {
             flex: 1;
-            opacity: 1;
-            transition: opacity 0.3s;
-        }
-
-        .recipe-item.selected .recipe-content {
-            opacity: 0.7;
-        }
-
-        .recipe-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 8px;
-            gap: 10px;
         }
 
         .recipe-name {
             font-weight: 600;
             font-size: 1.1em;
             color: #333;
-            flex: 1;
-        }
-
-        .recipe-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .recipe-menu-btn, .recipe-favorite-btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1.1em;
-            transition: all 0.2s;
-            min-height: 36px;
-            min-width: 36px;
-        }
-
-        .recipe-menu-btn {
-            background: #6B5D4F;
-            color: white;
-        }
-
-        .recipe-menu-btn:hover {
-            background: #8B7355;
-            transform: scale(1.05);
-        }
-
-        .recipe-favorite-btn {
-            background: transparent;
-            color: #FFD700;
-            border: 2px solid #e0e0e0;
-        }
-
-        .recipe-favorite-btn:hover {
-            border-color: #FFD700;
-            transform: scale(1.1);
-        }
-
-        .recipe-favorite-btn.active {
-            background: #FFD700;
-            border-color: #FFD700;
-            animation: favoritePulse 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        @keyframes favoritePulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.3) rotate(10deg);
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
-        }
-
-        .recipe-menu {
-            position: absolute;
-            right: 15px;
-            top: 50px;
-            background: white;
-            border: 2px solid #6B5D4F;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-            display: none;
-            min-width: 160px;
-            overflow: hidden;
-        }
-
-        .recipe-menu.show {
-            display: block;
-            animation: menuSlideIn 0.2s ease-out;
-        }
-
-        @keyframes menuSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .recipe-menu-item {
-            padding: 10px 14px;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid #f0f0f0;
-            min-height: 40px;
-            font-size: 0.9em;
-        }
-
-        .recipe-menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .recipe-menu-item:hover {
-            background: #f5f5f5;
-        }
-
-        .recipe-menu-item.delete {
-            color: #d63031;
-        }
-
-        .recipe-menu-item.delete:hover {
-            background: #fee;
+            margin-bottom: 8px;
         }
 
         .recipe-ingredients {
@@ -533,7 +218,6 @@
             display: flex;
             flex-wrap: wrap;
             gap: 5px;
-            align-items: center;
         }
 
         .tag {
@@ -555,250 +239,15 @@
             color: white;
         }
 
-        .shopping-list {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .shopping-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: white;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            border: 2px solid #e0e0e0;
-            transition: all 0.3s;
-        }
-
-        .shopping-item:hover {
-            border-color: #6B5D4F;
-        }
-
-        .shopping-item.checked {
-            background: #f0f0f0;
-            opacity: 0.6;
-        }
-
-        .shopping-item.dragging {
-            opacity: 0.5;
-        }
-
-        .shopping-item.drag-over {
-            border-top: 4px solid #FFD700 !important;
-            background: #fffef5;
-        }
-
-        .shopping-item.drag-target {
-            background: #fffef5;
-            border: 3px solid #FFD700 !important;
-            transform: scale(1.02);
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 0.6;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .shopping-item input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
-            min-width: 24px;
-            cursor: pointer;
-        }
-
-        .shopping-item-name {
-            flex: 1;
-            font-weight: 500;
-        }
-
-        .shopping-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .quantity-btn {
-            width: 28px;
-            height: 28px;
-            min-width: 28px;
-            min-height: 28px;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1em;
-            font-weight: bold;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .quantity-btn.decrease {
-            background: #dc3545;
-        }
-
-        .quantity-btn.decrease:hover {
-            background: #c82333;
-            transform: scale(1.1);
-        }
-
-        .quantity-btn.increase {
-            background: #28a745;
-        }
-
-        .quantity-btn.increase:hover {
-            background: #218838;
-            transform: scale(1.1);
-        }
-
-        .shopping-item-count {
-            background: #6B5D4F;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.9em;
-            font-weight: 600;
-            min-width: 40px;
+        .empty-state {
             text-align: center;
+            padding: 40px 20px;
+            color: #999;
         }
 
-        .list-title {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #6B5D4F;
-            margin-bottom: 15px;
-            padding: 12px;
-            background: white;
-            border-radius: 8px;
-            border: 2px solid #6B5D4F;
-            text-align: center;
-        }
-
-        .shopping-recipes {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #e0e0e0;
-        }
-
-        .shopping-recipes-title {
-            font-weight: 600;
-            color: #6B5D4F;
+        .empty-state-icon {
+            font-size: 3em;
             margin-bottom: 10px;
-        }
-
-        .shopping-recipe-item {
-            background: white;
-            padding: 10px 15px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            border: 2px solid #e0e0e0;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .shopping-recipe-item:hover {
-            border-color: #6B5D4F;
-            background: #f5f0eb;
-        }
-
-        .shopping-recipe-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .saved-lists-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 3px solid #6B5D4F;
-        }
-
-        .saved-lists-title {
-            font-size: 1.3em;
-            font-weight: 600;
-            color: #6B5D4F;
-            margin-bottom: 15px;
-        }
-
-        .saved-list-item {
-            background: white;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border: 2px solid #e0e0e0;
-            transition: all 0.3s;
-        }
-
-        .saved-list-item:hover {
-            border-color: #6B5D4F;
-        }
-
-        .saved-list-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-
-        .saved-list-name {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .saved-list-date {
-            font-size: 0.85em;
-            color: #666;
-        }
-
-        .saved-list-actions {
-            display: flex;
-            gap: 5px;
-            margin-top: 8px;
-        }
-
-        .saved-list-btn {
-            padding: 6px 12px;
-            font-size: 0.85em;
-            margin: 0;
-        }
-
-        /* Vue compacte */
-        .compact-view-item {
-            background: white;
-            padding: 12px 16px;
-            margin-bottom: 6px;
-            border-radius: 6px;
-            border: 2px solid #e0e0e0;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-        }
-
-        .compact-view-item:hover {
-            border-color: #6B5D4F;
-            background: #f5f0eb;
-        }
-
-        .compact-view-item.selected-compact {
-            background: rgba(107, 93, 79, 0.1);
-        }
-
-        .recipe-expanded-detail {
-            transition: max-height 0.4s ease-out;
-            overflow: hidden;
         }
 
         .add-recipe-form {
@@ -811,18 +260,6 @@
 
         .add-recipe-form.show {
             display: block;
-            animation: formSlideIn 0.3s ease-out;
-        }
-
-        @keyframes formSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .form-group {
@@ -837,7 +274,8 @@
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 10px;
             border: 2px solid #e0e0e0;
@@ -852,359 +290,28 @@
             font-family: inherit;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #6B5D4F;
-        }
-
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1em;
-            min-height: 44px;
-        }
-
-        .ingredient-input-container {
-            position: relative;
-        }
-
-        .ingredient-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-            min-height: 40px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border: 2px dashed #e0e0e0;
-        }
-
-        .ingredient-tags:empty::before {
-            content: 'Les ingrédients apparaîtront ici...';
-            color: #999;
-            font-style: italic;
-        }
-
-        .ingredient-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 12px;
-            background: #6B5D4F;
-            color: white;
-            border-radius: 20px;
-            font-size: 0.9em;
-            animation: tagPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .ingredient-tag-remove {
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.9em;
-            line-height: 1;
-            transition: transform 0.2s;
-            padding: 0 2px;
-        }
-
-        .ingredient-tag-remove:hover {
-            transform: scale(1.2);
-            color: #ffd700;
-        }
-
-        .ingredient-hint {
-            font-size: 0.85em;
-            color: #666;
-            margin-top: 5px;
-            font-style: italic;
-        }
-
-        .autocomplete-container {
-            position: relative;
-        }
-
-        .autocomplete-container > input {
-            position: relative;
-            z-index: 10;
-        }
-
-        .autocomplete-dropdown {
-            position: absolute;
-            top: 44px;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 2px solid #6B5D4F;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 200;
-            display: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .autocomplete-dropdown.show {
-            display: block;
-        }
-
-        .autocomplete-item {
-            padding: 10px 15px;
-            cursor: pointer;
-            transition: background 0.2s;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .autocomplete-item:last-child {
-            border-bottom: none;
-        }
-
-        .autocomplete-item:hover,
-        .autocomplete-item.selected {
-            background: #f5f0eb;
-        }
-
-        .autocomplete-item.selected {
-            background: #6B5D4F;
-            color: white;
-        }
-
-        .autocomplete-highlight {
-            font-weight: bold;
-            color: #D4A574;
-        }
-
-        .autocomplete-item.selected .autocomplete-highlight {
-            color: #ffd700;
-        }
-
-        .empty-state {
+        .loading {
             text-align: center;
-            padding: 40px 20px;
-            color: #999;
-        }
-
-        .empty-state-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        .stats {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            flex: 1;
-            min-width: 150px;
-            text-align: center;
-            border: 2px solid #e0e0e0;
-        }
-
-        .stat-number {
-            font-size: 2em;
-            font-weight: 700;
-            color: #6B5D4F;
-        }
-
-        .stat-label {
+            padding: 40px;
             color: #666;
-            font-size: 0.9em;
-            margin-top: 5px;
+            font-size: 1.1em;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.2s;
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
         }
 
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            animation: slideIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-header {
-            font-size: 1.4em;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .modal-body {
-            margin-bottom: 20px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .modal-footer {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
-
-        .modal-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-            min-height: 44px;
-        }
-
-        .modal-btn.confirm {
-            background: #d63031;
-            color: white;
-        }
-
-        .modal-btn.confirm:hover {
-            background: #e74c3c;
-        }
-
-        .modal-btn.cancel {
-            background: #e0e0e0;
-            color: #333;
-        }
-
-        .modal-btn.cancel:hover {
-            background: #d0d0d0;
-        }
-
-        .warning-banner {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .warning-banner.show {
-            display: block;
-        }
-
-        .warning-banner strong {
-            color: #856404;
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            header h1 {
-                font-size: 1.8em;
-            }
-
             .main-content {
                 grid-template-columns: 1fr;
-                padding: 15px;
-                gap: 20px;
             }
-
-            .section {
-                padding: 15px;
-            }
-
-            h2 {
-                font-size: 1.4em;
-            }
-
-            .file-upload {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .file-label, button {
-                width: 100%;
-                text-align: center;
-                margin: 0;
-                margin-bottom: 10px;
-            }
-
-            .stats {
-                gap: 10px;
-            }
-
-            .stat-card {
-                min-width: calc(50% - 5px);
-            }
-
-            .recipe-item {
-                padding: 12px;
-            }
-
-            .recipe-name {
-                font-size: 1em;
-            }
-
-            .modal-content {
-                padding: 20px;
-            }
-
-            .modal-footer {
-                flex-direction: column;
-            }
-
-            .modal-btn {
-                width: 100%;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #6B5D4F;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8B7355;
         }
     </style>
 </head>
@@ -1218,6 +325,10 @@
             </div>
             <h1>🍳 Gestionnaire de Recettes</h1>
             <p>Organisez vos recettes et générez vos listes de courses</p>
+            <div class="user-info">
+                <span id="userEmail"></span>
+                <button onclick="handleLogout()">Déconnexion</button>
+            </div>
         </header>
 
         <div class="main-content">
@@ -1228,14 +339,8 @@
                 <div class="file-upload">
                     <input type="file" id="csvFile" accept=".csv">
                     <label for="csvFile" class="file-label">📁 Importer CSV</label>
-                    <button id="createListBtn" style="display: block;">🆕 Créer une liste</button>
-                    <button id="addRecipeBtn" style="display: none;">➕ Ajouter une recette</button>
-                    <button id="exportRecipesBtn" disabled>💾 Exporter CSV</button>
-                </div>
-
-                <div class="warning-banner" id="noCSVWarning">
-                    <strong>⚠️ Aucun fichier chargé</strong><br>
-                    Vous pouvez commencer à ajouter des recettes. N'oubliez pas d'exporter votre CSV pour sauvegarder !
+                    <button id="addRecipeBtn">➕ Ajouter une recette</button>
+                    <button id="exportRecipesBtn">💾 Exporter CSV</button>
                 </div>
 
                 <!-- Formulaire d'ajout/édition -->
@@ -1246,29 +351,19 @@
                         <input type="text" id="recipeName" placeholder="Ex: Pâtes carbonara">
                     </div>
                     <div class="form-group">
-                        <label>Ingrédients:</label>
-                        <div class="ingredient-input-container autocomplete-container">
-                            <input type="text" id="recipeIngredients" placeholder="Tapez un ingrédient et appuyez sur Entrée" autocomplete="off">
-                            <div class="autocomplete-dropdown" id="ingredientsAutocomplete"></div>
-                            <div class="ingredient-hint">💡 Appuyez sur Entrée après chaque ingrédient, ou collez une liste avec des point-virgules</div>
-                            <div class="ingredient-tags" id="ingredientTags"></div>
-                        </div>
+                        <label>Ingrédients (un par ligne):</label>
+                        <textarea id="recipeIngredients" placeholder="pâtes&#10;lardons&#10;crème"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Double portion:</label>
                         <select id="recipeDouble">
-                            <option value="non">Non</option>
-                            <option value="oui">Oui</option>
+                            <option value="false">Non</option>
+                            <option value="true">Oui</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Critères:</label>
-                        <div class="ingredient-input-container autocomplete-container">
-                            <input type="text" id="recipeCriteria" placeholder="Tapez un critère et appuyez sur Entrée" autocomplete="off">
-                            <div class="autocomplete-dropdown" id="criteriaAutocomplete"></div>
-                            <div class="ingredient-hint">💡 Ex: Facile à faire, Rapide, Végétarien...</div>
-                            <div class="ingredient-tags" id="criteriaTags"></div>
-                        </div>
+                        <label>Critères (un par ligne):</label>
+                        <textarea id="recipeCriteria" placeholder="Rapide&#10;Facile"></textarea>
                     </div>
                     <button id="saveRecipeBtn">✅ Sauvegarder</button>
                     <button id="cancelFormBtn">✖️ Annuler</button>
@@ -1276,1150 +371,263 @@
 
                 <div class="stats" id="stats"></div>
 
-                <!-- Zone de filtrage avancée -->
-                <div class="filter-section">
-                    <div class="filter-section-title">🎲 Tirage aléatoire</div>
-                    <div class="randomizer-controls">
-                        <button id="randomizeBtn" style="margin: 0;">🎲 Surprise</button>
-                        <div class="number-input-group">
-                            <button class="number-btn" id="decreaseBtn">−</button>
-                            <input type="text" class="number-input" id="randomCount" value="5">
-                            <button class="number-btn" id="increaseBtn">+</button>
-                        </div>
-                        <span style="color: #666; font-size: 0.9em;">recettes</span>
-                    </div>
-                </div>
-
-                <div class="filter-section">
-                    <div class="filter-section-title">🥘 Filtrer par ingrédients</div>
-                    <div class="autocomplete-container">
-                        <input type="text" id="filterIngredients" class="search-box" style="margin-bottom: 5px;" placeholder="Tapez pour filtrer par ingrédient..." autocomplete="off">
-                        <div class="autocomplete-dropdown" id="filterIngredientsAutocomplete"></div>
-                    </div>
-                    <div class="ingredient-hint">💡 Vert = AVEC / Rouge = SANS / Croix = Supprimer</div>
-                    <div class="filter-tags-container" id="filterIngredientsTags"></div>
-                </div>
-
-                <div class="filter-section">
-                    <div class="filter-section-title">🏷️ Filtrer par critères</div>
-                    <div class="autocomplete-container">
-                        <input type="text" id="filterCriteria" class="search-box" style="margin-bottom: 5px;" placeholder="Tapez pour filtrer par critère..." autocomplete="off">
-                        <div class="autocomplete-dropdown" id="filterCriteriaAutocomplete"></div>
-                    </div>
-                    <div class="ingredient-hint">💡 Même logique : Vert = AVEC / Rouge = SANS</div>
-                    <div class="filter-tags-container" id="filterCriteriaTags"></div>
-                    
-                    <button class="criteria-toggle" id="criteriaToggleBtn">▼ Voir tous les critères</button>
-                    <div class="criteria-content" id="criteriaContent">
-                        <div class="filter-group" id="filterGroup"></div>
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
-                    <button id="toggleViewBtn" style="margin: 0;">👁️ Vue détaillée</button>
-                    <button id="favoritesFilterBtn" style="margin: 0; background: #FFD700; color: #333;">⭐ Mes Favoris</button>
-                    <button id="resetFiltersBtn" style="margin: 0; background: #dc3545;">🔄 Réinitialiser</button>
-                </div>
-
                 <input type="text" class="search-box" id="searchBox" placeholder="🔍 Rechercher par nom de recette...">
 
                 <div class="recipe-list" id="recipeList">
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📂</div>
-                        <p>Chargez votre fichier CSV ou créez une nouvelle liste</p>
-                    </div>
+                    <div class="loading">Chargement des recettes</div>
                 </div>
 
-                <button id="generateBtn" disabled>🛒 Générer la liste de courses</button>
                 <button id="clearBtn" disabled>🗑️ Tout désélectionner</button>
             </div>
 
-            <!-- Section Droite: Liste de courses -->
+            <!-- Section Droite: À venir -->
             <div class="section">
-                <h2>🛒 Ma Liste de Courses</h2>
-                <div id="listTitleContainer" style="display: none;">
-                    <div class="list-title" id="listTitle"></div>
-                </div>
-                <div class="shopping-list" id="shoppingList">
-                    <div class="empty-state">
-                        <div class="empty-state-icon">🛍️</div>
-                        <p>Sélectionnez des recettes et générez votre liste</p>
-                    </div>
-                </div>
-                <div id="shoppingRecipes" class="shopping-recipes" style="display: none;">
-                    <div class="shopping-recipes-title">📋 Recettes de cette liste :</div>
-                    <div id="shoppingRecipesList"></div>
-                </div>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
-                    <button id="exportBtn" style="display: none; margin: 0;">📥 Exporter</button>
-                    <button id="copyBtn" style="display: none; margin: 0;">📋 Copier</button>
-                    <button id="saveListBtn" style="display: none; margin: 0; background: #28a745;">💾 Sauvegarder</button>
-                </div>
-
-                <!-- Section listes sauvegardées -->
-                <div class="saved-lists-section" id="savedListsSection" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <div class="saved-lists-title" style="margin: 0;">📚 Mes Listes Sauvegardées</div>
-                        <label for="importSavedListsBtn" class="file-label" style="padding: 8px 16px; font-size: 0.9em; margin: 0;">📁 Importer</label>
-                    </div>
-                    <div id="savedListsContainer"></div>
-                </div>
+                <h2>📋 Informations</h2>
+                <p style="color: #666; line-height: 1.6;">
+                    Vos recettes sont maintenant synchronisées dans le cloud !<br><br>
+                    ✅ Ajoutez une recette ici, elle apparaît sur tous vos appareils<br>
+                    ✅ Modifiez sur mobile, c'est mis à jour sur PC<br>
+                    ✅ Vos données sont sauvegardées automatiquement
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- Modal de confirmation -->
-    <div id="confirmModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header" id="modalTitle">Confirmer la suppression</div>
-            <div class="modal-body" id="modalBody">Êtes-vous sûr de vouloir supprimer cette recette ?</div>
-            <div class="modal-footer">
-                <button class="modal-btn cancel" id="modalCancel">Annuler (Échap)</button>
-                <button class="modal-btn confirm" id="modalConfirm">Supprimer (Entrée)</button>
-            </div>
-        </div>
-    </div>
-
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    
     <script>
         let recipes = [];
         let selectedRecipes = new Set();
         let allCriteria = new Set();
-        let activeCriteria = new Set();
-        let editingIndex = -1;
-        let hasUnsavedChanges = false;
-        let currentOpenMenu = null;
-        let currentIngredients = [];
-        let currentCriteriaList = [];
-        let allIngredients = new Set();
-        let autocompleteIndex = -1;
-        let currentAutocompleteField = null;
-        let showOnlyFavorites = false;
-        let isCompactView = true; // Vue compacte par défaut
-        let expandedRecipeIndex = null; // Pour gérer l'expansion
-        
-        // Filtres avancés
-        let filterIngredients = []; // {name: string, mode: 'include'|'exclude'}
-        let filterCriteria = []; // {name: string, mode: 'include'|'exclude'}
+        let editingRecipeId = null;
 
-        // Liste de courses actuelle
-        let currentShoppingList = {};  // {ingredient: quantity}
-        let currentShoppingRecipes = new Set(); // indices des recettes dans la liste
-        
-        // Listes sauvegardées
-        let savedLists = [];
+        // Vérifie l'authentification au chargement
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+            
+            if (!session) {
+                window.location.href = 'login.html';
+                return false;
+            }
 
-        function updateAllIngredients() {
-            allIngredients.clear();
-            recipes.forEach(recipe => {
-                recipe.ingredients.forEach(ing => allIngredients.add(ing));
-            });
+            document.getElementById('userEmail').textContent = `👤 ${session.user.email}`;
+            return true;
         }
 
-        function toggleFavorite(index) {
-            recipes[index].favorite = !recipes[index].favorite;
-            hasUnsavedChanges = true;
-            renderRecipes();
+        // Déconnexion
+        async function handleLogout() {
+            await supabase.auth.signOut();
+            window.location.href = 'login.html';
         }
 
-        // Gestion du nombre pour le randomizer
-        document.getElementById('decreaseBtn').addEventListener('click', function() {
-            const input = document.getElementById('randomCount');
-            let val = parseInt(input.value) || 5;
-            if (val > 1) {
-                input.value = val - 1;
-            }
-        });
+        // Charge les recettes depuis Supabase
+        async function loadRecipes() {
+            try {
+                const { data, error } = await supabase
+                    .from('recipes')
+                    .select('*')
+                    .order('created_at', { ascending: false });
 
-        document.getElementById('increaseBtn').addEventListener('click', function() {
-            const input = document.getElementById('randomCount');
-            let val = parseInt(input.value) || 5;
-            if (val < 10) {
-                input.value = val + 1;
-            }
-        });
+                if (error) throw error;
 
-        document.getElementById('randomCount').addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                document.getElementById('increaseBtn').click();
-            } else if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                document.getElementById('decreaseBtn').click();
-            }
-        });
+                recipes = (data || []).map(dbRecipe => ({
+                    id: dbRecipe.id,
+                    name: dbRecipe.name,
+                    ingredients: dbRecipe.ingredients || [],
+                    double: dbRecipe.double_portion || false,
+                    criteria: dbRecipe.criteria || [],
+                    usageCount: dbRecipe.usage_count || 0,
+                    favorite: dbRecipe.favorite || false
+                }));
 
-        // Randomizer
-        document.getElementById('randomizeBtn').addEventListener('click', function() {
-            const count = parseInt(document.getElementById('randomCount').value) || 5;
-            
-            // Filtrer les recettes selon les critères actifs
-            let filtered = recipes.filter(recipe => {
-                // Filtre favoris
-                if (showOnlyFavorites && !recipe.favorite) return false;
-                
-                // Filtre ingrédients
-                for (let filter of filterIngredients) {
-                    const hasIngredient = recipe.ingredients.some(ing => 
-                        ing.toLowerCase().includes(filter.name.toLowerCase())
-                    );
-                    if (filter.mode === 'include' && !hasIngredient) return false;
-                    if (filter.mode === 'exclude' && hasIngredient) return false;
-                }
-                
-                // Filtre critères
-                for (let filter of filterCriteria) {
-                    const hasCriteria = recipe.criteria.some(crit => 
-                        crit.toLowerCase().includes(filter.name.toLowerCase())
-                    );
-                    if (filter.mode === 'include' && !hasCriteria) return false;
-                    if (filter.mode === 'exclude' && hasCriteria) return false;
-                }
-                
-                // Filtre critères cochés
-                if (activeCriteria.size > 0) {
-                    const matchesCriteria = Array.from(activeCriteria).every(criterion => 
-                        recipe.criteria.includes(criterion)
-                    );
-                    if (!matchesCriteria) return false;
-                }
-                
-                return true;
-            });
-            
-            if (filtered.length === 0) {
-                alert('Aucune recette ne correspond aux filtres actifs !');
+                allCriteria.clear();
+                recipes.forEach(r => r.criteria.forEach(c => allCriteria.add(c)));
+
+                updateStats();
+                renderRecipes();
+                updateButtonStates();
+
+            } catch (error) {
+                console.error('Erreur chargement:', error);
+                alert('Erreur lors du chargement des recettes');
+            }
+        }
+
+        // Sauvegarde une recette dans Supabase
+        async function saveRecipe() {
+            const name = document.getElementById('recipeName').value.trim();
+            const ingredientsText = document.getElementById('recipeIngredients').value.trim();
+            const ingredients = ingredientsText.split('\n').map(i => i.trim()).filter(i => i);
+            const doubleStr = document.getElementById('recipeDouble').value;
+            const double = doubleStr === 'true' || doubleStr === 'oui';
+            const criteriaText = document.getElementById('recipeCriteria').value.trim();
+            const criteria = criteriaText.split('\n').map(c => c.trim()).filter(c => c);
+
+            if (!name || ingredients.length === 0) {
+                alert('Veuillez remplir au moins le nom et les ingrédients');
                 return;
             }
-            
-            // Tirer au hasard
-            const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-            const selected = shuffled.slice(0, Math.min(count, filtered.length));
-            
-            // Sélectionner ces recettes
-            selectedRecipes.clear();
-            selected.forEach(recipe => {
-                const index = recipes.indexOf(recipe);
-                if (index !== -1) {
-                    selectedRecipes.add(index);
-                }
-            });
-            
-            // Rafraîchir l'affichage
-            updateStats();
-            updateButtonStates();
-            renderRecipes();
-        });
 
-        // Gestion des tags de filtrage des ingrédients
-        function addFilterIngredient(name) {
-            name = name.trim();
-            if (!name) return;
-            
-            // Éviter les doublons
-            if (filterIngredients.some(f => f.name === name)) return;
-            
-            filterIngredients.push({ name, mode: 'include' });
-            renderFilterIngredientsTags();
-            renderRecipes();
-        }
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
 
-        function toggleFilterIngredientMode(index) {
-            filterIngredients[index].mode = 
-                filterIngredients[index].mode === 'include' ? 'exclude' : 'include';
-            renderFilterIngredientsTags();
-            renderRecipes();
-        }
+                const recipeData = {
+                    user_id: session.user.id,
+                    name: name,
+                    ingredients: ingredients,
+                    double_portion: double,
+                    criteria: criteria,
+                    usage_count: 0,
+                    favorite: false
+                };
 
-        function removeFilterIngredient(index) {
-            filterIngredients.splice(index, 1);
-            renderFilterIngredientsTags();
-            renderRecipes();
-        }
+                if (editingRecipeId) {
+                    // Mise à jour
+                    const { error } = await supabase
+                        .from('recipes')
+                        .update(recipeData)
+                        .eq('id', editingRecipeId);
 
-        function renderFilterIngredientsTags() {
-            const container = document.getElementById('filterIngredientsTags');
-            container.innerHTML = '';
-            
-            filterIngredients.forEach((filter, index) => {
-                const tag = document.createElement('div');
-                tag.className = `filter-ingredient-tag ${filter.mode}`;
-                tag.innerHTML = `
-                    <span onclick="toggleFilterIngredientMode(${index})" style="flex: 1;">
-                        ${filter.mode === 'include' ? '✓' : '✗'} ${filter.name}
-                    </span>
-                    <span class="remove-btn" onclick="removeFilterIngredient(${index})">✕</span>
-                `;
-                container.appendChild(tag);
-            });
-        }
-
-        // Gestion des tags de filtrage des critères
-        function addFilterCriteria(name) {
-            name = name.trim();
-            if (!name) return;
-            
-            if (filterCriteria.some(f => f.name === name)) return;
-            
-            filterCriteria.push({ name, mode: 'include' });
-            renderFilterCriteriaTags();
-            renderRecipes();
-        }
-
-        function toggleFilterCriteriaMode(index) {
-            filterCriteria[index].mode = 
-                filterCriteria[index].mode === 'include' ? 'exclude' : 'include';
-            renderFilterCriteriaTags();
-            renderRecipes();
-        }
-
-        function removeFilterCriteria(index) {
-            filterCriteria.splice(index, 1);
-            renderFilterCriteriaTags();
-            renderRecipes();
-        }
-
-        function renderFilterCriteriaTags() {
-            const container = document.getElementById('filterCriteriaTags');
-            container.innerHTML = '';
-            
-            filterCriteria.forEach((filter, index) => {
-                const tag = document.createElement('div');
-                tag.className = `filter-ingredient-tag ${filter.mode}`;
-                tag.innerHTML = `
-                    <span onclick="toggleFilterCriteriaMode(${index})" style="flex: 1;">
-                        ${filter.mode === 'include' ? '✓' : '✗'} ${filter.name}
-                    </span>
-                    <span class="remove-btn" onclick="removeFilterCriteria(${index})">✕</span>
-                `;
-                container.appendChild(tag);
-            });
-        }
-
-        // Autocomplétion pour filtres d'ingrédients
-        document.getElementById('filterIngredients').addEventListener('input', function(e) {
-            const query = this.value.trim();
-            
-            if (query.length >= 3) {
-                const suggestions = getSuggestions(query, allIngredients);
-                showAutocomplete('filterIngredients', 'filterIngredientsAutocomplete', suggestions, query);
-            } else {
-                hideAutocomplete('filterIngredientsAutocomplete');
-            }
-        });
-
-        document.getElementById('filterIngredients').addEventListener('keydown', function(e) {
-            const dropdown = document.getElementById('filterIngredientsAutocomplete');
-            const items = dropdown.querySelectorAll('.autocomplete-item');
-            
-            if (dropdown.classList.contains('show') && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
-                e.preventDefault();
-                if (e.key === 'ArrowDown') {
-                    autocompleteIndex = Math.min(autocompleteIndex + 1, items.length - 1);
+                    if (error) throw error;
                 } else {
-                    autocompleteIndex = Math.max(autocompleteIndex - 1, -1);
+                    // Création
+                    const { error } = await supabase
+                        .from('recipes')
+                        .insert([recipeData]);
+
+                    if (error) throw error;
                 }
-                items.forEach((item, index) => {
-                    item.classList.toggle('selected', index === autocompleteIndex);
-                });
+
+                hideForm();
+                await loadRecipes();
+
+            } catch (error) {
+                console.error('Erreur sauvegarde:', error);
+                alert('Erreur lors de la sauvegarde');
+            }
+        }
+
+        // Supprime une recette
+        async function deleteRecipe(id) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
                 return;
             }
-            
-            if (e.key === 'Tab' && dropdown.classList.contains('show') && items.length > 0) {
-                e.preventDefault();
-                if (autocompleteIndex < 0) autocompleteIndex = 0;
-                const selectedText = items[autocompleteIndex].textContent;
-                addFilterIngredient(selectedText);
-                this.value = '';
-                hideAutocomplete('filterIngredientsAutocomplete');
-                return;
-            }
-            
-            if (e.key === 'Escape') {
-                hideAutocomplete('filterIngredientsAutocomplete');
-                return;
-            }
-            
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const value = this.value.trim();
-                
-                if (dropdown.classList.contains('show') && autocompleteIndex >= 0) {
-                    const selectedText = items[autocompleteIndex].textContent;
-                    addFilterIngredient(selectedText);
-                } else if (value) {
-                    addFilterIngredient(value);
-                }
-                
-                this.value = '';
-                hideAutocomplete('filterIngredientsAutocomplete');
-            }
-        });
 
-        // Autocomplétion pour filtres de critères
-        document.getElementById('filterCriteria').addEventListener('input', function(e) {
-            const query = this.value.trim();
-            
-            if (query.length >= 3) {
-                const suggestions = getSuggestions(query, allCriteria);
-                showAutocomplete('filterCriteria', 'filterCriteriaAutocomplete', suggestions, query);
-            } else {
-                hideAutocomplete('filterCriteriaAutocomplete');
-            }
-        });
+            try {
+                const { error } = await supabase
+                    .from('recipes')
+                    .delete()
+                    .eq('id', id);
 
-        document.getElementById('filterCriteria').addEventListener('keydown', function(e) {
-            const dropdown = document.getElementById('filterCriteriaAutocomplete');
-            const items = dropdown.querySelectorAll('.autocomplete-item');
-            
-            if (dropdown.classList.contains('show') && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
-                e.preventDefault();
-                if (e.key === 'ArrowDown') {
-                    autocompleteIndex = Math.min(autocompleteIndex + 1, items.length - 1);
-                } else {
-                    autocompleteIndex = Math.max(autocompleteIndex - 1, -1);
-                }
-                items.forEach((item, index) => {
-                    item.classList.toggle('selected', index === autocompleteIndex);
-                });
-                return;
-            }
-            
-            if (e.key === 'Tab' && dropdown.classList.contains('show') && items.length > 0) {
-                e.preventDefault();
-                if (autocompleteIndex < 0) autocompleteIndex = 0;
-                const selectedText = items[autocompleteIndex].textContent;
-                addFilterCriteria(selectedText);
-                this.value = '';
-                hideAutocomplete('filterCriteriaAutocomplete');
-                return;
-            }
-            
-            if (e.key === 'Escape') {
-                hideAutocomplete('filterCriteriaAutocomplete');
-                return;
-            }
-            
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const value = this.value.trim();
-                
-                if (dropdown.classList.contains('show') && autocompleteIndex >= 0) {
-                    const selectedText = items[autocompleteIndex].textContent;
-                    addFilterCriteria(selectedText);
-                } else if (value) {
-                    addFilterCriteria(value);
-                }
-                
-                this.value = '';
-                hideAutocomplete('filterCriteriaAutocomplete');
-            }
-        });
+                if (error) throw error;
 
-        // Toggle critères collapsible
-        document.getElementById('criteriaToggleBtn').addEventListener('click', function() {
-            const content = document.getElementById('criteriaContent');
-            content.classList.toggle('show');
-            this.textContent = content.classList.contains('show') ? 
-                '▲ Voir moins de critères' : '▼ Voir tous les critères';
-        });
+                await loadRecipes();
 
-        // Réinitialiser tous les filtres
-        document.getElementById('resetFiltersBtn').addEventListener('click', function() {
-            filterIngredients = [];
-            filterCriteria = [];
-            activeCriteria.clear();
-            showOnlyFavorites = false;
-            document.getElementById('searchBox').value = '';
-            document.getElementById('filterIngredients').value = '';
-            document.getElementById('filterCriteria').value = '';
-            document.getElementById('favoritesFilterBtn').style.background = '#FFD700';
-            document.getElementById('favoritesFilterBtn').textContent = '⭐ Mes Favoris';
-            
-            renderFilterIngredientsTags();
-            renderFilterCriteriaTags();
-            renderFilterTags();
-            renderRecipes();
-        });
-
-        // Gestion des tags d'ingrédients
-        function addIngredientTag(ingredient) {
-            ingredient = ingredient.trim();
-            if (!ingredient) return;
-            if (currentIngredients.includes(ingredient)) return;
-            currentIngredients.unshift(ingredient);
-            renderIngredientTags();
+            } catch (error) {
+                console.error('Erreur suppression:', error);
+                alert('Erreur lors de la suppression');
+            }
         }
 
-        function removeIngredientTag(index) {
-            currentIngredients.splice(index, 1);
-            renderIngredientTags();
-        }
+        // Toggle favori
+        async function toggleFavorite(id) {
+            try {
+                const recipe = recipes.find(r => r.id === id);
+                if (!recipe) return;
 
-        function renderIngredientTags() {
-            const container = document.getElementById('ingredientTags');
-            container.innerHTML = '';
-            
-            currentIngredients.forEach((ingredient, index) => {
-                const tag = document.createElement('div');
-                tag.className = 'ingredient-tag';
-                tag.innerHTML = `
-                    <span>${ingredient}</span>
-                    <span class="ingredient-tag-remove" onclick="removeIngredientTag(${index})">✕</span>
-                `;
-                container.appendChild(tag);
-            });
-        }
+                const { error } = await supabase
+                    .from('recipes')
+                    .update({ favorite: !recipe.favorite })
+                    .eq('id', id);
 
-        function clearIngredientTags() {
-            currentIngredients = [];
-            renderIngredientTags();
-        }
+                if (error) throw error;
 
-        function loadIngredientsFromRecipe(ingredients) {
-            currentIngredients = [...ingredients];
-            renderIngredientTags();
-        }
+                await loadRecipes();
 
-        // Gestion des tags de critères
-        function addCriteriaTag(criteria) {
-            criteria = criteria.trim();
-            if (!criteria) return;
-            if (currentCriteriaList.includes(criteria)) return;
-            currentCriteriaList.unshift(criteria);
-            renderCriteriaTags();
-        }
-
-        function removeCriteriaTag(index) {
-            currentCriteriaList.splice(index, 1);
-            renderCriteriaTags();
-        }
-
-        function renderCriteriaTags() {
-            const container = document.getElementById('criteriaTags');
-            container.innerHTML = '';
-            
-            currentCriteriaList.forEach((criteria, index) => {
-                const tag = document.createElement('div');
-                tag.className = 'ingredient-tag';
-                tag.innerHTML = `
-                    <span>${criteria}</span>
-                    <span class="ingredient-tag-remove" onclick="removeCriteriaTag(${index})">✕</span>
-                `;
-                container.appendChild(tag);
-            });
-        }
-
-        function clearCriteriaTags() {
-            currentCriteriaList = [];
-            renderCriteriaTags();
-        }
-
-        function loadCriteriaFromRecipe(criteria) {
-            currentCriteriaList = [...criteria];
-            renderCriteriaTags();
-        }
-
-        // Autocomplétion
-        function showAutocomplete(inputId, dropdownId, suggestions, query) {
-            const dropdown = document.getElementById(dropdownId);
-            
-            if (suggestions.length === 0) {
-                dropdown.classList.remove('show');
-                autocompleteIndex = -1;
-                return;
+            } catch (error) {
+                console.error('Erreur toggle favori:', error);
             }
-            
-            dropdown.innerHTML = '';
-            suggestions.forEach((suggestion, index) => {
-                const item = document.createElement('div');
-                item.className = 'autocomplete-item';
-                if (index === autocompleteIndex) {
-                    item.classList.add('selected');
-                }
-                
-                const regex = new RegExp(`(${query})`, 'gi');
-                const highlighted = suggestion.replace(regex, '<span class="autocomplete-highlight">$1</span>');
-                item.innerHTML = highlighted;
-                
-                item.addEventListener('click', function() {
-                    selectAutocomplete(inputId, suggestion);
-                });
-                
-                dropdown.appendChild(item);
-            });
-            
-            dropdown.classList.add('show');
         }
 
-        function hideAutocomplete(dropdownId) {
-            document.getElementById(dropdownId).classList.remove('show');
-            autocompleteIndex = -1;
-        }
-
-        function selectAutocomplete(inputId, value) {
-            const input = document.getElementById(inputId);
-            
-            if (inputId === 'recipeIngredients') {
-                addIngredientTag(value);
-                hideAutocomplete('ingredientsAutocomplete');
-            } else if (inputId === 'recipeCriteria') {
-                addCriteriaTag(value);
-                hideAutocomplete('criteriaAutocomplete');
-            } else if (inputId === 'filterIngredients') {
-                addFilterIngredient(value);
-                hideAutocomplete('filterIngredientsAutocomplete');
-            } else if (inputId === 'filterCriteria') {
-                addFilterCriteria(value);
-                hideAutocomplete('filterCriteriaAutocomplete');
-            }
-            
-            input.value = '';
-            input.focus();
-        }
-
-        function getSuggestions(query, dataset) {
-            query = query.toLowerCase();
-            return Array.from(dataset)
-                .filter(item => item.toLowerCase().includes(query))
-                .sort((a, b) => {
-                    const aStarts = a.toLowerCase().startsWith(query);
-                    const bStarts = b.toLowerCase().startsWith(query);
-                    if (aStarts && !bStarts) return -1;
-                    if (!aStarts && bStarts) return 1;
-                    return a.localeCompare(b);
-                })
-                .slice(0, 5);
-        }
-
-        // Gestion de l'input des ingrédients avec autocomplétion
-        document.getElementById('recipeIngredients').addEventListener('input', function(e) {
-            const query = this.value.trim();
-            
-            if (query.length >= 3) {
-                const suggestions = getSuggestions(query, allIngredients);
-                showAutocomplete('recipeIngredients', 'ingredientsAutocomplete', suggestions, query);
-                currentAutocompleteField = 'ingredients';
-            } else {
-                hideAutocomplete('ingredientsAutocomplete');
-            }
-        });
-
-        document.getElementById('recipeIngredients').addEventListener('keydown', function(e) {
-            const dropdown = document.getElementById('ingredientsAutocomplete');
-            const items = dropdown.querySelectorAll('.autocomplete-item');
-            
-            if (dropdown.classList.contains('show') && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
-                e.preventDefault();
-                
-                if (e.key === 'ArrowDown') {
-                    autocompleteIndex = Math.min(autocompleteIndex + 1, items.length - 1);
-                } else {
-                    autocompleteIndex = Math.max(autocompleteIndex - 1, -1);
-                }
-                
-                items.forEach((item, index) => {
-                    item.classList.toggle('selected', index === autocompleteIndex);
-                });
-                
-                return;
-            }
-            
-            if (e.key === 'Tab' && dropdown.classList.contains('show') && items.length > 0) {
-                e.preventDefault();
-                if (autocompleteIndex < 0) {
-                    autocompleteIndex = 0;
-                }
-                const selectedText = items[autocompleteIndex].textContent;
-                selectAutocomplete('recipeIngredients', selectedText);
-                return;
-            }
-            
-            if (e.key === 'Escape') {
-                hideAutocomplete('ingredientsAutocomplete');
-                return;
-            }
-            
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const value = this.value.trim();
-                
-                if (dropdown.classList.contains('show') && autocompleteIndex >= 0) {
-                    const selectedText = items[autocompleteIndex].textContent;
-                    selectAutocomplete('recipeIngredients', selectedText);
-                    return;
-                }
-                
-                if (value.includes(';')) {
-                    const ingredients = value.split(';').map(i => i.trim()).filter(i => i);
-                    ingredients.forEach(ing => addIngredientTag(ing));
-                } else if (value) {
-                    addIngredientTag(value);
-                }
-                
-                this.value = '';
-                hideAutocomplete('ingredientsAutocomplete');
-            }
-        });
-
-        document.getElementById('recipeIngredients').addEventListener('paste', function(e) {
-            setTimeout(() => {
-                const value = this.value.trim();
-                if (value.includes(';')) {
-                    const ingredients = value.split(';').map(i => i.trim()).filter(i => i);
-                    ingredients.forEach(ing => addIngredientTag(ing));
-                    this.value = '';
-                    hideAutocomplete('ingredientsAutocomplete');
-                }
-            }, 10);
-        });
-
-        // Gestion de l'input des critères avec autocomplétion
-        document.getElementById('recipeCriteria').addEventListener('input', function(e) {
-            const query = this.value.trim();
-            
-            if (query.length >= 3) {
-                const suggestions = getSuggestions(query, allCriteria);
-                showAutocomplete('recipeCriteria', 'criteriaAutocomplete', suggestions, query);
-                currentAutocompleteField = 'criteria';
-            } else {
-                hideAutocomplete('criteriaAutocomplete');
-            }
-        });
-
-        document.getElementById('recipeCriteria').addEventListener('keydown', function(e) {
-            const dropdown = document.getElementById('criteriaAutocomplete');
-            const items = dropdown.querySelectorAll('.autocomplete-item');
-            
-            if (dropdown.classList.contains('show') && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
-                e.preventDefault();
-                
-                if (e.key === 'ArrowDown') {
-                    autocompleteIndex = Math.min(autocompleteIndex + 1, items.length - 1);
-                } else {
-                    autocompleteIndex = Math.max(autocompleteIndex - 1, -1);
-                }
-                
-                items.forEach((item, index) => {
-                    item.classList.toggle('selected', index === autocompleteIndex);
-                });
-                
-                return;
-            }
-            
-            if (e.key === 'Tab' && dropdown.classList.contains('show') && items.length > 0) {
-                e.preventDefault();
-                if (autocompleteIndex < 0) {
-                    autocompleteIndex = 0;
-                }
-                const selectedText = items[autocompleteIndex].textContent;
-                selectAutocomplete('recipeCriteria', selectedText);
-                return;
-            }
-            
-            if (e.key === 'Escape') {
-                hideAutocomplete('criteriaAutocomplete');
-                return;
-            }
-            
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const value = this.value.trim();
-                
-                if (dropdown.classList.contains('show') && autocompleteIndex >= 0) {
-                    const selectedText = items[autocompleteIndex].textContent;
-                    selectAutocomplete('recipeCriteria', selectedText);
-                    return;
-                }
-                
-                if (value.includes(';')) {
-                    const criterias = value.split(';').map(c => c.trim()).filter(c => c);
-                    criterias.forEach(crit => addCriteriaTag(crit));
-                } else if (value) {
-                    addCriteriaTag(value);
-                }
-                
-                this.value = '';
-                hideAutocomplete('criteriaAutocomplete');
-            }
-        });
-
-        document.getElementById('recipeCriteria').addEventListener('paste', function(e) {
-            setTimeout(() => {
-                const value = this.value.trim();
-                if (value.includes(';')) {
-                    const criterias = value.split(';').map(c => c.trim()).filter(c => c);
-                    criterias.forEach(crit => addCriteriaTag(crit));
-                    this.value = '';
-                    hideAutocomplete('criteriaAutocomplete');
-                }
-            }, 10);
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.autocomplete-container')) {
-                hideAutocomplete('ingredientsAutocomplete');
-                hideAutocomplete('criteriaAutocomplete');
-                hideAutocomplete('filterIngredientsAutocomplete');
-                hideAutocomplete('filterCriteriaAutocomplete');
-            }
-        });
-
-        // Gestion du formulaire
-        function resetForm() {
-            document.getElementById('recipeName').value = '';
-            document.getElementById('recipeIngredients').value = '';
-            document.getElementById('recipeDouble').value = 'non';
-            document.getElementById('recipeCriteria').value = '';
-            clearIngredientTags();
-            clearCriteriaTags();
-            editingIndex = -1;
-            document.getElementById('formTitle').textContent = '➕ Ajouter une recette';
-            hideAutocomplete('ingredientsAutocomplete');
-            hideAutocomplete('criteriaAutocomplete');
-        }
-
+        // Affiche le formulaire
         function showForm() {
-            const form = document.getElementById('recipeForm');
-            form.classList.add('show');
+            document.getElementById('recipeForm').classList.add('show');
             document.getElementById('recipeName').focus();
         }
 
         function hideForm() {
-            const form = document.getElementById('recipeForm');
-            form.classList.remove('show');
-            resetForm();
+            document.getElementById('recipeForm').classList.remove('show');
+            document.getElementById('recipeName').value = '';
+            document.getElementById('recipeIngredients').value = '';
+            document.getElementById('recipeDouble').value = 'false';
+            document.getElementById('recipeCriteria').value = '';
+            editingRecipeId = null;
+            document.getElementById('formTitle').textContent = '➕ Ajouter une recette';
         }
 
-        function updateButtonStates() {
-            const hasRecipes = recipes.length > 0;
-            const hasSelection = selectedRecipes.size > 0;
-            
-            document.getElementById('createListBtn').style.display = hasRecipes ? 'none' : 'block';
-            document.getElementById('addRecipeBtn').style.display = hasRecipes ? 'block' : 'none';
-            document.getElementById('exportRecipesBtn').disabled = !hasRecipes;
-            document.getElementById('generateBtn').disabled = !hasSelection;
-            document.getElementById('clearBtn').disabled = !hasRecipes;
+        // Édite une recette
+        function editRecipe(id) {
+            const recipe = recipes.find(r => r.id === id);
+            if (!recipe) return;
+
+            editingRecipeId = id;
+            document.getElementById('recipeName').value = recipe.name;
+            document.getElementById('recipeIngredients').value = recipe.ingredients.join('\n');
+            document.getElementById('recipeDouble').value = recipe.double ? 'true' : 'false';
+            document.getElementById('recipeCriteria').value = recipe.criteria.join('\n');
+            document.getElementById('formTitle').textContent = '✏️ Modifier la recette';
+
+            showForm();
         }
 
-        document.getElementById('csvFile').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    parseCSV(event.target.result);
-                    hasUnsavedChanges = false;
-                    document.getElementById('noCSVWarning').classList.remove('show');
-                };
-                reader.readAsText(file);
-            }
-        });
-
-        function parseCSV(text) {
-            const lines = text.split('\n').filter(line => line.trim());
-            recipes = [];
-            allCriteria.clear();
-            
-            for (let i = 1; i < lines.length; i++) {
-                const parts = lines[i].split(',');
-                if (parts.length >= 4) {
-                    const recipe = {
-                        name: parts[0].trim(),
-                        ingredients: parts[1].split(';').map(ing => ing.trim()).filter(ing => ing),
-                        double: parts[2].trim().toLowerCase() === 'oui',
-                        criteria: parts[3] ? parts[3].split(';').map(c => c.trim()).filter(c => c) : [],
-                        usageCount: parts[4] ? parseInt(parts[4]) || 0 : 0,
-                        favorite: parts[5] ? parts[5].trim().toLowerCase() === 'oui' : false
-                    };
-                    recipes.push(recipe);
-                    recipe.criteria.forEach(c => allCriteria.add(c));
-                }
-            }
-            
-            selectedRecipes.clear();
-            activeCriteria.clear();
-            showOnlyFavorites = false;
-            filterIngredients = [];
-            filterCriteria = [];
-            updateAllIngredients();
-            updateStats();
-            renderFilterTags();
-            renderRecipes();
-            updateButtonStates();
-            renderFilterIngredientsTags();
-            renderFilterCriteriaTags();
-        }
-
+        // Met à jour les stats
         function updateStats() {
             const statsDiv = document.getElementById('stats');
-            const selectedCount = selectedRecipes.size;
-            
             statsDiv.innerHTML = `
                 <div class="stat-card">
                     <div class="stat-number">${recipes.length}</div>
                     <div class="stat-label">Recettes totales</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">${selectedCount}</div>
-                    <div class="stat-label">Sélectionnées</div>
+                    <div class="stat-number">${recipes.filter(r => r.favorite).length}</div>
+                    <div class="stat-label">Favoris</div>
                 </div>
             `;
         }
 
-        function renderFilterTags() {
-            const filterGroup = document.getElementById('filterGroup');
-            filterGroup.innerHTML = '';
-            
-            if (allCriteria.size === 0) {
-                filterGroup.innerHTML = '<em style="color: #999;">Aucun critère disponible</em>';
-                return;
-            }
-            
-            allCriteria.forEach(criterion => {
-                const tag = document.createElement('div');
-                tag.className = 'filter-tag';
-                if (activeCriteria.has(criterion)) {
-                    tag.classList.add('active');
-                }
-                
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.checked = activeCriteria.has(criterion);
-                checkbox.addEventListener('change', function(e) {
-                    e.stopPropagation();
-                    if (this.checked) {
-                        activeCriteria.add(criterion);
-                    } else {
-                        activeCriteria.delete(criterion);
-                    }
-                    renderRecipes();
-                });
-                
-                const label = document.createElement('span');
-                label.textContent = criterion;
-                
-                tag.appendChild(checkbox);
-                tag.appendChild(label);
-                tag.addEventListener('click', function(e) {
-                    if (e.target !== checkbox) {
-                        checkbox.click();
-                    }
-                });
-                
-                filterGroup.appendChild(tag);
-            });
-        }
-
-        function closeAllMenus() {
-            document.querySelectorAll('.recipe-menu').forEach(menu => {
-                menu.classList.remove('show');
-            });
-            currentOpenMenu = null;
-        }
-
-        function editRecipe(index) {
-            closeAllMenus();
-            const recipe = recipes[index];
-            editingIndex = index;
-            
-            document.getElementById('recipeName').value = recipe.name;
-            loadIngredientsFromRecipe(recipe.ingredients);
-            document.getElementById('recipeDouble').value = recipe.double ? 'oui' : 'non';
-            loadCriteriaFromRecipe(recipe.criteria);
-            document.getElementById('formTitle').textContent = '✏️ Modifier la recette';
-            
-            showForm();
-        }
-
-        function duplicateRecipe(index) {
-            closeAllMenus();
-            const recipe = recipes[index];
-            editingIndex = -1;
-            
-            document.getElementById('recipeName').value = 'Copie - ' + recipe.name;
-            loadIngredientsFromRecipe(recipe.ingredients);
-            document.getElementById('recipeDouble').value = recipe.double ? 'oui' : 'non';
-            loadCriteriaFromRecipe(recipe.criteria);
-            document.getElementById('formTitle').textContent = '📋 Dupliquer la recette';
-            
-            showForm();
-        }
-
-        function deleteRecipe(index) {
-            closeAllMenus();
-            const recipe = recipes[index];
-            showConfirmModal(
-                'Confirmer la suppression',
-                `Êtes-vous sûr de vouloir supprimer la recette "${recipe.name}" ?`,
-                () => {
-                    recipes.splice(index, 1);
-                    allCriteria.clear();
-                    recipes.forEach(r => r.criteria.forEach(c => allCriteria.add(c)));
-                    
-                    hasUnsavedChanges = true;
-                    updateStats();
-                    renderFilterTags();
-                    renderRecipes();
-                    updateButtonStates();
-                    updateAllIngredients();
-                }
-            );
-        }
-
+        // Affiche les recettes
         function renderRecipes() {
             const searchTerm = document.getElementById('searchBox').value.toLowerCase();
             const recipeList = document.getElementById('recipeList');
-            
-            const filteredRecipes = recipes.filter(recipe => {
-                // Recherche textuelle
-                const matchesSearch = !searchTerm || recipe.name.toLowerCase().includes(searchTerm);
-                
-                // Filtre critères cochés
-                const matchesCriteria = activeCriteria.size === 0 ||
-                    Array.from(activeCriteria).every(criterion => recipe.criteria.includes(criterion));
-                
-                // Filtre favoris
-                const matchesFavorite = !showOnlyFavorites || recipe.favorite;
-                
-                // Filtres avancés ingrédients
-                for (let filter of filterIngredients) {
-                    const hasIngredient = recipe.ingredients.some(ing => 
-                        ing.toLowerCase().includes(filter.name.toLowerCase())
-                    );
-                    if (filter.mode === 'include' && !hasIngredient) return false;
-                    if (filter.mode === 'exclude' && hasIngredient) return false;
-                }
-                
-                // Filtres avancés critères
-                for (let filter of filterCriteria) {
-                    const hasCriteria = recipe.criteria.some(crit => 
-                        crit.toLowerCase().includes(filter.name.toLowerCase())
-                    );
-                    if (filter.mode === 'include' && !hasCriteria) return false;
-                    if (filter.mode === 'exclude' && hasCriteria) return false;
-                }
-                
-                return matchesSearch && matchesCriteria && matchesFavorite;
-            });
-            
-            if (filteredRecipes.length === 0) {
+
+            const filtered = recipes.filter(recipe => 
+                !searchTerm || recipe.name.toLowerCase().includes(searchTerm)
+            );
+
+            if (filtered.length === 0) {
                 recipeList.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-state-icon">🔍</div>
+                        <div class="empty-state-icon">📂</div>
                         <p>Aucune recette trouvée</p>
                     </div>
                 `;
                 return;
             }
-            
-            recipeList.innerHTML = '';
-            
-            // Trier par nombre d'utilisations (décroissant)
-            const sortedRecipes = [...filteredRecipes].sort((a, b) => b.usageCount - a.usageCount);
-            
-            // Affichage selon la vue
-            if (isCompactView) {
-                renderCompactView(sortedRecipes);
-            } else {
-                renderDetailedView(sortedRecipes);
-            }
-        }
 
-        function renderCompactView(sortedRecipes) {
-            const recipeList = document.getElementById('recipeList');
-            
-            sortedRecipes.forEach((recipe) => {
-                const recipeIndex = recipes.indexOf(recipe);
-                const item = document.createElement('div');
-                item.className = 'compact-view-item';
-                item.dataset.recipeIndex = recipeIndex;
-                
-                // Liseret doré si favori
-                if (recipe.favorite) {
-                    item.style.border = '3px solid #FFD700';
-                    item.style.boxShadow = '0 0 10px rgba(255,215,0,0.3)';
-                }
-                
-                // Classe selected si cochée
-                if (selectedRecipes.has(recipeIndex)) {
-                    item.classList.add('selected-compact');
-                }
-                
-                // Checkbox
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.checked = selectedRecipes.has(recipeIndex);
-                checkbox.style.width = '20px';
-                checkbox.style.height = '20px';
-                checkbox.style.cursor = 'pointer';
-                checkbox.style.marginRight = '12px';
-                checkbox.onclick = function(e) {
-                    e.stopPropagation();
-                    if (selectedRecipes.has(recipeIndex)) {
-                        selectedRecipes.delete(recipeIndex);
-                        item.classList.remove('selected-compact');
-                    } else {
-                        selectedRecipes.add(recipeIndex);
-                        item.classList.add('selected-compact');
-                    }
-                    updateStats();
-                    updateButtonStates();
-                };
-                
-                // Nom (cliquable pour expansion)
-                const nameSpan = document.createElement('span');
-                nameSpan.className = 'compact-view-name';
-                nameSpan.textContent = recipe.name;
-                nameSpan.style.flex = '1';
-                nameSpan.style.fontWeight = '500';
-                nameSpan.style.color = '#333';
-                nameSpan.style.cursor = 'pointer';
-                nameSpan.onclick = function(e) {
-                    expandRecipeInPlace(recipeIndex, item);
-                };
-                
-                // Compteur
-                const countSpan = document.createElement('span');
-                countSpan.className = 'compact-view-count';
-                countSpan.textContent = recipe.usageCount > 0 ? `📊 ${recipe.usageCount}x` : '📊 0x';
-                countSpan.style.fontSize = '0.85em';
-                countSpan.style.color = '#666';
-                countSpan.style.marginLeft = '12px';
-                
-                item.appendChild(checkbox);
-                item.appendChild(nameSpan);
-                item.appendChild(countSpan);
-                
-                recipeList.appendChild(item);
-            });
-        }
-
-        function renderDetailedView(sortedRecipes) {
-            const recipeList = document.getElementById('recipeList');
-            
-            sortedRecipes.forEach((recipe) => {
-                const recipeIndex = recipes.indexOf(recipe);
-                const item = document.createElement('div');
-                item.className = 'recipe-item';
-                if (selectedRecipes.has(recipeIndex)) {
-                    item.classList.add('selected');
-                }
-                if (recipe.favorite) {
-                    item.classList.add('favorite');
-                }
-                
-                const menuId = `menu-${recipeIndex}`;
-                const favoriteIcon = recipe.favorite ? '⭐' : '☆';
-                const favoriteClass = recipe.favorite ? 'active' : '';
-                
-                item.innerHTML = `
-                    <div class="recipe-checkbox"></div>
+            recipeList.innerHTML = filtered.map(recipe => `
+                <div class="recipe-item ${recipe.favorite ? 'favorite' : ''}" onclick="selectRecipe('${recipe.id}')">
                     <div class="recipe-content">
-                        <div class="recipe-header">
-                            <div class="recipe-name">${recipe.name}</div>
-                            <div class="recipe-actions">
-                                <button class="recipe-favorite-btn ${favoriteClass}" onclick="event.stopPropagation(); toggleFavorite(${recipeIndex})">${favoriteIcon}</button>
-                                <button class="recipe-menu-btn" onclick="event.stopPropagation(); toggleMenu('${menuId}')">✏️</button>
-                            </div>
+                        <div class="recipe-name">
+                            ${recipe.favorite ? '⭐ ' : ''}${recipe.name}
+                            <span style="float: right;">
+                                <button onclick="event.stopPropagation(); toggleFavorite('${recipe.id}')" style="padding: 4px 8px; font-size: 0.9em;">
+                                    ${recipe.favorite ? '⭐' : '☆'}
+                                </button>
+                                <button onclick="event.stopPropagation(); editRecipe('${recipe.id}')" style="padding: 4px 8px; font-size: 0.9em;">✏️</button>
+                                <button onclick="event.stopPropagation(); deleteRecipe('${recipe.id}')" style="padding: 4px 8px; font-size: 0.9em; background: #dc3545;">🗑️</button>
+                            </span>
                         </div>
                         <div class="recipe-ingredients">${recipe.ingredients.join(', ')}</div>
                         <div class="recipe-tags">
@@ -2427,892 +635,86 @@
                             ${recipe.usageCount > 0 ? `<span class="tag usage">📊 ${recipe.usageCount}x utilisée</span>` : ''}
                             ${recipe.criteria.map(c => `<span class="tag">${c}</span>`).join('')}
                         </div>
-                        <div class="recipe-menu" id="${menuId}">
-                            <div class="recipe-menu-item" onclick="editRecipe(${recipeIndex})">
-                                ✏️ Modifier
-                            </div>
-                            <div class="recipe-menu-item" onclick="duplicateRecipe(${recipeIndex})">
-                                📋 Dupliquer
-                            </div>
-                            <div class="recipe-menu-item delete" onclick="deleteRecipe(${recipeIndex})">
-                                🗑️ Supprimer
-                            </div>
-                        </div>
                     </div>
-                `;
-                
-                item.addEventListener('click', function(e) {
-                    if (!e.target.closest('.recipe-menu-btn') && 
-                        !e.target.closest('.recipe-menu') && 
-                        !e.target.closest('.recipe-favorite-btn')) {
-                        if (selectedRecipes.has(recipeIndex)) {
-                            selectedRecipes.delete(recipeIndex);
-                            item.classList.remove('selected');
-                        } else {
-                            selectedRecipes.add(recipeIndex);
-                            item.classList.add('selected');
-                        }
-                        updateStats();
-                        updateButtonStates();
-                    }
-                });
-                
-                recipeList.appendChild(item);
-            });
-        }
-
-        function expandRecipeInPlace(recipeIndex, compactItem) {
-            const recipe = recipes[recipeIndex];
-            
-            // Si une autre recette est ouverte, la fermer
-            if (expandedRecipeIndex !== null && expandedRecipeIndex !== recipeIndex) {
-                collapseRecipe(expandedRecipeIndex);
-            }
-            
-            // Si on clique sur la même, la fermer
-            if (expandedRecipeIndex === recipeIndex) {
-                collapseRecipe(recipeIndex);
-                expandedRecipeIndex = null;
-                return;
-            }
-            
-            expandedRecipeIndex = recipeIndex;
-            
-            // Créer le contenu détaillé
-            const detailDiv = document.createElement('div');
-            detailDiv.className = 'recipe-expanded-detail';
-            detailDiv.dataset.recipeIndex = recipeIndex;
-            detailDiv.style.maxHeight = '0';
-            detailDiv.style.overflow = 'hidden';
-            detailDiv.style.transition = 'max-height 0.4s ease-out';
-            
-            const favoriteIcon = recipe.favorite ? '⭐' : '☆';
-            const favoriteText = recipe.favorite ? 'Retirer des favoris' : 'Ajouter aux favoris';
-            
-            detailDiv.innerHTML = `
-                <div style="padding: 20px; background: white; border-radius: 0 0 8px 8px; border: 2px solid #6B5D4F; border-top: none; margin-top: -6px;">
-                    <div style="margin-bottom: 20px;">
-                        <div style="font-weight: 600; color: #6B5D4F; margin-bottom: 10px; font-size: 1.1em;">🥘 Ingrédients</div>
-                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                            ${recipe.ingredients.map(ing => `<div style="background: #f0f0f0; padding: 6px 12px; border-radius: 15px; font-size: 0.9em;">${ing}</div>`).join('')}
-                        </div>
-                    </div>
-                    ${recipe.criteria.length > 0 ? `
-                    <div style="margin-bottom: 20px;">
-                        <div style="font-weight: 600; color: #6B5D4F; margin-bottom: 10px; font-size: 1.1em;">🏷️ Critères</div>
-                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                            ${recipe.criteria.map(c => `<div style="background: #f0f0f0; padding: 6px 12px; border-radius: 15px; font-size: 0.9em;">${c}</div>`).join('')}
-                        </div>
-                    </div>
-                    ` : ''}
-                    <div style="margin-bottom: 20px;">
-                        <div style="font-weight: 600; color: #6B5D4F; margin-bottom: 10px; font-size: 1.1em;">📊 Statistiques</div>
-                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                            <div style="background: #e8f5e9; padding: 6px 12px; border-radius: 15px; font-size: 0.9em;">
-                                ${recipe.usageCount > 0 ? `Utilisée ${recipe.usageCount} fois` : 'Jamais utilisée'}
-                            </div>
-                            ${recipe.double ? '<div style="background: #fff3e0; padding: 6px 12px; border-radius: 15px; font-size: 0.9em;">Double portion</div>' : ''}
-                            ${recipe.favorite ? '<div style="background: #fff9c4; padding: 6px 12px; border-radius: 15px; font-size: 0.9em;">⭐ Favori</div>' : ''}
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 10px; padding-top: 15px; border-top: 2px solid #e0e0e0;">
-                        <button onclick="editRecipe(${recipeIndex}); collapseRecipe(${recipeIndex});" style="flex: 1; padding: 10px; background: #6B5D4F; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">✏️ Modifier</button>
-                        <button onclick="toggleFavorite(${recipeIndex}); renderRecipes();" style="flex: 1; padding: 10px; background: #FFD700; color: #333; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">${favoriteIcon} ${favoriteText}</button>
-                        <button onclick="deleteRecipe(${recipeIndex});" style="flex: 1; padding: 10px; background: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">🗑️ Supprimer</button>
-                    </div>
-                    <button onclick="collapseRecipe(${recipeIndex})" style="width: 100%; margin-top: 10px; padding: 8px; background: #e0e0e0; border: none; border-radius: 6px; cursor: pointer;">▲ Réduire</button>
                 </div>
-            `;
-            
-            compactItem.style.borderRadius = '6px 6px 0 0';
-            compactItem.insertAdjacentElement('afterend', detailDiv);
-            
-            setTimeout(() => {
-                detailDiv.style.maxHeight = '1000px';
-            }, 10);
-            
-            setTimeout(() => {
-                compactItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
+            `).join('');
         }
 
-        function collapseRecipe(recipeIndex) {
-            const detailDiv = document.querySelector(`.recipe-expanded-detail[data-recipe-index="${recipeIndex}"]`);
-            if (detailDiv) {
-                detailDiv.style.maxHeight = '0';
-                setTimeout(() => {
-                    detailDiv.remove();
-                    const compactItem = document.querySelector(`.compact-view-item[data-recipe-index="${recipeIndex}"]`);
-                    if (compactItem) {
-                        compactItem.style.borderRadius = '6px';
-                    }
-                }, 400);
-            }
+        function selectRecipe(id) {
+            console.log('Sélection:', id);
         }
 
-        function toggleMenu(menuId) {
-            const menu = document.getElementById(menuId);
-            const wasOpen = menu.classList.contains('show');
-            
-            closeAllMenus();
-            
-            if (!wasOpen) {
-                menu.classList.add('show');
-                currentOpenMenu = menuId;
-            }
+        function updateButtonStates() {
+            document.getElementById('clearBtn').disabled = recipes.length === 0;
         }
 
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.recipe-menu') && !e.target.closest('.recipe-menu-btn')) {
-                closeAllMenus();
-            }
-        });
-
-        document.getElementById('searchBox').addEventListener('input', renderRecipes);
-
-        document.getElementById('favoritesFilterBtn').addEventListener('click', function() {
-            showOnlyFavorites = !showOnlyFavorites;
-            if (showOnlyFavorites) {
-                this.style.background = '#FFA500';
-                this.textContent = '⭐ Tous les plats';
-            } else {
-                this.style.background = '#FFD700';
-                this.textContent = '⭐ Mes Favoris';
-            }
-            renderRecipes();
-        });
-
-        document.getElementById('generateBtn').addEventListener('click', function() {
-            generateShoppingList();
-        });
-
-        function generateShoppingList() {
-            const ingredientCount = {};
-            currentShoppingRecipes.clear();
-            
-            selectedRecipes.forEach(index => {
-                const recipe = recipes[index];
-                recipe.usageCount++;
-                currentShoppingRecipes.add(index);
-                recipe.ingredients.forEach(ingredient => {
-                    ingredientCount[ingredient] = (ingredientCount[ingredient] || 0) + 1;
-                });
-            });
-            
-            // Trier par quantité décroissante UNIQUEMENT à la génération
-            const sortedEntries = Object.entries(ingredientCount).sort((a, b) => b[1] - a[1]);
-            currentShoppingList = Object.fromEntries(sortedEntries);
-            
-            hasUnsavedChanges = true;
-            renderRecipes();
-            
-            // Générer le nom de la liste
-            const now = new Date();
-            const day = now.getDate();
-            const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
-                               'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-            const month = monthNames[now.getMonth()];
-            const recipeCount = currentShoppingRecipes.size;
-            const listName = `Semaine du ${day} ${month} • ${recipeCount} recette${recipeCount > 1 ? 's' : ''}`;
-            
-            document.getElementById('listTitle').textContent = listName;
-            document.getElementById('listTitleContainer').style.display = 'block';
-            
-            renderShoppingList();
-            renderShoppingRecipes();
-            
-            document.getElementById('exportBtn').style.display = 'inline-block';
-            document.getElementById('copyBtn').style.display = 'inline-block';
-            document.getElementById('saveListBtn').style.display = 'inline-block';
-            document.getElementById('shoppingRecipes').style.display = 'block';
-        }
-
-        function renderShoppingList() {
-            const shoppingList = document.getElementById('shoppingList');
-            shoppingList.innerHTML = '';
-            
-            // Séparer les ingrédients avec quantité > 0 et = 0
-            const allIngredients = Object.entries(currentShoppingList);
-            const activeIngredients = allIngredients.filter(([_, count]) => count > 0);
-            const zeroIngredients = allIngredients.filter(([_, count]) => count === 0);
-            
-            // Concaténer : actifs d'abord, puis ceux à 0
-            const ingredients = [...activeIngredients, ...zeroIngredients];
-            
-            ingredients.forEach(([ingredient, count], index) => {
-                const item = document.createElement('div');
-                item.className = 'shopping-item';
-                item.draggable = true;
-                item.dataset.ingredient = ingredient;
-                
-                // Griser si quantité = 0
-                if (count === 0) {
-                    item.style.opacity = '0.4';
-                    item.style.background = '#f5f5f5';
-                }
-                
-                // Événements drag & drop pour desktop
-                item.addEventListener('dragstart', function(e) {
-                    e.dataTransfer.effectAllowed = 'move';
-                    e.dataTransfer.setData('text/plain', ingredient);
-                    this.style.opacity = '0.5';
-                    this.classList.add('dragging');
-                });
-                
-                item.addEventListener('dragend', function(e) {
-                    this.style.opacity = count === 0 ? '0.4' : '1';
-                    this.classList.remove('dragging');
-                });
-                
-                item.addEventListener('dragover', function(e) {
-                    e.preventDefault();
-                    e.dataTransfer.dropEffect = 'move';
-                    this.classList.add('drag-over');
-                });
-                
-                item.addEventListener('dragleave', function(e) {
-                    this.classList.remove('drag-over');
-                });
-                
-                item.addEventListener('drop', function(e) {
-                    e.preventDefault();
-                    this.classList.remove('drag-over');
-                    
-                    const draggedIngredient = e.dataTransfer.getData('text/plain');
-                    const targetIngredient = this.dataset.ingredient;
-                    
-                    if (draggedIngredient !== targetIngredient) {
-                        reorderIngredients(draggedIngredient, targetIngredient);
-                    }
-                });
-                
-                // Événements touch pour mobile avec feedbacks améliorés
-                let touchStartY = 0;
-                let touchStartX = 0;
-                let isDragging = false;
-                let placeholder = null;
-                
-                item.addEventListener('touchstart', function(e) {
-                    const touch = e.touches[0];
-                    touchStartY = touch.clientY;
-                    touchStartX = touch.clientX;
-                    isDragging = false;
-                    
-                    // Timeout pour démarrer le drag (évite les conflits avec scroll)
-                    this.dragTimeout = setTimeout(() => {
-                        isDragging = true;
-                        
-                        // Effet visuel fort : l'item devient flottant
-                        this.style.opacity = '0.9';
-                        this.style.transform = 'scale(1.08) rotate(2deg)';
-                        this.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
-                        this.style.zIndex = '1000';
-                        this.style.backgroundColor = '#fff5e6';
-                        
-                        // Créer un placeholder à l'ancienne position
-                        placeholder = document.createElement('div');
-                        placeholder.className = 'shopping-item-placeholder';
-                        placeholder.style.height = this.offsetHeight + 'px';
-                        placeholder.style.margin = '0 0 8px 0';
-                        placeholder.style.border = '3px dashed #FFD700';
-                        placeholder.style.backgroundColor = '#fffef5';
-                        placeholder.style.borderRadius = '8px';
-                        placeholder.style.animation = 'pulse 1s infinite';
-                        placeholder.innerHTML = '<div style="text-align: center; padding: 10px; color: #999; font-style: italic;">Déposez ici</div>';
-                        
-                        this.parentNode.insertBefore(placeholder, this.nextSibling);
-                        
-                        // Vibration tactile si disponible
-                        if (navigator.vibrate) {
-                            navigator.vibrate(50);
-                        }
-                    }, 200); // 200ms de délai pour être sûr que c'est un drag intentionnel
-                }, { passive: true });
-                
-                item.addEventListener('touchmove', function(e) {
-                    if (!isDragging) {
-                        const touch = e.touches[0];
-                        const deltaY = Math.abs(touch.clientY - touchStartY);
-                        const deltaX = Math.abs(touch.clientX - touchStartX);
-                        
-                        // Si mouvement vertical significatif, annuler le timeout
-                        if (deltaY > 10 || deltaX > 10) {
-                            clearTimeout(this.dragTimeout);
-                        }
-                        return;
-                    }
-                    
-                    e.preventDefault();
-                    const touch = e.touches[0];
-                    
-                    // Déplacer visuellement l'item avec le doigt
-                    const currentY = touch.clientY;
-                    const deltaY = currentY - touchStartY;
-                    this.style.transform = `translateY(${deltaY}px) scale(1.08) rotate(2deg)`;
-                    
-                    // Trouver l'élément sous le doigt
-                    const elementBelow = document.elementFromPoint(touch.clientX, currentY);
-                    const targetItem = elementBelow?.closest('.shopping-item');
-                    
-                    // Retirer tous les highlights
-                    document.querySelectorAll('.shopping-item').forEach(el => {
-                        if (el !== this) {
-                            el.classList.remove('drag-target');
-                        }
-                    });
-                    
-                    // Déplacer le placeholder vers la cible
-                    if (targetItem && targetItem !== this && !targetItem.classList.contains('shopping-item-placeholder')) {
-                        targetItem.classList.add('drag-target');
-                        
-                        // Déplacer le placeholder
-                        if (placeholder && placeholder.parentNode) {
-                            const rect1 = this.getBoundingClientRect();
-                            const rect2 = targetItem.getBoundingClientRect();
-                            
-                            if (rect1.top < rect2.top) {
-                                // Déplacement vers le bas
-                                targetItem.parentNode.insertBefore(placeholder, targetItem.nextSibling);
-                            } else {
-                                // Déplacement vers le haut
-                                targetItem.parentNode.insertBefore(placeholder, targetItem);
-                            }
-                        }
-                    }
-                }, { passive: false });
-                
-                item.addEventListener('touchend', function(e) {
-                    clearTimeout(this.dragTimeout);
-                    
-                    if (!isDragging) {
-                        return;
-                    }
-                    
-                    this.style.opacity = count === 0 ? '0.4' : '1';
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                    this.style.zIndex = '';
-                    this.style.backgroundColor = count === 0 ? '#f5f5f5' : '';
-                    
-                    // Retirer tous les highlights
-                    document.querySelectorAll('.shopping-item').forEach(el => {
-                        el.classList.remove('drag-target');
-                    });
-                    
-                    // Trouver où est le placeholder
-                    let targetIngredient = null;
-                    if (placeholder && placeholder.parentNode) {
-                        // Trouver l'item avant ou après le placeholder
-                        const nextItem = placeholder.nextElementSibling;
-                        const prevItem = placeholder.previousElementSibling;
-                        
-                        if (nextItem && nextItem.classList.contains('shopping-item')) {
-                            targetIngredient = nextItem.dataset.ingredient;
-                        } else if (prevItem && prevItem.classList.contains('shopping-item')) {
-                            targetIngredient = prevItem.dataset.ingredient;
-                        }
-                        
-                        placeholder.remove();
-                    }
-                    
-                    const draggedIngredient = this.dataset.ingredient;
-                    
-                    if (targetIngredient && targetIngredient !== draggedIngredient) {
-                        // Vibration de confirmation
-                        if (navigator.vibrate) {
-                            navigator.vibrate([30, 50, 30]);
-                        }
-                        
-                        reorderIngredients(draggedIngredient, targetIngredient);
-                    }
-                }, { passive: true });
-                
-                item.addEventListener('touchcancel', function(e) {
-                    clearTimeout(this.dragTimeout);
-                    this.style.opacity = count === 0 ? '0.4' : '1';
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                    this.style.zIndex = '';
-                    this.style.backgroundColor = count === 0 ? '#f5f5f5' : '';
-                    
-                    if (placeholder && placeholder.parentNode) {
-                        placeholder.remove();
-                    }
-                    
-                    document.querySelectorAll('.shopping-item').forEach(el => {
-                        el.classList.remove('drag-target');
-                    });
-                });
-                
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.checked = count > 0; // Décoché si quantité = 0
-                checkbox.dataset.ingredient = ingredient;
-                
-                const dragHandle = document.createElement('span');
-                dragHandle.textContent = '⋮⋮';
-                dragHandle.style.cursor = 'grab';
-                dragHandle.style.color = '#999';
-                dragHandle.style.fontSize = '1.2em';
-                dragHandle.style.marginRight = '8px';
-                dragHandle.style.touchAction = 'none';
-                dragHandle.style.userSelect = 'none';
-                
-                const name = document.createElement('div');
-                name.className = 'shopping-item-name';
-                name.textContent = ingredient;
-                
-                const controls = document.createElement('div');
-                controls.className = 'shopping-item-controls';
-                
-                const decreaseBtn = document.createElement('button');
-                decreaseBtn.className = 'quantity-btn decrease';
-                decreaseBtn.textContent = '−';
-                decreaseBtn.onclick = function(e) {
-                    e.stopPropagation();
-                    if (count > 0) {
-                        currentShoppingList[ingredient]--;
-                        renderShoppingList(); // Re-render pour trier
-                    }
-                };
-                
-                const countBadge = document.createElement('div');
-                countBadge.className = 'shopping-item-count';
-                countBadge.textContent = `x${count}`;
-                
-                const increaseBtn = document.createElement('button');
-                increaseBtn.className = 'quantity-btn increase';
-                increaseBtn.textContent = '+';
-                increaseBtn.onclick = function(e) {
-                    e.stopPropagation();
-                    currentShoppingList[ingredient]++;
-                    renderShoppingList(); // Re-render pour trier
-                };
-                
-                controls.appendChild(decreaseBtn);
-                controls.appendChild(countBadge);
-                controls.appendChild(increaseBtn);
-                
-                item.appendChild(dragHandle);
-                item.appendChild(checkbox);
-                item.appendChild(name);
-                item.appendChild(controls);
-                
-                shoppingList.appendChild(item);
-            });
-        }
-
-        function reorderIngredients(draggedIngredient, targetIngredient) {
-            // Convertir l'objet en tableau pour réordonner
-            const entries = Object.entries(currentShoppingList);
-            const draggedIndex = entries.findIndex(([ing]) => ing === draggedIngredient);
-            const targetIndex = entries.findIndex(([ing]) => ing === targetIngredient);
-            
-            // Retirer l'élément déplacé
-            const [removed] = entries.splice(draggedIndex, 1);
-            
-            // L'insérer à la nouvelle position
-            entries.splice(targetIndex, 0, removed);
-            
-            // Reconstruire l'objet avec le nouvel ordre
-            currentShoppingList = Object.fromEntries(entries);
-            
-            renderShoppingList();
-        }
-
-        function renderShoppingRecipes() {
-            const container = document.getElementById('shoppingRecipesList');
-            container.innerHTML = '';
-            
-            currentShoppingRecipes.forEach(index => {
-                const recipe = recipes[index];
-                const item = document.createElement('div');
-                item.className = 'shopping-recipe-item';
-                
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.checked = true;
-                checkbox.addEventListener('change', function() {
-                    if (!this.checked) {
-                        removeRecipeFromShoppingList(index);
-                    }
-                });
-                
-                const name = document.createElement('span');
-                name.textContent = recipe.name;
-                name.style.flex = '1';
-                name.style.cursor = 'pointer';
-                name.onclick = function() {
-                    // Filtrer pour afficher seulement cette recette
-                    document.getElementById('searchBox').value = recipe.name;
-                    renderRecipes();
-                    // Scroll vers les recettes
-                    document.querySelector('.recipe-list').scrollIntoView({ behavior: 'smooth' });
-                };
-                
-                item.appendChild(checkbox);
-                item.appendChild(name);
-                container.appendChild(item);
-            });
-        }
-
-        function removeRecipeFromShoppingList(recipeIndex) {
-            const recipe = recipes[recipeIndex];
-            
-            // Retirer les ingrédients de cette recette
-            recipe.ingredients.forEach(ingredient => {
-                if (currentShoppingList[ingredient]) {
-                    currentShoppingList[ingredient]--;
-                    if (currentShoppingList[ingredient] <= 0) {
-                        delete currentShoppingList[ingredient];
-                    }
-                }
-            });
-            
-            currentShoppingRecipes.delete(recipeIndex);
-            
-            // Régénérer l'affichage
-            renderShoppingList();
-            renderShoppingRecipes();
-            
-            // Mettre à jour le titre
-            const now = new Date();
-            const day = now.getDate();
-            const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
-                               'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-            const month = monthNames[now.getMonth()];
-            const recipeCount = currentShoppingRecipes.size;
-            const listName = `Semaine du ${day} ${month} • ${recipeCount} recette${recipeCount > 1 ? 's' : ''}`;
-            document.getElementById('listTitle').textContent = listName;
-        }
-
-        document.getElementById('clearBtn').addEventListener('click', function() {
-            selectedRecipes.clear();
-            updateStats();
-            renderRecipes();
-            updateButtonStates();
-        });
-
-        document.getElementById('exportBtn').addEventListener('click', function() {
-            const items = document.querySelectorAll('.shopping-item');
-            let text = '=== MA LISTE DE COURSES ===\n\n';
-            
-            items.forEach(item => {
-                const checkbox = item.querySelector('input[type="checkbox"]');
-                const ingredient = item.dataset.ingredient;
-                const quantity = currentShoppingList[ingredient];
-                
-                // N'exporter que si coché ET quantité > 0
-                if (checkbox.checked && quantity > 0) {
-                    const name = item.querySelector('.shopping-item-name').textContent;
-                    const count = item.querySelector('.shopping-item-count').textContent;
-                    text += `☐ ${name} ${count}\n`;
-                }
-            });
-            
-            const now = new Date();
-            const day = String(now.getDate()).padStart(2, '0');
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const filename = `liste_courses_${day}${month}.txt`;
-            
-            const blob = new Blob([text], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.click();
-            URL.revokeObjectURL(url);
-        });
-
-        document.getElementById('copyBtn').addEventListener('click', function() {
-            const items = document.querySelectorAll('.shopping-item');
-            let text = '';
-            
-            items.forEach(item => {
-                const checkbox = item.querySelector('input[type="checkbox"]');
-                const ingredient = item.dataset.ingredient;
-                const quantity = currentShoppingList[ingredient];
-                
-                // N'exporter que si coché ET quantité > 0
-                if (checkbox.checked && quantity > 0) {
-                    const name = item.querySelector('.shopping-item-name').textContent;
-                    const count = item.querySelector('.shopping-item-count').textContent;
-                    text += `☐ ${name} ${count}\n`;
-                }
-            });
-            
-            navigator.clipboard.writeText(text).then(() => {
-                const originalText = this.textContent;
-                this.textContent = '✅ Copié !';
-                this.style.background = '#28a745';
-                setTimeout(() => {
-                    this.textContent = originalText;
-                    this.style.background = '';
-                }, 2000);
-            }).catch(err => {
-                alert('Erreur lors de la copie dans le presse-papier');
-            });
-        });
-
-        // Sauvegarder la liste actuelle
-        document.getElementById('saveListBtn').addEventListener('click', function() {
-            if (currentShoppingRecipes.size === 0) {
-                alert('Aucune recette dans la liste de courses !');
-                return;
-            }
-            
-            const listName = document.getElementById('listTitle').textContent;
-            const now = new Date();
-            const date = now.toISOString().split('T')[0];
-            
-            const recipeNames = Array.from(currentShoppingRecipes).map(index => recipes[index].name);
-            
-            const savedList = {
-                name: listName,
-                date: date,
-                recipes: recipeNames
-            };
-            
-            savedLists.push(savedList);
-            saveSavedListsToFile();
-            renderSavedLists();
-            
-            const originalText = this.textContent;
-            this.textContent = '✅ Sauvegardée !';
-            this.style.background = '#28a745';
-            setTimeout(() => {
-                this.textContent = originalText;
-                this.style.background = '#28a745';
-            }, 2000);
-        });
-
-        function saveSavedListsToFile() {
-            let csv = 'Nom de la liste,Date,Recettes\n';
-            
-            savedLists.forEach(list => {
-                const line = [
-                    list.name,
-                    list.date,
-                    list.recipes.join(';')
-                ].join(',');
-                csv += line + '\n';
-            });
-            
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'listes_sauvegardees.csv';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function renderSavedLists() {
-            const container = document.getElementById('savedListsContainer');
-            const section = document.getElementById('savedListsSection');
-            
-            if (savedLists.length === 0) {
-                section.style.display = 'none';
-                return;
-            }
-            
-            section.style.display = 'block';
-            container.innerHTML = '';
-            
-            savedLists.forEach((list, index) => {
-                const item = document.createElement('div');
-                item.className = 'saved-list-item';
-                
-                const header = document.createElement('div');
-                header.className = 'saved-list-header';
-                
-                const name = document.createElement('div');
-                name.className = 'saved-list-name';
-                name.textContent = list.name;
-                
-                const date = document.createElement('div');
-                date.className = 'saved-list-date';
-                date.textContent = new Date(list.date).toLocaleDateString('fr-FR');
-                
-                header.appendChild(name);
-                header.appendChild(date);
-                
-                const recipeCount = document.createElement('div');
-                recipeCount.style.fontSize = '0.9em';
-                recipeCount.style.color = '#666';
-                recipeCount.textContent = `${list.recipes.length} recette${list.recipes.length > 1 ? 's' : ''}`;
-                
-                const actions = document.createElement('div');
-                actions.className = 'saved-list-actions';
-                
-                const loadBtn = document.createElement('button');
-                loadBtn.className = 'saved-list-btn';
-                loadBtn.textContent = '📂 Charger';
-                loadBtn.onclick = function() {
-                    loadSavedList(index);
-                };
-                
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'saved-list-btn';
-                deleteBtn.style.background = '#dc3545';
-                deleteBtn.textContent = '🗑️ Supprimer';
-                deleteBtn.onclick = function() {
-                    showConfirmModal(
-                        'Supprimer la liste',
-                        `Êtes-vous sûr de vouloir supprimer "${list.name}" ?`,
-                        () => {
-                            savedLists.splice(index, 1);
-                            renderSavedLists();
-                        }
-                    );
-                };
-                
-                actions.appendChild(loadBtn);
-                actions.appendChild(deleteBtn);
-                
-                item.appendChild(header);
-                item.appendChild(recipeCount);
-                item.appendChild(actions);
-                
-                container.appendChild(item);
-            });
-        }
-
-        function loadSavedList(index) {
-            const list = savedLists[index];
-            
-            // Trouver les recettes correspondantes
-            selectedRecipes.clear();
-            list.recipes.forEach(recipeName => {
-                const recipeIndex = recipes.findIndex(r => r.name === recipeName);
-                if (recipeIndex !== -1) {
-                    selectedRecipes.add(recipeIndex);
-                }
-            });
-            
-            if (selectedRecipes.size === 0) {
-                alert('Aucune des recettes de cette liste n\'a été trouvée dans votre fichier actuel.');
-                return;
-            }
-            
-            // Générer la liste
-            generateShoppingList();
-            updateStats();
-            renderRecipes();
-            
-            // Scroll vers la liste de courses
-            document.querySelector('.shopping-list').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Charger les listes sauvegardées depuis un fichier
-        const savedListsInput = document.createElement('input');
-        savedListsInput.type = 'file';
-        savedListsInput.accept = '.csv';
-        savedListsInput.id = 'importSavedListsBtn';
-        savedListsInput.style.display = 'none';
-        savedListsInput.addEventListener('change', function(e) {
+        // Import CSV
+        document.getElementById('csvFile').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    parseSavedListsCSV(event.target.result);
+                reader.onload = async function(event) {
+                    await parseCSV(event.target.result);
                 };
                 reader.readAsText(file);
             }
         });
-        document.body.appendChild(savedListsInput);
 
-        function parseSavedListsCSV(text) {
+        async function parseCSV(text) {
             const lines = text.split('\n').filter(line => line.trim());
-            savedLists = [];
-            
+            if (lines.length < 2) {
+                alert('Fichier CSV vide ou invalide');
+                return;
+            }
+
+            const { data: { session } } = await supabase.auth.getSession();
+            const toImport = [];
+
             for (let i = 1; i < lines.length; i++) {
                 const parts = lines[i].split(',');
-                if (parts.length >= 3) {
-                    const list = {
+                if (parts.length >= 4) {
+                    toImport.push({
+                        user_id: session.user.id,
                         name: parts[0].trim(),
-                        date: parts[1].trim(),
-                        recipes: parts[2].split(';').map(r => r.trim()).filter(r => r)
-                    };
-                    savedLists.push(list);
+                        ingredients: parts[1].split(';').map(ing => ing.trim()).filter(ing => ing),
+                        double_portion: parts[2].trim().toLowerCase() === 'oui',
+                        criteria: parts[3] ? parts[3].split(';').map(c => c.trim()).filter(c => c) : [],
+                        usage_count: parts[4] ? parseInt(parts[4]) || 0 : 0,
+                        favorite: parts[5] ? parts[5].trim().toLowerCase() === 'oui' : false
+                    });
                 }
             }
-            
-            renderSavedLists();
+
+            if (toImport.length === 0) {
+                alert('Aucune recette valide trouvée dans le CSV');
+                return;
+            }
+
+            try {
+                const { error } = await supabase
+                    .from('recipes')
+                    .insert(toImport);
+
+                if (error) throw error;
+
+                alert(`✅ ${toImport.length} recettes importées !`);
+                await loadRecipes();
+
+            } catch (error) {
+                console.error('Erreur import:', error);
+                alert('Erreur lors de l\'import');
+            }
         }
 
-        document.getElementById('createListBtn').addEventListener('click', function() {
-            resetForm();
-            showForm();
-            document.getElementById('noCSVWarning').classList.add('show');
-        });
-
-        document.getElementById('addRecipeBtn').addEventListener('click', function() {
-            resetForm();
-            showForm();
-        });
-
-        document.getElementById('cancelFormBtn').addEventListener('click', function() {
-            hideForm();
-        });
-
-        document.getElementById('saveRecipeBtn').addEventListener('click', function() {
-            const name = document.getElementById('recipeName').value.trim();
-            const ingredients = currentIngredients;
-            const double = document.getElementById('recipeDouble').value === 'oui';
-            const criteria = currentCriteriaList;
-            
-            if (!name || ingredients.length === 0) {
-                alert('Veuillez remplir au moins le nom et ajouter des ingrédients');
-                return;
-            }
-            
-            const recipeData = {
-                name,
-                ingredients,
-                double,
-                criteria,
-                usageCount: 0,
-                favorite: false
-            };
-            
-            if (editingIndex >= 0) {
-                recipeData.usageCount = recipes[editingIndex].usageCount;
-                recipeData.favorite = recipes[editingIndex].favorite;
-                recipes[editingIndex] = recipeData;
-            } else {
-                recipes.push(recipeData);
-            }
-            
-            allCriteria.clear();
-            recipes.forEach(r => r.criteria.forEach(c => allCriteria.add(c)));
-            updateAllIngredients();
-            
-            hasUnsavedChanges = true;
-            
-            hideForm();
-            updateStats();
-            renderFilterTags();
-            renderRecipes();
-            updateButtonStates();
-        });
-
+        // Export CSV
         document.getElementById('exportRecipesBtn').addEventListener('click', function() {
             if (recipes.length === 0) {
-                showConfirmModal(
-                    'Créer un nouveau fichier CSV',
-                    'Aucune recette n\'est chargée. Voulez-vous créer un nouveau fichier CSV vide ?',
-                    () => {
-                        const csv = 'Nom de la recette,Ingrédients,Double portion,Critères,Utilisations,Favori\n';
-                        downloadCSV(csv);
-                        document.getElementById('noCSVWarning').classList.add('show');
-                    }
-                );
+                alert('Aucune recette à exporter');
                 return;
             }
-            
+
             let csv = 'Nom de la recette,Ingrédients,Double portion,Critères,Utilisations,Favori\n';
-            
+
             recipes.forEach(recipe => {
                 const line = [
                     recipe.name,
@@ -3324,82 +726,32 @@
                 ].join(',');
                 csv += line + '\n';
             });
-            
-            downloadCSV(csv);
-            hasUnsavedChanges = false;
-        });
 
-        function downloadCSV(csv) {
-            const now = new Date();
-            const day = String(now.getDate()).padStart(2, '0');
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const filename = `recettes_${day}${month}.csv`;
-            
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = filename;
+            a.download = `recettes_${new Date().toISOString().split('T')[0]}.csv`;
             a.click();
             URL.revokeObjectURL(url);
-        }
-
-        let confirmCallback = null;
-
-        function showConfirmModal(title, message, onConfirm) {
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalBody').textContent = message;
-            confirmCallback = onConfirm;
-            document.getElementById('confirmModal').classList.add('show');
-        }
-
-        function hideConfirmModal() {
-            document.getElementById('confirmModal').classList.remove('show');
-            confirmCallback = null;
-        }
-
-        document.getElementById('modalConfirm').addEventListener('click', function() {
-            if (confirmCallback) confirmCallback();
-            hideConfirmModal();
         });
 
-        document.getElementById('modalCancel').addEventListener('click', hideConfirmModal);
-
-        document.addEventListener('keydown', function(e) {
-            const modal = document.getElementById('confirmModal');
-            if (modal.classList.contains('show')) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    document.getElementById('modalConfirm').click();
-                } else if (e.key === 'Escape') {
-                    e.preventDefault();
-                    hideConfirmModal();
-                }
-            }
-        });
-
-        document.getElementById('confirmModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideConfirmModal();
-            }
-        });
-
-        window.addEventListener('beforeunload', function(e) {
-            if (hasUnsavedChanges) {
-                e.preventDefault();
-                e.returnValue = '';
-                return '';
-            }
-        });
-
-        updateButtonStates();
-
-        // Toggle view button
-        document.getElementById('toggleViewBtn').addEventListener('click', function() {
-            isCompactView = !isCompactView;
-            this.textContent = isCompactView ? '👁️ Vue détaillée' : '👁️ Vue compacte';
+        // Event listeners
+        document.getElementById('addRecipeBtn').addEventListener('click', showForm);
+        document.getElementById('cancelFormBtn').addEventListener('click', hideForm);
+        document.getElementById('saveRecipeBtn').addEventListener('click', saveRecipe);
+        document.getElementById('searchBox').addEventListener('input', renderRecipes);
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            selectedRecipes.clear();
             renderRecipes();
         });
+
+        // Initialisation
+        (async () => {
+            if (await checkAuth()) {
+                await loadRecipes();
+            }
+        })();
     </script>
 </body>
 </html>
