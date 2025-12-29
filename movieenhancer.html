@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire de Films</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .input-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"], textarea {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+            width: 100%;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            flex: 1;
+            min-width: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .movie-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .movie-card.incomplete {
+            border: 3px solid #ffc107;
+        }
+
+        .incomplete-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffc107;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .movie-info {
+            padding: 20px;
+        }
+
+        .movie-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .movie-year {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .movie-rating {
+            display: inline-block;
+            background: #ffd700;
+            color: #333;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .movie-genre {
+            color: #764ba2;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .delete-btn {
+            flex: 1;
+            background: #dc3545;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .enrich-btn {
+            flex: 1;
+            background: #28a745;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .enrich-btn:hover {
+            background: #218838;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            margin: 50px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .close-btn {
+            background: none;
+            color: white;
+            font-size: 2rem;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .detail-row {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .help-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .movies-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .modal-content {
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="margin-bottom: 20px;">
+            <a href="index.html" style="display: inline-block; padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s;">
+                ← Retour à l'accueil
+            </a>
+        </div>
+        <h1>🎬 Gestionnaire de Films</h1>
+        
+        <div class="input-section">
+            <h3 style="margin-bottom: 15px;">Configuration API</h3>
+            <div class="input-group">
+                <input type="text" id="apiKey" placeholder="Clé API OMDb (obtenir sur omdbapi.com)">
+                <button onclick="saveApiKey()" class="btn-success">💾 Sauvegarder la clé</button>
+            </div>
+            <div class="help-text">Obtenez votre clé API gratuite sur <a href="http://www.omdbapi.com/apikey.aspx" target="_blank">omdbapi.com</a></div>
+        </div>
+
+        <div class="input-section">
+            <h3 style="margin-bottom: 15px;">Importer une liste CSV</h3>
+            <input type="file" id="csvFile" accept=".csv" style="margin-bottom: 10px;">
+            <div class="help-text" style="margin-bottom: 10px;">
+                Formats CSV acceptés :<br>
+                • Letterboxd : Date, Name, Year, Letterboxd URI<br>
+                • Standard : Title, Year, Director, etc.<br>
+                • Simple : une colonne avec les titres des films<br>
+                Les films déjà enrichis (avec Director, Actors, Plot) ne seront pas rappelés à l'API.
+            </div>
+            <div class="input-group">
+                <button onclick="document.getElementById('csvFile').click()">📁 Choisir un fichier CSV</button>
+                <button onclick="enrichAllIncomplete()" class="btn-success">✨ Enrichir tous les films incomplets</button>
+                <button onclick="exportMovies()" class="btn-secondary">📤 Exporter CSV</button>
+            </div>
+            <div id="importMessage" class="message"></div>
+        </div>
+
+        <div class="input-section">
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number" id="totalMovies">0</div>
+                    <div class="stat-label">Films total</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="enrichedMovies">0</div>
+                    <div class="stat-label">Films enrichis</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="incompleteMovies">0</div>
+                    <div class="stat-label">À enrichir</div>
+                </div>
+            </div>
+            
+            <h3 style="margin-bottom: 15px;">Ajouter un film</h3>
+            <div class="input-group">
+                <input type="text" id="movieTitle" placeholder="Titre du film">
+                <button onclick="searchMovie()">🔍 Rechercher et Ajouter</button>
+            </div>
+            <div id="message" class="message"></div>
+        </div>
+
+        <div class="movies-grid" id="moviesGrid"></div>
+    </div>
+
+    <div id="movieModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        let movies = [];
+        let apiKey = localStorage.getItem('omdb_api_key') || '';
+
+        if (apiKey) {
+            document.getElementById('apiKey').value = apiKey;
+        }
+
+        function saveApiKey() {
+            const key = document.getElementById('apiKey').value.trim();
+            if (key) {
+                localStorage.setItem('omdb_api_key', key);
+                apiKey = key;
+                showMessage('importMessage', 'Clé API sauvegardée !', 'success');
+            } else {
+                showMessage('importMessage', 'Veuillez entrer une clé API', 'error');
+            }
+        }
+
+        function isMovieComplete(movie) {
+            return movie.imdbID && movie.Director && movie.Actors && movie.Plot && movie.Plot.length > 50;
+        }
+
+        function showMessage(elementId, text, type) {
+            const msg = document.getElementById(elementId);
+            msg.textContent = text;
+            msg.className = `message ${type}`;
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 5000);
+        }
+
+        async function searchMovie() {
+            if (!apiKey) {
+                showMessage('message', 'Veuillez d\'abord sauvegarder votre clé API', 'error');
+                return;
+            }
+
+            const title = document.getElementById('movieTitle').value.trim();
+            if (!title) {
+                showMessage('message', 'Veuillez entrer un titre de film', 'error');
+                return;
+            }
+
+            await enrichMovieByTitle(title, 'message');
+            document.getElementById('movieTitle').value = '';
+        }
+
+        async function enrichMovieByTitle(title, messageElement) {
+            try {
+                const url = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(title)}&plot=full`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.Response === 'True') {
+                    const existingIndex = movies.findIndex(m => m.imdbID === data.imdbID);
+                    if (existingIndex >= 0) {
+                        movies[existingIndex] = data;
+                        showMessage(messageElement, `"${data.Title}" mis à jour !`, 'success');
+                    } else {
+                        movies.push(data);
+                        showMessage(messageElement, `"${data.Title}" ajouté avec succès !`, 'success');
+                    }
+                    saveMovies();
+                    displayMovies();
+                } else {
+                    showMessage(messageElement, data.Error || 'Film non trouvé', 'error');
+                }
+            } catch (error) {
+                showMessage(messageElement, 'Erreur de connexion à l\'API', 'error');
+            }
+        }
+
+        async function enrichMovie(index) {
+            if (!apiKey) {
+                showMessage('message', 'Veuillez d\'abord sauvegarder votre clé API', 'error');
+                return;
+            }
+
+            const movie = movies[index];
+            const title = movie.Title || movie.title || movie;
+            
+            await enrichMovieByTitle(title, 'message');
+        }
+
+        async function enrichAllIncomplete() {
+            if (!apiKey) {
+                showMessage('importMessage', 'Veuillez d\'abord sauvegarder votre clé API', 'error');
+                return;
+            }
+
+            const incompleteMovies = movies.filter(m => !isMovieComplete(m));
+            if (incompleteMovies.length === 0) {
+                showMessage('importMessage', 'Tous les films sont déjà enrichis !', 'info');
+                return;
+            }
+
+            showMessage('importMessage', `Enrichissement de ${incompleteMovies.length} films...`, 'info');
+            
+            let enriched = 0;
+            let errors = 0;
+
+            for (const movie of incompleteMovies) {
+                const title = movie.Title || movie.title || movie;
+                const index = movies.findIndex(m => (m.Title || m.title || m) === title);
+                
+                try {
+                    const url = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(title)}&plot=full`;
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    
+                    if (data.Response === 'True') {
+                        movies[index] = data;
+                        enriched++;
+                    } else {
+                        errors++;
+                    }
+                    
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                } catch (error) {
+                    errors++;
+                }
+            }
+
+            saveMovies();
+            displayMovies();
+            showMessage('importMessage', `✅ ${enriched} films enrichis, ${errors} erreurs`, 'success');
+        }
+
+        function parseCSV(text) {
+            const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+            if (lines.length === 0) return [];
+
+            const parseLine = (line) => {
+                const result = [];
+                let current = '';
+                let inQuotes = false;
+                
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        result.push(current.trim());
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+                result.push(current.trim());
+                return result.map(v => v.replace(/^"|"$/g, ''));
+            };
+
+            const firstLine = parseLine(lines[0]);
+            const hasHeaders = firstLine.some(col => {
+                const lower = col.toLowerCase();
+                return ['title', 'name', 'year', 'director', 'genre', 'actors', 'date', 'letterboxd', 'uri'].includes(lower);
+            });
+
+            if (hasHeaders) {
+                const headers = firstLine.map(h => h.trim());
+                const titleIndex = headers.findIndex(h => {
+                    const lower = h.toLowerCase();
+                    return lower === 'title' || lower === 'name';
+                });
+                
+                return lines.slice(1).map(line => {
+                    const values = parseLine(line);
+                    const movie = {};
+                    
+                    headers.forEach((header, index) => {
+                        if (values[index]) {
+                            let key = header.charAt(0).toUpperCase() + header.slice(1);
+                            if (header.toLowerCase() === 'name') {
+                                key = 'Title';
+                            }
+                            movie[key] = values[index];
+                        }
+                    });
+                    
+                    return movie;
+                }).filter(m => m.Title);
+            } else {
+                return lines.map(line => {
+                    const values = parseLine(line);
+                    return {Title: values[0]};
+                }).filter(m => m.Title);
+            }
+        }
+
+        function handleCSVUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const csvText = e.target.result;
+                    const importedMovies = parseCSV(csvText);
+                    
+                    if (importedMovies.length === 0) {
+                        showMessage('importMessage', 'Aucun film trouvé dans le CSV', 'error');
+                        return;
+                    }
+
+                    importedMovies.forEach(newMovie => {
+                        const existingIndex = movies.findIndex(m => 
+                            (m.Title || '').toLowerCase() === (newMovie.Title || '').toLowerCase()
+                        );
+                        
+                        if (existingIndex >= 0) {
+                            const existing = movies[existingIndex];
+                            if (!isMovieComplete(existing)) {
+                                movies[existingIndex] = {...existing, ...newMovie};
+                            }
+                        } else {
+                            movies.push(newMovie);
+                        }
+                    });
+
+                    saveMovies();
+                    displayMovies();
+                    
+                    const incomplete = movies.filter(m => !isMovieComplete(m)).length;
+                    showMessage('importMessage', `✅ ${importedMovies.length} films importés. ${incomplete} à enrichir via l'API.`, 'success');
+                    
+                    event.target.value = '';
+                } catch (error) {
+                    showMessage('importMessage', 'Erreur lors de la lecture du CSV: ' + error.message, 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function exportMovies() {
+            if (movies.length === 0) {
+                showMessage('importMessage', 'Aucun film à exporter', 'error');
+                return;
+            }
+
+            const allKeys = new Set();
+            movies.forEach(movie => {
+                Object.keys(movie).forEach(key => allKeys.add(key));
+            });
+            
+            const headers = Array.from(allKeys);
+            const csvLines = [headers.join(',')];
+            
+            movies.forEach(movie => {
+                const row = headers.map(header => {
+                    const value = movie[header] || '';
+                    const escaped = String(value).replace(/"/g, '""');
+                    return escaped.includes(',') || escaped.includes('"') || escaped.includes('\n') 
+                        ? `"${escaped}"` 
+                        : escaped;
+                });
+                csvLines.push(row.join(','));
+            });
+
+            const csvContent = csvLines.join('\n');
+            const dataBlob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `movies_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            showMessage('importMessage', 'Liste CSV exportée !', 'success');
+        }
+
+        function saveMovies() {
+            localStorage.setItem('movies_list', JSON.stringify(movies));
+            updateStats();
+        }
+
+        function loadMovies() {
+            const saved = localStorage.getItem('movies_list');
+            if (saved) {
+                movies = JSON.parse(saved);
+            }
+            displayMovies();
+        }
+
+        function updateStats() {
+            const total = movies.length;
+            const enriched = movies.filter(m => isMovieComplete(m)).length;
+            const incomplete = total - enriched;
+
+            document.getElementById('totalMovies').textContent = total;
+            document.getElementById('enrichedMovies').textContent = enriched;
+            document.getElementById('incompleteMovies').textContent = incomplete;
+        }
+
+        function displayMovies() {
+            const grid = document.getElementById('moviesGrid');
+            updateStats();
+            
+            if (movies.length === 0) {
+                grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1; font-size: 1.2rem;">🎥️ Aucun film dans la liste. Importez-en ou ajoutez-en un !</p>';
+                return;
+            }
+
+            grid.innerHTML = movies.map((movie, index) => {
+                const isComplete = isMovieComplete(movie);
+                const title = movie.Title || movie.title || movie;
+                const year = movie.Year || '';
+                const poster = movie.Poster && movie.Poster !== 'N/A' ? movie.Poster : '';
+                const rating = movie.imdbRating && movie.imdbRating !== 'N/A' ? movie.imdbRating : null;
+                const genre = movie.Genre || '';
+
+                return `
+                    <div class="movie-card ${!isComplete ? 'incomplete' : ''}" onclick="showMovieDetails(${index})">
+                        ${!isComplete ? '<div class="incomplete-badge">⚠️ Incomplet</div>' : ''}
+                        ${poster ? `<img src="${poster}" alt="${title}" class="movie-poster" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display:none; width:100%; height:400px; background:#e0e0e0; align-items:center; justify-content:center; color:#999; font-size:3rem;">🎬</div>` : 
+                        `<div style="width:100%; height:400px; background:#e0e0e0; display:flex; align-items:center; justify-content:center; color:#999; font-size:3rem;">🎬</div>`}
+                        <div class="movie-info">
+                            <div class="movie-title">${title}</div>
+                            ${year ? `<div class="movie-year">${year}</div>` : ''}
+                            ${rating ? `<span class="movie-rating">⭐ ${rating}/10</span>` : ''}
+                            ${genre ? `<div class="movie-genre">${genre}</div>` : ''}
+                            <div class="action-buttons">
+                                ${!isComplete ? `<button class="enrich-btn" onclick="enrichMovie(${index}); event.stopPropagation()">✨ Enrichir</button>` : ''}
+                                <button class="delete-btn" onclick="deleteMovie(${index}, event)">🗑️ Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showMovieDetails(index) {
+            const movie = movies[index];
+            const title = movie.Title || movie.title || movie;
+            document.getElementById('modalTitle').textContent = title;
+            
+            if (!isMovieComplete(movie)) {
+                document.getElementById('modalBody').innerHTML = `
+                    <p style="text-align: center; color: #666; padding: 20px;">
+                        ⚠️ Ce film n'a pas encore été enrichi.<br>
+                        Cliquez sur le bouton "Enrichir" pour récupérer les informations depuis l'API OMDb.
+                    </p>
+                `;
+                document.getElementById('movieModal').style.display = 'block';
+                return;
+            }
+
+            const details = [
+                {label: 'Année', value: movie.Year},
+                {label: 'Réalisateur', value: movie.Director},
+                {label: 'Acteurs', value: movie.Actors},
+                {label: 'Genre', value: movie.Genre},
+                {label: 'Durée', value: movie.Runtime},
+                {label: 'Note IMDb', value: movie.imdbRating !== 'N/A' ? `${movie.imdbRating}/10 (${movie.imdbVotes} votes)` : 'N/A'},
+                {label: 'Synopsis', value: movie.Plot},
+                {label: 'Langue', value: movie.Language},
+                {label: 'Pays', value: movie.Country},
+                {label: 'Récompenses', value: movie.Awards},
+                {label: 'Box Office', value: movie.BoxOffice},
+                {label: 'Production', value: movie.Production},
+                {label: 'Scénariste', value: movie.Writer}
+            ].filter(d => d.value && d.value !== 'N/A' && d.value !== 'N/A');
+
+            document.getElementById('modalBody').innerHTML = `
+                ${movie.Poster && movie.Poster !== 'N/A' ? `<img src="${movie.Poster}" alt="${title}" class="modal-poster" onerror="this.style.display='none'">` : ''}
+                ${details.map(d => `
+                    <div class="detail-row">
+                        <div class="detail-label">${d.label}</div>
+                        <div class="detail-value">${d.value}</div>
+                    </div>
+                `).join('')}
+            `;
+
+            document.getElementById('movieModal').style.display = 'block';
+        }
+
+        function closeModal(event) {
+            if (!event || event.target.id === 'movieModal') {
+                document.getElementById('movieModal').style.display = 'none';
+            }
+        }
+
+        function deleteMovie(index, event) {
+            event.stopPropagation();
+            
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce film ?')) {
+                movies.splice(index, 1);
+                saveMovies();
+                displayMovies();
+                showMessage('message', 'Film supprimé avec succès', 'success');
+            }
+        }
+
+        loadMovies();
+
+        document.getElementById('csvFile').addEventListener('change', handleCSVUpload);
+        document.getElementById('movieTitle').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchMovie();
+        });
+    </script>
+</body>
+</html>

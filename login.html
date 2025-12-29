@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Mes Apps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.error {
+            background: #fee;
+            color: #c00;
+            border: 1px solid #fcc;
+        }
+
+        .message.success {
+            background: #efe;
+            color: #0a0;
+            border: 1px solid #cfc;
+        }
+
+        .toggle-mode {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .toggle-mode a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<!-- Supabase JS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+    async function checkAuth() {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session) {
+            document.getElementById('userEmail').textContent = `👤 ${session.user.email}`;
+            document.getElementById('authBtn').textContent = 'Se déconnecter';
+        } else {
+            document.getElementById('userEmail').textContent = '';
+            document.getElementById('authBtn').textContent = 'Se connecter';
+        }
+    }
+
+    async function handleAuth() {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session) {
+            // Déconnexion
+            await supabase.auth.signOut();
+            location.reload();
+        } else {
+            // Redirection vers login
+            window.location.href = 'login.html';
+        }
+    }
+
+    checkAuth();
+</script>
+<body>
+    <div class="container">
+        <h1>🔐 Connexion</h1>
+        
+        <div id="message" class="message"></div>
+
+        <form id="authForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required placeholder="exemple@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" required placeholder="Minimum 6 caractères">
+            </div>
+
+            <button type="submit" id="submitBtn">Se connecter</button>
+        </form>
+
+        <div class="toggle-mode">
+            <span id="modeText">Pas encore de compte ?</span>
+            <a href="#" id="toggleLink">S'inscrire</a>
+        </div>
+
+        <div class="toggle-mode" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0;">
+            <a href="index.html">← Retour à l'accueil</a>
+        </div>
+    </div>
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    
+    <script>
+        let isLoginMode = true;
+
+        // Toggle entre connexion et inscription
+        document.getElementById('toggleLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            isLoginMode = !isLoginMode;
+            
+            if (isLoginMode) {
+                document.querySelector('h1').textContent = '🔐 Connexion';
+                document.getElementById('submitBtn').textContent = 'Se connecter';
+                document.getElementById('modeText').textContent = 'Pas encore de compte ?';
+                document.getElementById('toggleLink').textContent = 'S\'inscrire';
+            } else {
+                document.querySelector('h1').textContent = '📝 Inscription';
+                document.getElementById('submitBtn').textContent = 'Créer un compte';
+                document.getElementById('modeText').textContent = 'Déjà un compte ?';
+                document.getElementById('toggleLink').textContent = 'Se connecter';
+            }
+        });
+
+        // Gestion du formulaire
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const messageDiv = document.getElementById('message');
+            
+            submitBtn.disabled = true;
+            messageDiv.style.display = 'none';
+
+            try {
+                if (isLoginMode) {
+                    // Connexion
+                    const { data, error } = await supabase.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+
+                    if (error) throw error;
+
+                    messageDiv.textContent = '✅ Connexion réussie ! Redirection...';
+                    messageDiv.className = 'message success';
+                    messageDiv.style.display = 'block';
+
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+
+                } else {
+                    // Inscription
+                    const { data, error } = await supabase.auth.signUp({
+                        email: email,
+                        password: password
+                    });
+
+                    if (error) throw error;
+
+                    messageDiv.textContent = '✅ Compte créé ! Vous pouvez maintenant vous connecter.';
+                    messageDiv.className = 'message success';
+                    messageDiv.style.display = 'block';
+
+                    // Bascule automatiquement en mode connexion
+                    setTimeout(() => {
+                        document.getElementById('toggleLink').click();
+                    }, 2000);
+                }
+
+            } catch (error) {
+                messageDiv.textContent = '❌ Erreur : ' + error.message;
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Vérifie si déjà connecté
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

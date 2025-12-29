@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Projets - Hub Central</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 50px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #f0f0f0;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .project-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+
+        .project-item:hover {
+            background: #e9ecef;
+            border-left-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .project-info {
+            flex: 1;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .project-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            opacity: 0.8;
+        }
+
+        .project-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .project-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .project-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .project-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .project-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Mes Projets</h1>
+            <p class="subtitle">Hub central - Accédez à tous vos outils</p>
+        </header>
+
+        <div class="projects-list">
+            <!-- Movie Explorer -->
+            <div class="project-item">
+                <span class="project-icon">🎬</span>
+                <div class="project-info">
+                    <h2 class="project-title">Movie Explorer</h2>
+                    <p class="project-description">
+                        Parcourez votre watchlist de façon fluide et ludique. 
+                        Tirage aléatoire, filtres avancés, statistiques détaillées.
+                    </p>
+                </div>
+                <a href="moviepicker.html" class="project-btn">Ouvrir</a>
+            </div>
+
+            <!-- Gestionnaire de Films -->
+            <div class="project-item">
+                <span class="project-icon">📽️</span>
+                <div class="project-info">
+                    <h2 class="project-title">Gestionnaire de Films</h2>
+                    <p class="project-description">
+                        Gérez votre collection : importation CSV, enrichissement via API OMDb, 
+                        export de vos données enrichies.
+                    </p>
+                </div>
+                <a href="movieenhancer.html" class="project-btn">Ouvrir</a>
+            </div>
+
+            <!-- Gestionnaire de Recettes -->
+            <div class="project-item">
+                <span class="project-icon">🍳</span>
+                <div class="project-info">
+                    <h2 class="project-title">Gestionnaire de Recettes</h2>
+                    <p class="project-description">
+                        Organisez vos recettes préférées, tirage aléatoire pour l'inspiration, 
+                        filtres par critères, gestion des portions.
+                    </p>
+                </div>
+                <a href="recettes.html" class="project-btn">Ouvrir</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>💡 Sélectionnez un projet ci-dessus pour commencer</p>
+        </footer>
+    </div>
+</body>
+</html>

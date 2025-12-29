@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 Movie Explorer - Ma Watchlist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: white;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .upload-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Random Picker Section - HERO */
+        .random-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .random-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .random-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .count-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .count-selector label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .count-selector input {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .random-btn {
+            padding: 15px 40px;
+            background: white;
+            color: #f5576c;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .random-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .random-btn:active {
+            transform: scale(0.98);
+        }
+
+        .random-info {
+            color: white;
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        /* Filters Section */
+        .filters-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filters-title {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .toggle-filters-btn, .reset-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .toggle-filters-btn {
+            background: #667eea;
+            color: white;
+        }
+
+        .reset-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .toggle-filters-btn:hover, .reset-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .filter-group select, .filter-group input {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .filter-group select:focus, .filter-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .filter-group select[multiple] {
+            min-height: 120px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* View Toggle */
+        .view-controls {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            padding: 8px 15px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .sort-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .sort-group select {
+            padding: 8px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        /* Movies Display */
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .movies-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .movie-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .movie-card.random-picked {
+            animation: pulse 0.6s ease-in-out;
+            border: 4px solid #f5576c;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
+        }
+
+        .movie-info {
+            padding: 20px;
+        }
+
+        .movie-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .movie-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .meta-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .year-badge {
+            background: #667eea;
+            color: white;
+        }
+
+        .rating-badge {
+            background: #ffd700;
+            color: #333;
+        }
+
+        .runtime-badge {
+            background: #28a745;
+            color: white;
+        }
+
+        .movie-genre {
+            color: #764ba2;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .movie-director {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* List View */
+        .movie-card-list {
+            display: flex;
+            gap: 20px;
+            padding: 15px;
+        }
+
+        .movie-card-list .movie-poster {
+            width: 120px;
+            height: 180px;
+            flex-shrink: 0;
+        }
+
+        .movie-card-list .movie-info {
+            flex: 1;
+            padding: 0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            margin: 50px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .detail-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #333;
+        }
+
+        .plot-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+
+        .no-movies {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        /* Random Result Animation */
+        .random-results {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+        }
+
+        .random-results-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #f5576c;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .movies-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div style="text-align: left; margin-bottom: 20px;">
+                <a href="index.html" style="display: inline-block; padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s;">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+            <h1>🎬 Movie Explorer</h1>
+            <p class="subtitle">Parcourez votre watchlist de façon fluide et ludique</p>
+        </header>
+
+        <!-- Upload Section -->
+        <div class="upload-section" id="uploadSection">
+            <h3 style="margin-bottom: 15px;">📁 Charger votre liste de films</h3>
+            <input type="file" id="csvFile" accept=".csv" style="display: none;">
+            <button class="upload-btn" onclick="document.getElementById('csvFile').click()">
+                Choisir un fichier CSV
+            </button>
+            <p style="margin-top: 10px; color: #666; font-size: 0.9rem;">
+                Importez votre fichier movies_20251205_9.csv
+            </p>
+        </div>
+
+        <!-- Random Picker - HERO SECTION -->
+        <div class="random-section" id="randomSection" style="display: none;">
+            <h2 class="random-title">🎲 Tirage Aléatoire</h2>
+            <div class="random-controls">
+                <div class="count-selector">
+                    <label for="randomCount">Nombre de films :</label>
+                    <input type="number" id="randomCount" min="1" max="10" value="1">
+                </div>
+                <button class="random-btn" onclick="pickRandomMovies()">
+                    🎯 Tirer au sort !
+                </button>
+                <button class="reset-btn" onclick="resetFilters()" style="padding: 10px 25px; font-size: 1rem;">
+                    🔄 Réinitialiser
+                </button>
+            </div>
+            <p class="random-info">
+                💡 Le tirage prend en compte tous les filtres actifs ci-dessous
+            </p>
+            <div id="randomResults"></div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section" id="filtersSection" style="display: none;">
+            <div class="filters-header">
+                <h3 class="filters-title">🔍 Filtres</h3>
+                <div class="filter-actions">
+                    <button class="toggle-filters-btn" onclick="toggleFiltersVisibility()">
+                        <span id="toggleText">Masquer</span>
+                    </button>
+                    <button class="reset-btn" onclick="resetFilters()">🔄 Réinitialiser</button>
+                </div>
+            </div>
+
+            <div id="filtersContent">
+                <input type="text" class="search-box" id="searchBox" placeholder="🔎 Rechercher un film par titre...">
+
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="genreFilter">Genre</label>
+                        <select id="genreFilter" multiple>
+                            <option value="">Tous les genres</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="decadeFilter">Décennie</label>
+                        <select id="decadeFilter">
+                            <option value="">Toutes les décennies</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="directorFilter">Réalisateur</label>
+                        <input type="text" id="directorFilter" list="directorList" placeholder="Commencez à taper...">
+                        <datalist id="directorList"></datalist>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="actorFilter">Acteur/Actrice</label>
+                        <input type="text" id="actorFilter" list="actorList" placeholder="Commencez à taper...">
+                        <datalist id="actorList"></datalist>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="runtimeFilter">Durée</label>
+                        <select id="runtimeFilter">
+                            <option value="">Toutes durées</option>
+                            <option value="0-90">Court (< 90 min)</option>
+                            <option value="90-120">Moyen (90-120 min)</option>
+                            <option value="120-150">Long (120-150 min)</option>
+                            <option value="150-999">Très long (> 150 min)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar" id="statsBar" style="display: none;">
+            <div class="stat-item">
+                <div class="stat-number" id="totalCount">0</div>
+                <div class="stat-label">Films total</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="filteredCount">0</div>
+                <div class="stat-label">Films affichés</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="avgRating">0</div>
+                <div class="stat-label">Note moyenne</div>
+            </div>
+        </div>
+
+        <!-- View Controls -->
+        <div class="view-controls" id="viewControls" style="display: none;">
+            <div class="view-toggle">
+                <button class="view-btn active" data-view="grid" onclick="switchView('grid')">
+                    📱 Grille
+                </button>
+                <button class="view-btn" data-view="list" onclick="switchView('list')">
+                    📋 Liste
+                </button>
+            </div>
+            <div class="sort-group">
+                <label for="sortBy">Trier par :</label>
+                <select id="sortBy" onchange="applyFilters()">
+                    <option value="title">Titre (A-Z)</option>
+                    <option value="year-desc">Année (récent)</option>
+                    <option value="year-asc">Année (ancien)</option>
+                    <option value="rating-desc">Note (haute)</option>
+                    <option value="rating-asc">Note (basse)</option>
+                    <option value="runtime-desc">Durée (longue)</option>
+                    <option value="runtime-asc">Durée (courte)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Movies Display -->
+        <div id="moviesContainer">
+            <div class="loading">Chargez votre fichier CSV pour commencer...</div>
+        </div>
+
+        <!-- Modal -->
+        <div id="movieModal" class="modal" onclick="closeModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                    <button class="close-btn" onclick="closeModal()">&times;</button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allMovies = [];
+        let filteredMovies = [];
+        let currentView = 'grid';
+
+        // Parse CSV
+        function parseCSV(text) {
+            const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+            if (lines.length === 0) return [];
+
+            const parseLine = (line) => {
+                const result = [];
+                let current = '';
+                let inQuotes = false;
+                
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        result.push(current.trim());
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+                result.push(current.trim());
+                return result.map(v => v.replace(/^"|"$/g, ''));
+            };
+
+            const headers = parseLine(lines[0]);
+            const movies = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = parseLine(lines[i]);
+                const movie = {};
+                headers.forEach((header, index) => {
+                    movie[header] = values[index] || '';
+                });
+                
+                // Parse runtime to minutes
+                if (movie.Runtime) {
+                    const match = movie.Runtime.match(/(\d+)/);
+                    movie.runtimeMinutes = match ? parseInt(match[1]) : 0;
+                }
+                
+                movies.push(movie);
+            }
+
+            return movies;
+        }
+
+        // Load CSV
+        document.getElementById('csvFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                allMovies = parseCSV(event.target.result);
+                if (allMovies.length > 0) {
+                    document.getElementById('uploadSection').style.display = 'none';
+                    document.getElementById('randomSection').style.display = 'block';
+                    document.getElementById('filtersSection').style.display = 'block';
+                    document.getElementById('statsBar').style.display = 'flex';
+                    document.getElementById('viewControls').style.display = 'flex';
+                    
+                    populateFilters();
+                    applyFilters();
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        // Populate filter dropdowns
+        function populateFilters() {
+            // Genres
+            const genres = new Set();
+            allMovies.forEach(movie => {
+                if (movie.Genre) {
+                    movie.Genre.split(',').forEach(g => genres.add(g.trim()));
+                }
+            });
+            const genreSelect = document.getElementById('genreFilter');
+            Array.from(genres).sort().forEach(genre => {
+                const option = document.createElement('option');
+                option.value = genre;
+                option.textContent = genre;
+                genreSelect.appendChild(option);
+            });
+
+            // Decades
+            const decades = new Set();
+            allMovies.forEach(movie => {
+                if (movie.Year) {
+                    const year = parseInt(movie.Year);
+                    if (!isNaN(year)) {
+                        const decade = Math.floor(year / 10) * 10;
+                        decades.add(decade);
+                    }
+                }
+            });
+            const decadeSelect = document.getElementById('decadeFilter');
+            Array.from(decades).sort((a, b) => b - a).forEach(decade => {
+                const option = document.createElement('option');
+                option.value = decade;
+                option.textContent = `${decade}s`;
+                decadeSelect.appendChild(option);
+            });
+
+            // Directors
+            const directors = new Set();
+            allMovies.forEach(movie => {
+                if (movie.Director && movie.Director !== 'N/A') {
+                    movie.Director.split(',').forEach(d => directors.add(d.trim()));
+                }
+            });
+            const directorList = document.getElementById('directorList');
+            Array.from(directors).sort().forEach(director => {
+                const option = document.createElement('option');
+                option.value = director;
+                directorList.appendChild(option);
+            });
+
+            // Actors
+            const actors = new Set();
+            allMovies.forEach(movie => {
+                if (movie.Actors && movie.Actors !== 'N/A') {
+                    movie.Actors.split(',').forEach(a => actors.add(a.trim()));
+                }
+            });
+            const actorList = document.getElementById('actorList');
+            Array.from(actors).sort().forEach(actor => {
+                const option = document.createElement('option');
+                option.value = actor;
+                actorList.appendChild(option);
+            });
+
+            // Add event listeners
+            document.getElementById('searchBox').addEventListener('input', applyFilters);
+            document.getElementById('genreFilter').addEventListener('change', applyFilters);
+            document.getElementById('decadeFilter').addEventListener('change', applyFilters);
+            document.getElementById('directorFilter').addEventListener('input', applyFilters);
+            document.getElementById('actorFilter').addEventListener('input', applyFilters);
+            document.getElementById('runtimeFilter').addEventListener('change', applyFilters);
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const selectedGenres = Array.from(document.getElementById('genreFilter').selectedOptions).map(o => o.value);
+            const selectedDecade = document.getElementById('decadeFilter').value;
+            const selectedDirector = document.getElementById('directorFilter').value.trim();
+            const selectedActor = document.getElementById('actorFilter').value.trim();
+            const selectedRuntime = document.getElementById('runtimeFilter').value;
+
+            filteredMovies = allMovies.filter(movie => {
+                // Search filter
+                if (searchTerm && !movie.Title.toLowerCase().includes(searchTerm)) {
+                    return false;
+                }
+
+                // Genre filter
+                if (selectedGenres.length > 0 && !selectedGenres.includes('')) {
+                    const movieGenres = movie.Genre ? movie.Genre.split(',').map(g => g.trim()) : [];
+                    if (!selectedGenres.some(sg => movieGenres.includes(sg))) {
+                        return false;
+                    }
+                }
+
+                // Decade filter
+                if (selectedDecade) {
+                    const year = parseInt(movie.Year);
+                    const decade = Math.floor(year / 10) * 10;
+                    if (decade !== parseInt(selectedDecade)) {
+                        return false;
+                    }
+                }
+
+                // Director filter
+                if (selectedDirector) {
+                    const directors = movie.Director ? movie.Director.split(',').map(d => d.trim()) : [];
+                    if (!directors.includes(selectedDirector)) {
+                        return false;
+                    }
+                }
+
+                // Actor filter
+                if (selectedActor) {
+                    const actors = movie.Actors ? movie.Actors.split(',').map(a => a.trim()) : [];
+                    if (!actors.includes(selectedActor)) {
+                        return false;
+                    }
+                }
+
+                // Runtime filter
+                if (selectedRuntime) {
+                    const [min, max] = selectedRuntime.split('-').map(n => parseInt(n));
+                    if (movie.runtimeMinutes < min || movie.runtimeMinutes > max) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+            // Sort
+            const sortBy = document.getElementById('sortBy').value;
+            filteredMovies.sort((a, b) => {
+                switch(sortBy) {
+                    case 'title':
+                        return a.Title.localeCompare(b.Title);
+                    case 'year-desc':
+                        return parseInt(b.Year) - parseInt(a.Year);
+                    case 'year-asc':
+                        return parseInt(a.Year) - parseInt(b.Year);
+                    case 'rating-desc':
+                        return parseFloat(b.imdbRating) - parseFloat(a.imdbRating);
+                    case 'rating-asc':
+                        return parseFloat(a.imdbRating) - parseFloat(b.imdbRating);
+                    case 'runtime-desc':
+                        return b.runtimeMinutes - a.runtimeMinutes;
+                    case 'runtime-asc':
+                        return a.runtimeMinutes - b.runtimeMinutes;
+                    default:
+                        return 0;
+                }
+            });
+
+            updateStats();
+            displayMovies();
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('totalCount').textContent = allMovies.length;
+            document.getElementById('filteredCount').textContent = filteredMovies.length;
+            
+            const avgRating = filteredMovies.reduce((sum, m) => {
+                const rating = parseFloat(m.imdbRating);
+                return sum + (isNaN(rating) ? 0 : rating);
+            }, 0) / filteredMovies.length;
+            
+            document.getElementById('avgRating').textContent = avgRating.toFixed(1);
+        }
+
+        // Display movies
+        function displayMovies() {
+            const container = document.getElementById('moviesContainer');
+            
+            if (filteredMovies.length === 0) {
+                container.innerHTML = '<div class="no-movies">😕 Aucun film trouvé avec ces critères</div>';
+                return;
+            }
+
+            const gridClass = currentView === 'grid' ? 'movies-grid' : 'movies-list';
+            container.innerHTML = `<div class="${gridClass}" id="moviesList"></div>`;
+            
+            const moviesList = document.getElementById('moviesList');
+            filteredMovies.forEach((movie, index) => {
+                const card = createMovieCard(movie, index);
+                moviesList.appendChild(card);
+            });
+        }
+
+        // Create movie card
+        function createMovieCard(movie, index) {
+            const card = document.createElement('div');
+            card.className = currentView === 'grid' ? 'movie-card' : 'movie-card movie-card-list';
+            card.onclick = () => showMovieDetails(movie);
+
+            const poster = movie.Poster && movie.Poster !== 'N/A' 
+                ? movie.Poster 
+                : `https://via.placeholder.com/300x450/667eea/ffffff?text=${encodeURIComponent(movie.Title)}`;
+
+            const rating = movie.imdbRating && movie.imdbRating !== 'N/A' ? movie.imdbRating : 'N/A';
+            const runtime = movie.Runtime || 'N/A';
+
+            card.innerHTML = `
+                <img src="${poster}" alt="${movie.Title}" class="movie-poster" 
+                     onerror="this.src='https://via.placeholder.com/300x450/667eea/ffffff?text=No+Poster'">
+                <div class="movie-info">
+                    <div class="movie-title">${movie.Title}</div>
+                    <div class="movie-meta">
+                        ${movie.Year ? `<span class="meta-badge year-badge">${movie.Year}</span>` : ''}
+                        ${rating !== 'N/A' ? `<span class="meta-badge rating-badge">⭐ ${rating}</span>` : ''}
+                        ${runtime !== 'N/A' ? `<span class="meta-badge runtime-badge">⏱️ ${runtime}</span>` : ''}
+                    </div>
+                    ${movie.Genre ? `<div class="movie-genre">${movie.Genre}</div>` : ''}
+                    ${movie.Director && movie.Director !== 'N/A' ? `<div class="movie-director">👤 ${movie.Director}</div>` : ''}
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Random picker - CORE FEATURE
+        function pickRandomMovies() {
+            const count = parseInt(document.getElementById('randomCount').value);
+            const resultsDiv = document.getElementById('randomResults');
+
+            if (filteredMovies.length === 0) {
+                resultsDiv.innerHTML = '<p style="color: white; text-align: center; margin-top: 15px;">❌ Aucun film disponible avec ces filtres</p>';
+                return;
+            }
+
+            if (count > filteredMovies.length) {
+                alert(`Vous ne pouvez pas tirer ${count} films, il n'y en a que ${filteredMovies.length} disponibles !`);
+                return;
+            }
+
+            // Remove previous highlights
+            document.querySelectorAll('.movie-card').forEach(card => {
+                card.classList.remove('random-picked');
+            });
+
+            // Pick random movies
+            const shuffled = [...filteredMovies].sort(() => 0.5 - Math.random());
+            const picked = shuffled.slice(0, count);
+
+            // Display results
+            resultsDiv.innerHTML = `
+                <div class="random-results">
+                    <div class="random-results-title">🎉 ${count === 1 ? 'Votre film' : 'Vos films'} tiré${count > 1 ? 's' : ''} au sort !</div>
+                    <div class="${currentView === 'grid' ? 'movies-grid' : 'movies-list'}" id="randomMoviesList"></div>
+                </div>
+            `;
+
+            const randomList = document.getElementById('randomMoviesList');
+            picked.forEach(movie => {
+                const card = createMovieCard(movie);
+                card.classList.add('random-picked');
+                randomList.appendChild(card);
+            });
+
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Show movie details
+        function showMovieDetails(movie) {
+            document.getElementById('modalTitle').textContent = movie.Title;
+            
+            const poster = movie.Poster && movie.Poster !== 'N/A' 
+                ? `<img src="${movie.Poster}" alt="${movie.Title}" class="modal-poster">` 
+                : '';
+
+            const details = [
+                { label: 'Année', value: movie.Year },
+                { label: 'Réalisateur', value: movie.Director },
+                { label: 'Acteurs', value: movie.Actors },
+                { label: 'Genre', value: movie.Genre },
+                { label: 'Durée', value: movie.Runtime },
+                { label: 'Note IMDb', value: movie.imdbRating !== 'N/A' ? `⭐ ${movie.imdbRating}/10` : 'N/A' },
+                { label: 'Langue', value: movie.Language },
+                { label: 'Pays', value: movie.Country },
+                { label: 'Récompenses', value: movie.Awards },
+                { label: 'Box Office', value: movie.BoxOffice }
+            ].filter(d => d.value && d.value !== 'N/A' && d.value !== '');
+
+            document.getElementById('modalBody').innerHTML = `
+                ${poster}
+                <div class="detail-grid">
+                    ${details.map(d => `
+                        <div class="detail-item">
+                            <div class="detail-label">${d.label}</div>
+                            <div class="detail-value">${d.value}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                ${movie.Plot && movie.Plot !== 'N/A' ? `
+                    <div class="plot-section">
+                        <div class="detail-label" style="margin-bottom: 10px;">Synopsis</div>
+                        <div class="detail-value">${movie.Plot}</div>
+                    </div>
+                ` : ''}
+            `;
+
+            document.getElementById('movieModal').style.display = 'block';
+        }
+
+        // Close modal
+        function closeModal(event) {
+            if (!event || event.target.id === 'movieModal') {
+                document.getElementById('movieModal').style.display = 'none';
+            }
+        }
+
+        // Switch view
+        function switchView(view) {
+            currentView = view;
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.view === view);
+            });
+            displayMovies();
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('searchBox').value = '';
+            document.getElementById('genreFilter').selectedIndex = 0;
+            document.getElementById('decadeFilter').selectedIndex = 0;
+            document.getElementById('directorFilter').value = '';
+            document.getElementById('actorFilter').value = '';
+            document.getElementById('runtimeFilter').selectedIndex = 0;
+            document.getElementById('sortBy').selectedIndex = 0;
+            document.getElementById('randomResults').innerHTML = '';
+            applyFilters();
+        }
+
+        // Toggle filters visibility
+        function toggleFiltersVisibility() {
+            const content = document.getElementById('filtersContent');
+            const toggleText = document.getElementById('toggleText');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                toggleText.textContent = 'Masquer';
+            } else {
+                content.style.display = 'none';
+                toggleText.textContent = 'Afficher';
+            }
+        }
+    </script>
+</body>
+</html>
