@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Supabase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .status {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Supabase</h1>
+    
+    <div id="status" class="status">
+        Chargement...
+    </div>
+
+    <div id="user-info"></div>
+
+    <button onclick="testLogin()">Se connecter (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a6e7f696e5a6e7f696e34797577">[email&#160;protected]</a>)</button>
+    <button onclick="testLogout()">Se déconnecter</button>
+    <button onclick="testLoadRecipes()">Charger recettes</button>
+
+    <!-- Supabase JS -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Configuration Supabase
+        const SUPABASE_URL = 'https://fejvhzvpxsrzclsdsfnx.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlanZoenZweHNyemNsc2RzZm54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzMjUxMTcsImV4cCI6MjA4MTkwMTExN30.bjaGtfZ7WHIyI8Vhkbpa-ftL4U9a88iYe6QA1hClr4A';
+        
+        console.log('🔧 Création du client Supabase...');
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        console.log('✅ Client Supabase créé:', supabase);
+
+        // Vérifie au chargement
+        async function checkStatus() {
+            try {
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+                
+                if (error) throw error;
+
+                const statusDiv = document.getElementById('status');
+                const userDiv = document.getElementById('user-info');
+
+                if (session) {
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = '✅ Connecté à Supabase !';
+                    userDiv.innerHTML = `<p><strong>Email:</strong> ${session.user.email}</p>`;
+                } else {
+                    statusDiv.className = 'status error';
+                    statusDiv.innerHTML = '⚠️ Non connecté';
+                    userDiv.innerHTML = '';
+                }
+
+            } catch (error) {
+                const statusDiv = document.getElementById('status');
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `❌ Erreur: ${error.message}`;
+                console.error('Erreur:', error);
+            }
+        }
+
+        async function testLogin() {
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: 'test@test.com',
+                    password: 'Test1234!'
+                });
+
+                if (error) throw error;
+
+                alert('✅ Connexion réussie !');
+                checkStatus();
+
+            } catch (error) {
+                alert('❌ Erreur: ' + error.message);
+                console.error(error);
+            }
+        }
+
+        async function testLogout() {
+            try {
+                const { error } = await supabaseClient.auth.signOut();
+                if (error) throw error;
+
+                alert('✅ Déconnexion réussie !');
+                checkStatus();
+
+            } catch (error) {
+                alert('❌ Erreur: ' + error.message);
+                console.error(error);
+            }
+        }
+
+        async function testLoadRecipes() {
+            try {
+                const { data, error } = await supabase
+                    .from('recipes')
+                    .select('*');
+
+                if (error) throw error;
+
+                alert(`✅ ${data.length} recettes trouvées !`);
+                console.log('Recettes:', data);
+
+            } ca
