@@ -157,6 +157,19 @@
         </header>
 
         <div class="projects-list">
+		<!-- Gestionnaire de Recettes -->
+            <div class="project-item">
+                <span class="project-icon">🍳</span>
+                <div class="project-info">
+                    <h2 class="project-title">Gestionnaire de Recettes</h2>
+                    <p class="project-description">
+                        Organisez vos recettes préférées, tirage aléatoire pour l'inspiration, 
+                        filtres par critères, gestion des portions.
+                    </p>
+                </div>
+                <a href="recettes.html" class="project-btn">Ouvrir</a>
+            </div>
+		
             <!-- Movie Explorer -->
             <div class="project-item">
                 <span class="project-icon">🎬</span>
@@ -183,23 +196,19 @@
                 <a href="movieenhancer.html" class="project-btn">Ouvrir</a>
             </div>
 
-            <!-- Gestionnaire de Recettes -->
-            <div class="project-item">
-                <span class="project-icon">🍳</span>
-                <div class="project-info">
-                    <h2 class="project-title">Gestionnaire de Recettes</h2>
-                    <p class="project-description">
-                        Organisez vos recettes préférées, tirage aléatoire pour l'inspiration, 
-                        filtres par critères, gestion des portions.
-                    </p>
-                </div>
-                <a href="recettes.html" class="project-btn">Ouvrir</a>
-            </div>
+            
         </div>
 
         <footer>
             <p>💡 Sélectionnez un projet ci-dessus pour commencer</p>
         </footer>
     </div>
+	<script>
+    // Configuration Supabase
+    const SUPABASE_URL = 'https://fejvhzvpxsrzclsdsfnx.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlanZoenZweHNyemNsc2RzZm54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzMjUxMTcsImV4cCI6MjA4MTkwMTExN30.bjaGtfZ7WHIyI8Vhkbpa-ftL4U9a88iYe6QA1hClr4A';
+    
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
 </body>
 </html>
