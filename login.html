@@ -116,42 +116,6 @@
         }
     </style>
 </head>
-<!-- Supabase JS -->
-<script>
-    // Configuration Supabase
-    const SUPABASE_URL = 'https://fejvhzvpxsrzclsdsfnx.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlanZoenZweHNyemNsc2RzZm54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzMjUxMTcsImV4cCI6MjA4MTkwMTExN30.bjaGtfZ7WHIyI8Vhkbpa-ftL4U9a88iYe6QA1hClr4A';
-    
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-</script>
-<script>
-    async function checkAuth() {
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (session) {
-            document.getElementById('userEmail').textContent = `👤 ${session.user.email}`;
-            document.getElementById('authBtn').textContent = 'Se déconnecter';
-        } else {
-            document.getElementById('userEmail').textContent = '';
-            document.getElementById('authBtn').textContent = 'Se connecter';
-        }
-    }
-
-    async function handleAuth() {
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (session) {
-            // Déconnexion
-            await supabase.auth.signOut();
-            location.reload();
-        } else {
-            // Redirection vers login
-            window.location.href = 'login.html';
-        }
-    }
-
-    checkAuth();
-</script>
 <body>
     <div class="container">
         <h1>🔐 Connexion</h1>
@@ -184,13 +148,17 @@
 
     <!-- Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="config.js"></script>
-    
     <script>
+        // Configuration Supabase
+        const SUPABASE_URL = 'https://fejvhzvpxsrzclsdsfnx.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlanZoenZweHNyemNsc2RzZm54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzMjUxMTcsImV4cCI6MjA4MTkwMTExN30.bjaGtfZ7WHIyI8Vhkbpa-ftL4U9a88iYe6QA1hClr4A';
+        
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         let isLoginMode = true;
 
         // Toggle entre connexion et inscription
-        document.getElementById('toggleLink').addEventListener('click', (e) => {
+        document.getElementById('toggleLink').addEventListener('click', function(e) {
             e.preventDefault();
             isLoginMode = !isLoginMode;
             
@@ -198,7 +166,7 @@
                 document.querySelector('h1').textContent = '🔐 Connexion';
                 document.getElementById('submitBtn').textContent = 'Se connecter';
                 document.getElementById('modeText').textContent = 'Pas encore de compte ?';
-                document.getElementById('toggleLink').textContent = 'S\'inscrire';
+                document.getElementById('toggleLink').textContent = "S'inscrire";
             } else {
                 document.querySelector('h1').textContent = '📝 Inscription';
                 document.getElementById('submitBtn').textContent = 'Créer un compte';
@@ -208,7 +176,7 @@
         });
 
         // Gestion du formulaire
-        document.getElementById('authForm').addEventListener('submit', async (e) => {
+        document.getElementById('authForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const email = document.getElementById('email').value;
@@ -222,7 +190,7 @@
             try {
                 if (isLoginMode) {
                     // Connexion
-                    const { data, error } = await supabase.auth.signInWithPassword({
+                    const { data, error } = await supabaseClient.auth.signInWithPassword({
                         email: email,
                         password: password
                     });
@@ -233,13 +201,13 @@
                     messageDiv.className = 'message success';
                     messageDiv.style.display = 'block';
 
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
+                    setTimeout(function() {
+                        window.location.href = 'recettes.html';
                     }, 1000);
 
                 } else {
                     // Inscription
-                    const { data, error } = await supabase.auth.signUp({
+                    const { data, error } = await supabaseClient.auth.signUp({
                         email: email,
                         password: password
                     });
@@ -251,7 +219,7 @@
                     messageDiv.style.display = 'block';
 
                     // Bascule automatiquement en mode connexion
-                    setTimeout(() => {
+                    setTimeout(function() {
                         document.getElementById('toggleLink').click();
                     }, 2000);
                 }
@@ -266,9 +234,10 @@
         });
 
         // Vérifie si déjà connecté
-        supabase.auth.getSession().then(({ data: { session } }) => {
+        supabaseClient.auth.getSession().then(function(response) {
+            const session = response.data.session;
             if (session) {
-                window.location.href = 'index.html';
+                window.location.href = 'recettes.html';
             }
         });
     </script>
