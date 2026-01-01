@@ -394,6 +394,16 @@
     </div>
 
 
+    <!-- Supabase JS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    // Configuration Supabase
+    const SUPABASE_URL = 'https://fejvhzvpxsrzclsdsfnx.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlanZoenZweHNyemNsc2RzZm54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzMjUxMTcsImV4cCI6MjA4MTkwMTExN30.bjaGtfZ7WHIyI8Vhkbpa-ftL4U9a88iYe6QA1hClr4A';
+    
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
+
     <script>
         let recipes = [];
         let selectedRecipes = new Set();
@@ -402,7 +412,7 @@
 
         // Vérifie l'authentification au chargement
         async function checkAuth() {
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
             
             if (!session) {
                 window.location.href = 'login.html';
@@ -415,7 +425,7 @@
 
         // Déconnexion
         async function handleLogout() {
-            await supabase.auth.signOut();
+            await supabaseClient.auth.signOut();
             window.location.href = 'login.html';
         }
 
@@ -468,7 +478,7 @@
             }
 
             try {
-                const { data: { session } } = await supabase.auth.getSession();
+                const { data: { session } } = await supabaseClient.auth.getSession();
 
                 const recipeData = {
                     user_id: session.user.id,
@@ -664,7 +674,7 @@
                 return;
             }
 
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
             const toImport = [];
 
             for (let i = 1; i < lines.length; i++) {
@@ -750,15 +760,5 @@
             }
         })();
     </script>
-    <!-- Supabase JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        // Configuration Supabase
-        const SUPABASE_URL = 'https://fejvhzvpxsrzclsdsfnx.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlanZoenZweHNyemNsc2RzZm54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzMjUxMTcsImV4cCI6MjA4MTkwMTExN30.bjaGtfZ7WHIyI8Vhkbpa-ftL4U9a88iYe6QA1hClr4A';
-        
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    </script>
-
 </body>
 </html>
