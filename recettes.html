@@ -432,7 +432,7 @@
         // Charge les recettes depuis Supabase
         async function loadRecipes() {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('recipes')
                     .select('*')
                     .order('created_at', { ascending: false });
@@ -492,7 +492,7 @@
 
                 if (editingRecipeId) {
                     // Mise à jour
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('recipes')
                         .update(recipeData)
                         .eq('id', editingRecipeId);
@@ -500,7 +500,7 @@
                     if (error) throw error;
                 } else {
                     // Création
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('recipes')
                         .insert([recipeData]);
 
@@ -523,7 +523,7 @@
             }
 
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('recipes')
                     .delete()
                     .eq('id', id);
@@ -544,7 +544,7 @@
                 const recipe = recipes.find(r => r.id === id);
                 if (!recipe) return;
 
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('recipes')
                     .update({ favorite: !recipe.favorite })
                     .eq('id', id);
@@ -698,7 +698,7 @@
             }
 
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('recipes')
                     .insert(toImport);
 
