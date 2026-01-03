@@ -746,6 +746,29 @@
         }
 
         // ============================================
+        // FORM TAGS
+        // ============================================
+        function resetForm() {
+            editingRecipeId = null;
+            document.getElementById('recipeName').value = '';
+            document.getElementById('formTitle').textContent = 'Nouvelle recette';
+            currentIngredients = [];
+            currentCriteriaList = [];
+            renderFormTags();
+            hasUnsavedChanges = false;
+        }
+        
+        function renderFormTags() {
+            document.getElementById('ingredientTags').innerHTML = currentIngredients.map((t, i) => `<div class="tag"><span>${t}</span><span class="tag-remove" onclick="removeIngredient(${i})">✕</span></div>`).join('');
+            document.getElementById('criteriaTags').innerHTML = currentCriteriaList.map((t, i) => `<div class="tag"><span>${t}</span><span class="tag-remove" onclick="removeCriteria(${i})">✕</span></div>`).join('');
+        }
+        
+        function addIngredient(v) { v = v.trim(); if (v && !currentIngredients.includes(v)) { currentIngredients.unshift(v); renderFormTags(); checkUnsavedChanges(); } }
+        function removeIngredient(i) { currentIngredients.splice(i, 1); renderFormTags(); checkUnsavedChanges(); }
+        function addCriteria(v) { v = v.trim(); if (v && !currentCriteriaList.includes(v)) { currentCriteriaList.unshift(v); renderFormTags(); checkUnsavedChanges(); } }
+        function removeCriteria(i) { currentCriteriaList.splice(i, 1); renderFormTags(); checkUnsavedChanges(); }
+
+        // ============================================
         // AUTOCOMPLETE
         // ============================================
         function setupAutocomplete() {
@@ -930,6 +953,134 @@
             document.getElementById('randomModeBanner').classList.remove('show');
             renderFilterTags();
             renderRecipes();
+        }
+
+        // ============================================
+        // EDIT RECIPE
+        // ============================================
+        function editRecipe(id) {
+            if (hasUnsavedChanges) {
+                pendingCloseAction = () => { doEditRecipe(id); };
+                showUnsavedModal();
+                return;
+            }
+            doEditRecipe(id);
+        }
+        
+        function doEditRecipe(id) {
+            const r = recipes.find(x => x.id === id);
+            if (!r) return;
+            editingRecipeId = id;
+            document.getElementById('recipeName').value = r.name;
+            document.getElementById('formTitle').textContent = 'Modifier la recette';
+            currentIngredients = [...r.ingredients];
+            currentCriteriaList = [...r.criteria];
+            renderFormTags();
+            hasUnsavedChanges = false;
+            closeAllPanels();
+            openPanel('addPanel');
+        }
+
+        // ============================================
+        // SUPABASE CRUD
+        // ============================================
+        async function saveRecipe() {
+            const name = document.getElementById('recipeName').value.trim();
+            if (!name || !currentIngredients.length) { alert('Nom et ingrédients requis'); return; }
+
+            try {
+                setSyncStatus('syncing');
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                const recipeData = {
+                    user_id: session.user.id, name, ingredients: currentIngredients,
+                    double_portion: false, criteria: currentCriteriaList, usage_count: 0, favorite: false
+                };
+
+                if (editingRecipeId) {
+                    const existing = recipes.find(r => r.id === editingRecipeId);
+                    if (existing) { recipeData.usage_count = existing.usageCount; recipeData.favorite = existing.favorite; }
+                    const { error } = await supabaseClient.from('recipes').update(recipeData).eq('id', editingRecipeId);
+                    if (error) throw error;
+                    
+                    hasUnsavedChanges = false;
+                    const editedId = editingRecipeId;
+                    await loadRecipes();
+                    forceClosePanel('addPanel');
+                    
+                    setTimeout(() => {
+                        const el = document.querySelector(`[data-id="${editedId}"]`);
+                        el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                } else {
+                    const { error } = await supabaseClient.from('recipes').insert([recipeData]);
+                    if (error) throw error;
+                    
+                    hasUnsavedChanges = false;
+                    await loadRecipes();
+                    resetForm();
+                    document.getElementById('recipeName').focus();
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                setSyncStatus('error');
+                alert('Erreur lors de la sauvegarde');
+            }
+        }
+
+        async function deleteRecipe(id) {
+            if (!confirm('Supprimer cette recette ?')) return;
+            try {
+                setSyncStatus('syncing');
+                const { error } = await supabaseClient.from('recipes').delete().eq('id', id);
+                if (error) throw error;
+                selectedRecipes.delete(id);
+                if (randomModeIds) randomModeIds.delete(id);
+                await loadRecipes();
+            } catch (error) { console.error('Erreur:', error); setSyncStatus('error'); }
+        }
+
+        async function toggleFavorite(id) {
+            try {
+                setSyncStatus('syncing');
+                const recipe = recipes.find(r => r.id === id);
+                if (!recipe) return;
+                const { error } = await supabaseClient.from('recipes').update({ favorite: !recipe.favorite }).eq('id', id);
+                if (error) throw error;
+                await loadRecipes();
+            } catch (error) { console.error('Erreur:', error); setSyncStatus('error'); }
+        }
+
+        async function incrementUsage(id) {
+            try {
+                const recipe = recipes.find(r => r.id === id);
+                if (!recipe) return;
+                await supabaseClient.from('recipes').update({ usage_count: recipe.usageCount + 1 }).eq('id', id);
+            } catch (error) { console.error('Erreur usage:', error); }
+        }
+
+        // ============================================
+        // DELETE SELECTED
+        // ============================================
+        function deleteSelectedRecipes() {
+            if (selectedRecipes.size === 0) return;
+            document.getElementById('deleteModalText').textContent = `Supprimer ${selectedRecipes.size} recette${selectedRecipes.size > 1 ? 's' : ''} ?`;
+            document.getElementById('deleteModal').classList.add('show');
+        }
+        
+        function closeDeleteModal() { document.getElementById('deleteModal').classList.remove('show'); }
+        
+        async function confirmDelete() {
+            closeDeleteModal();
+            try {
+                setSyncStatus('syncing');
+                const ids = Array.from(selectedRecipes);
+                for (const id of ids) {
+                    await supabaseClient.from('recipes').delete().eq('id', id);
+                    if (randomModeIds) randomModeIds.delete(id);
+                }
+                selectedRecipes.clear();
+                await loadRecipes();
+            } catch (error) { console.error('Erreur:', error); setSyncStatus('error'); }
         }
 
         // ============================================
