@@ -899,7 +899,12 @@
             }
             return html;
         }
-toLowerCase() === n.toLowerCase())) return; filterCriteriaList.push({ name: n, mode: 'include' }); renderFilterTags(); renderRecipes(); }
+
+        // ============================================
+        // FILTERS
+        // ============================================
+        function addFilterIngredient(n) { n = n.trim(); if (!n || filterIngredientsList.some(f => f.name.toLowerCase() === n.toLowerCase())) return; filterIngredientsList.push({ name: n, mode: 'include' }); renderFilterTags(); renderRecipes(); }
+        function addFilterCriteria(n) { n = n.trim(); if (!n || filterCriteriaList.some(f => f.name.toLowerCase() === n.toLowerCase())) return; filterCriteriaList.push({ name: n, mode: 'include' }); renderFilterTags(); renderRecipes(); }
         
         function renderFilterTags() {
             document.getElementById('filterIngredientsTags').innerHTML = filterIngredientsList.map((f, i) => `<div class="tag ${f.mode}"><span onclick="filterIngredientsList[${i}].mode=filterIngredientsList[${i}].mode==='include'?'exclude':'include';renderFilterTags();renderRecipes()" style="cursor:pointer">${f.mode === 'include' ? '✓' : '✗'} ${f.name}</span><span class="tag-remove" onclick="filterIngredientsList.splice(${i},1);renderFilterTags();renderRecipes()">✕</span></div>`).join('');
