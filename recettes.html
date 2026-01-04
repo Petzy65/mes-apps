@@ -178,17 +178,6 @@
         .stat-number { font-size: 1.4em; font-weight: 700; color: var(--primary); }
         .stat-label { color: var(--text-light); font-size: 0.85em; }
 
-        /* Collapsible */
-        .collapsible { background: var(--white); border-radius: 10px; margin-bottom: 12px; border: 2px solid var(--border); overflow: hidden; }
-        .collapsible-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; cursor: pointer; transition: background 0.2s; }
-        .collapsible-header:hover { background: var(--surface-alt); }
-        .collapsible-title { font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-        .collapsible-arrow { transition: transform 0.3s; color: var(--text-light); }
-        .collapsible.open .collapsible-arrow { transform: rotate(180deg); }
-        .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
-        .collapsible.open .collapsible-content { max-height: 800px; }
-        .collapsible-inner { padding: 15px; border-top: 1px solid var(--border); }
-
         /* Form */
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-dark); font-size: 0.9em; }
@@ -220,7 +209,6 @@
         /* Search & Filters */
         .search-box { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.95em; font-family: 'Montserrat', sans-serif; margin-bottom: 15px; background: var(--white); transition: border-color 0.2s; }
         .search-box:focus { outline: none; border-color: var(--primary); }
-        .filter-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
         .list-controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
         .view-toggle, .sort-toggle { display: flex; background: var(--surface-alt); border-radius: 8px; overflow: hidden; border: 2px solid var(--border); }
         .view-toggle button, .sort-toggle button { padding: 8px 14px; background: transparent; border: none; color: var(--text-medium); font-weight: 600; cursor: pointer; min-height: auto; font-size: 0.85em; transition: all 0.2s; font-family: 'Montserrat', sans-serif; }
@@ -463,6 +451,7 @@
                                 <div class="autocomplete-dropdown" id="filterCriteriaAutocomplete"></div>
                             </div>
                             <div class="tags-container" id="filterCriteriaTags" data-placeholder=""></div>
+                            <div class="top-criteria" id="topCriteriaFilter"></div>
                         </div>
                         <button class="btn-outline btn-small" onclick="resetFilters()"><svg class="icon icon-sm"><use href="#icon-refresh"/></svg> Réinitialiser filtres</button>
                     </div>
@@ -693,10 +682,15 @@
             });
         }
         
+        // Normalise une chaîne : enlève accents + minuscules
+        function normalize(str) {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        }
+        
         function getSuggestions(q, data) {
-            q = q.toLowerCase();
-            return Array.from(data).filter(i => i.toLowerCase().includes(q))
-                .sort((a, b) => a.toLowerCase().startsWith(q) ? -1 : b.toLowerCase().startsWith(q) ? 1 : a.localeCompare(b))
+            const qNorm = normalize(q);
+            return Array.from(data).filter(i => normalize(i).includes(qNorm))
+                .sort((a, b) => normalize(a).startsWith(qNorm) ? -1 : normalize(b).startsWith(qNorm) ? 1 : a.localeCompare(b))
                 .slice(0, 8);
         }
         function showAutocomplete(inputId, dropdownId, items, q) {
@@ -722,31 +716,58 @@
         }
 
         // ============================================
+        // FILTERING (factorisé + optimisé)
+        // ============================================
+        function getFilteredRecipes(options = {}) {
+            const { 
+                includeRandomMode = true,  // Respecter le mode random
+                searchText = ''            // Recherche par nom
+            } = options;
+            
+            const searchNorm = normalize(searchText);
+            
+            // Pré-normaliser les filtres (1 seule fois, pas à chaque recette)
+            const ingFiltersNorm = filterIngredientsList.map(f => ({ mode: f.mode, nameNorm: normalize(f.name) }));
+            const critFiltersNorm = filterCriteriaList.map(f => ({ mode: f.mode, nameNorm: normalize(f.name) }));
+            
+            return recipes.filter(r => {
+                // Random mode filter
+                if (includeRandomMode && randomModeIds !== null && !randomModeIds.has(r.id)) return false;
+                
+                // Recherche par nom (contient)
+                if (searchNorm && !normalize(r.name).includes(searchNorm)) return false;
+                
+                // Favoris uniquement
+                if (showOnlyFavorites && !r.favorite) return false;
+                
+                // Filtre ingrédients : comparaison EXACTE
+                for (let f of ingFiltersNorm) {
+                    const has = r.ingredients.some(i => normalize(i) === f.nameNorm);
+                    if (f.mode === 'include' && !has) return false;
+                    if (f.mode === 'exclude' && has) return false;
+                }
+                
+                // Filtre critères : comparaison EXACTE
+                for (let f of critFiltersNorm) {
+                    const has = r.criteria.some(c => normalize(c) === f.nameNorm);
+                    if (f.mode === 'include' && !has) return false;
+                    if (f.mode === 'exclude' && has) return false;
+                }
+                
+                return true;
+            });
+        }
+
+        // ============================================
         // RENDER RECIPES
         // ============================================
         function renderRecipes() {
             const list = document.getElementById('recipeList');
-            const search = document.getElementById('searchBox').value.toLowerCase();
+            const search = document.getElementById('searchBox').value;
             
-            let filtered = recipes.filter(r => {
-                // V7: Random mode filter
-                if (randomModeIds !== null && !randomModeIds.has(r.id)) return false;
-                
-                if (search && !r.name.toLowerCase().includes(search)) return false;
-                if (showOnlyFavorites && !r.favorite) return false;
-                for (let f of filterIngredientsList) {
-                    const has = r.ingredients.some(i => i.toLowerCase().includes(f.name.toLowerCase()));
-                    if (f.mode === 'include' && !has) return false;
-                    if (f.mode === 'exclude' && has) return false;
-                }
-                for (let f of filterCriteriaList) {
-                    const has = r.criteria.some(c => c.toLowerCase().includes(f.name.toLowerCase()));
-                    if (f.mode === 'include' && !has) return false;
-                    if (f.mode === 'exclude' && has) return false;
-                }
-                return true;
-            });
+            let filtered = getFilteredRecipes({ searchText: search });
             
+            // Tri
             if (currentSort === 'alpha') filtered.sort((a, b) => a.name.localeCompare(b.name));
             else filtered.sort((a, b) => b.usageCount - a.usageCount);
             
@@ -860,6 +881,7 @@
             currentIngredients = [];
             currentCriteriaList = [];
             renderFormTags();
+            document.getElementById('formTitle').textContent = 'Nouvelle recette';
         }
         function renderFormTags() {
             document.getElementById('ingredientTags').innerHTML = currentIngredients.map((t, i) => `<div class="tag"><span>${t}</span><span class="tag-remove" onclick="removeIngredient(${i})">✕</span></div>`).join('');
@@ -878,8 +900,9 @@
             currentIngredients = [...r.ingredients];
             currentCriteriaList = [...r.criteria];
             renderFormTags();
-            document.getElementById('addRecipeSection').classList.add('open');
-            document.getElementById('addRecipeSection').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('formTitle').textContent = 'Modifier la recette';
+            openPanel('addPanel');
+            document.getElementById('addPanel').scrollIntoView({ behavior: 'smooth' });
         }
 
         // ============================================
@@ -892,6 +915,14 @@
             try {
                 setSyncStatus('syncing');
                 const { data: { session } } = await supabaseClient.auth.getSession();
+                
+                // Vérifier que la session est valide
+                if (!session?.user?.id) {
+                    alert('Session expirée. Veuillez vous reconnecter.');
+                    setSyncStatus('error');
+                    return;
+                }
+                
                 const recipeData = {
                     user_id: session.user.id,
                     name,
@@ -913,7 +944,7 @@
                 }
                 
                 resetForm();
-                document.getElementById('addRecipeSection').classList.remove('open');
+                closePanel('addPanel');
                 await loadRecipes();
             } catch (error) {
                 console.error('Erreur:', error);
@@ -998,13 +1029,12 @@
         }
         function randomize() {
             const count = parseInt(document.getElementById('randomCount').value) || 5;
-            let filtered = recipes.filter(r => {
-                if (showOnlyFavorites && !r.favorite) return false;
-                for (let f of filterIngredientsList) { const has = r.ingredients.some(i => i.toLowerCase().includes(f.name.toLowerCase())); if (f.mode === 'include' && !has) return false; if (f.mode === 'exclude' && has) return false; }
-                for (let f of filterCriteriaList) { const has = r.criteria.some(c => c.toLowerCase().includes(f.name.toLowerCase())); if (f.mode === 'include' && !has) return false; if (f.mode === 'exclude' && has) return false; }
-                return true;
-            });
+            
+            // Utilise getFilteredRecipes mais SANS le mode random (on veut tous les candidats)
+            let filtered = getFilteredRecipes({ includeRandomMode: false });
+            
             if (!filtered.length) { alert('Aucune recette ne correspond aux filtres !'); return; }
+            
             const shuffled = [...filtered].sort(() => Math.random() - 0.5);
             const picked = shuffled.slice(0, Math.min(count, filtered.length));
             
@@ -1300,15 +1330,15 @@
         }
         
         function openPanel(panelId) {
-            document.getElementById(panelId).classList.add('show');
+            document.getElementById(panelId)?.classList.add('show');
             document.querySelector(`[data-panel="${panelId}"]`)?.classList.add('active');
             if (panelId === 'addPanel') {
-                setTimeout(() => document.getElementById('recipeName').focus(), 100);
+                setTimeout(() => document.getElementById('recipeName')?.focus(), 100);
             }
         }
         
         function closePanel(panelId) {
-            document.getElementById(panelId).classList.remove('show');
+            document.getElementById(panelId)?.classList.remove('show');
             document.querySelector(`[data-panel="${panelId}"]`)?.classList.remove('active');
             if (panelId === 'addPanel') resetForm();
         }
@@ -1358,10 +1388,19 @@
         function renderTopCriteria() {
             const critCounts = {};
             recipes.forEach(r => r.criteria.forEach(c => { critCounts[c] = (critCounts[c] || 0) + 1; }));
-            const sorted = Object.entries(critCounts).sort((a, b) => b[1] - a[1]).slice(0, 10);
+            const sorted = Object.entries(critCounts).sort((a, b) => b[1] - a[1]);
             const colors = ['--crit-1','--crit-2','--crit-3','--crit-4','--crit-5','--crit-6','--crit-7','--crit-8','--crit-9','--crit-10'];
-            document.getElementById('topCriteria').innerHTML = sorted.map(([name, count], i) => 
+            
+            // Top 10 pour le formulaire d'ajout
+            const top10 = sorted.slice(0, 10);
+            document.getElementById('topCriteria').innerHTML = top10.map(([name, count], i) => 
                 `<button class="criteria-chip" style="background: var(${colors[i % 10]})" onclick="addCriteriaFromChip('${name.replace(/'/g, "\\'")}')">${name} <span class="count">${count}</span></button>`
+            ).join('');
+            
+            // Top 8 pour les filtres
+            const top8 = sorted.slice(0, 8);
+            document.getElementById('topCriteriaFilter').innerHTML = top8.map(([name, count], i) => 
+                `<button class="criteria-chip" style="background: var(${colors[i % 10]})" onclick="addFilterCriteriaFromChip('${name.replace(/'/g, "\\'")}')">${name} <span class="count">${count}</span></button>`
             ).join('');
         }
         
@@ -1369,6 +1408,14 @@
             if (!currentCriteriaList.includes(name)) {
                 currentCriteriaList.unshift(name);
                 renderFormTags();
+            }
+        }
+        
+        function addFilterCriteriaFromChip(name) {
+            if (!filterCriteriaList.some(f => f.name.toLowerCase() === name.toLowerCase())) {
+                filterCriteriaList.push({ name: name, mode: 'include' });
+                renderFilterTags();
+                renderRecipes();
             }
         }
 
