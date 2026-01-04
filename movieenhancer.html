@@ -23,6 +23,28 @@
             margin: 0 auto;
         }
 
+        .auth-header {
+            background: rgba(255,255,255,0.95);
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .user-info {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: #dc3545;
+            font-size: 0.9rem;
+        }
+
         h1 {
             color: white;
             text-align: center;
@@ -46,7 +68,7 @@
             margin-bottom: 15px;
         }
 
-        input[type="text"], textarea {
+        input[type="text"], input[type="file"] {
             flex: 1;
             min-width: 200px;
             padding: 12px 20px;
@@ -54,16 +76,9 @@
             border-radius: 8px;
             font-size: 16px;
             transition: border-color 0.3s;
-            font-family: inherit;
         }
 
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-            width: 100%;
-        }
-
-        input:focus, textarea:focus {
+        input:focus {
             outline: none;
             border-color: #667eea;
         }
@@ -85,10 +100,6 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
         button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
@@ -101,6 +112,10 @@
 
         .btn-success {
             background: #28a745;
+        }
+
+        .btn-danger {
+            background: #dc3545;
         }
 
         .message {
@@ -155,217 +170,62 @@
             opacity: 0.9;
         }
 
-        .movies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .movie-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .movie-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .movie-card.incomplete {
-            border: 3px solid #ffc107;
-        }
-
-        .incomplete-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ffc107;
-            color: #333;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 10;
-        }
-
-        .movie-poster {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            background: #f0f0f0;
-        }
-
-        .movie-info {
-            padding: 20px;
-        }
-
-        .movie-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .movie-year {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .movie-rating {
-            display: inline-block;
-            background: #ffd700;
-            color: #333;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .movie-genre {
-            color: #764ba2;
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .delete-btn {
-            flex: 1;
-            background: #dc3545;
-            padding: 8px;
-            font-size: 14px;
-        }
-
-        .delete-btn:hover {
-            background: #c82333;
-        }
-
-        .enrich-btn {
-            flex: 1;
-            background: #28a745;
-            padding: 8px;
-            font-size: 14px;
-        }
-
-        .enrich-btn:hover {
-            background: #218838;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: white;
-            max-width: 800px;
-            margin: 50px auto;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .modal-header h2 {
-            font-size: 1.8rem;
-        }
-
-        .close-btn {
-            background: none;
-            color: white;
-            font-size: 2rem;
-            padding: 0;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-        }
-
-        .modal-body {
-            padding: 30px;
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        .modal-poster {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
-            margin: 0 auto 20px;
-            display: block;
-        }
-
-        .detail-row {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .detail-label {
-            font-weight: 600;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-
-        .detail-value {
-            color: #333;
-            line-height: 1.6;
-        }
-
         .help-text {
             color: #666;
             font-size: 0.9rem;
             margin-top: 10px;
         }
 
-        @media (max-width: 768px) {
-            .movies-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
+        .import-mode {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
 
-            .modal-content {
-                margin: 20px auto;
+        .import-mode label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .import-mode input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .auth-header {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header avec auth -->
+        <div class="auth-header" id="authHeader" style="display: none;">
+            <div class="user-info" id="userEmail"></div>
+            <button class="logout-btn" onclick="handleLogout()">Se déconnecter</button>
+        </div>
+
         <div style="margin-bottom: 20px;">
             <a href="index.html" style="display: inline-block; padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s;">
                 ← Retour à l'accueil
             </a>
         </div>
+
         <h1>🎬 Gestionnaire de Films</h1>
         
+        <!-- Section API OMDb -->
         <div class="input-section">
-            <h3 style="margin-bottom: 15px;">Configuration API</h3>
+            <h3 style="margin-bottom: 15px;">Configuration API OMDb</h3>
             <div class="input-group">
                 <input type="text" id="apiKey" placeholder="Clé API OMDb (obtenir sur omdbapi.com)">
                 <button onclick="saveApiKey()" class="btn-success">💾 Sauvegarder la clé</button>
@@ -373,40 +233,53 @@
             <div class="help-text">Obtenez votre clé API gratuite sur <a href="http://www.omdbapi.com/apikey.aspx" target="_blank">omdbapi.com</a></div>
         </div>
 
+        <!-- Section Import CSV -->
         <div class="input-section">
             <h3 style="margin-bottom: 15px;">Importer une liste CSV</h3>
+            
+            <div class="import-mode">
+                <label>
+                    <input type="radio" name="importMode" value="add" checked>
+                    ➕ Ajouter à ma liste existante
+                </label>
+                <label>
+                    <input type="radio" name="importMode" value="replace">
+                    🔄 Écraser ma liste (supprime tout et réimporte)
+                </label>
+            </div>
+
             <input type="file" id="csvFile" accept=".csv" style="margin-bottom: 10px;">
             <div class="help-text" style="margin-bottom: 10px;">
                 Formats CSV acceptés :<br>
                 • Letterboxd : Date, Name, Year, Letterboxd URI<br>
-                • Standard : Title, Year, Director, etc.<br>
-                • Simple : une colonne avec les titres des films<br>
-                Les films déjà enrichis (avec Director, Actors, Plot) ne seront pas rappelés à l'API.
+                • Standard : Title, Year, Director, imdbID, etc.<br>
+                Les films déjà enrichis ne seront pas rappelés à l'API.
             </div>
             <div class="input-group">
                 <button onclick="document.getElementById('csvFile').click()">📁 Choisir un fichier CSV</button>
-                <button onclick="enrichAllIncomplete()" class="btn-success">✨ Enrichir tous les films incomplets</button>
                 <button onclick="exportMovies()" class="btn-secondary">📤 Exporter CSV</button>
             </div>
             <div id="importMessage" class="message"></div>
         </div>
 
+        <!-- Stats -->
         <div class="input-section">
             <div class="stats">
                 <div class="stat-box">
                     <div class="stat-number" id="totalMovies">0</div>
-                    <div class="stat-label">Films total</div>
+                    <div class="stat-label">Films dans ma liste</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number" id="enrichedMovies">0</div>
-                    <div class="stat-label">Films enrichis</div>
+                    <div class="stat-number" id="watchedMovies">0</div>
+                    <div class="stat-label">Films vus</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number" id="incompleteMovies">0</div>
-                    <div class="stat-label">À enrichir</div>
+                    <div class="stat-number" id="favoriteMovies">0</div>
+                    <div class="stat-label">Favoris</div>
                 </div>
             </div>
             
+            <!-- Ajout manuel -->
             <h3 style="margin-bottom: 15px;">Ajouter un film</h3>
             <div class="input-group">
                 <input type="text" id="movieTitle" placeholder="Titre du film">
@@ -414,26 +287,42 @@
             </div>
             <div id="message" class="message"></div>
         </div>
-
-        <div class="movies-grid" id="moviesGrid"></div>
     </div>
 
-    <div id="movieModal" class="modal" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="modal-header">
-                <h2 id="modalTitle"></h2>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body" id="modalBody"></div>
-        </div>
-    </div>
-
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        let movies = [];
+        // Configuration Supabase
+        const SUPABASE_URL = 'https://fejvhzvpxsrzclsdsfnx.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlanZoenZweHNyemNsc2RzZm54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzMjUxMTcsImV4cCI6MjA4MTkwMTExN30.bjaGtfZ7WHIyI8Vhkbpa-ftL4U9a88iYe6QA1hClr4A';
+        
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         let apiKey = localStorage.getItem('omdb_api_key') || '';
+        let currentUser = null;
 
         if (apiKey) {
             document.getElementById('apiKey').value = apiKey;
+        }
+
+        // Authentification
+        async function checkAuth() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            
+            if (!session) {
+                window.location.href = 'login.html';
+                return false;
+            }
+
+            currentUser = session.user;
+            document.getElementById('authHeader').style.display = 'flex';
+            document.getElementById('userEmail').textContent = '👤 ' + session.user.email;
+            return true;
+        }
+
+        async function handleLogout() {
+            await supabaseClient.auth.signOut();
+            window.location.href = 'login.html';
         }
 
         function saveApiKey() {
@@ -447,18 +336,15 @@
             }
         }
 
-        function isMovieComplete(movie) {
-            return movie.imdbID && movie.Director && movie.Actors && movie.Plot && movie.Plot.length > 50;
-        }
-
         function showMessage(elementId, text, type) {
             const msg = document.getElementById(elementId);
             msg.textContent = text;
-            msg.className = `message ${type}`;
+            msg.className = 'message ' + type;
             msg.style.display = 'block';
-            setTimeout(() => msg.style.display = 'none', 5000);
+            setTimeout(function() { msg.style.display = 'none'; }, 5000);
         }
 
+        // Rechercher et ajouter un film
         async function searchMovie() {
             if (!apiKey) {
                 showMessage('message', 'Veuillez d\'abord sauvegarder votre clé API', 'error');
@@ -471,103 +357,183 @@
                 return;
             }
 
-            await enrichMovieByTitle(title, 'message');
+            await enrichAndAddMovie(title, 'message');
             document.getElementById('movieTitle').value = '';
         }
 
-        async function enrichMovieByTitle(title, messageElement) {
+        async function enrichAndAddMovie(title, messageElement) {
             try {
-                const url = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(title)}&plot=full`;
+                const url = 'https://www.omdbapi.com/?apikey=' + apiKey + '&t=' + encodeURIComponent(title) + '&plot=full';
                 const response = await fetch(url);
-                const data = await response.json();
+                const omdbData = await response.json();
                 
-                if (data.Response === 'True') {
-                    const existingIndex = movies.findIndex(m => m.imdbID === data.imdbID);
-                    if (existingIndex >= 0) {
-                        movies[existingIndex] = data;
-                        showMessage(messageElement, `"${data.Title}" mis à jour !`, 'success');
-                    } else {
-                        movies.push(data);
-                        showMessage(messageElement, `"${data.Title}" ajouté avec succès !`, 'success');
-                    }
-                    saveMovies();
-                    displayMovies();
+                if (omdbData.Response === 'True') {
+                    await saveMovieToSupabase(omdbData);
+                    showMessage(messageElement, '✅ "' + omdbData.Title + '" ajouté avec succès !', 'success');
+                    await loadStats();
                 } else {
-                    showMessage(messageElement, data.Error || 'Film non trouvé', 'error');
+                    showMessage(messageElement, omdbData.Error || 'Film non trouvé', 'error');
                 }
             } catch (error) {
                 showMessage(messageElement, 'Erreur de connexion à l\'API', 'error');
+                console.error(error);
             }
         }
 
-        async function enrichMovie(index) {
-            if (!apiKey) {
-                showMessage('message', 'Veuillez d\'abord sauvegarder votre clé API', 'error');
-                return;
-            }
+        async function saveMovieToSupabase(omdbData) {
+            try {
+                // 1. Vérifier si le film existe déjà dans movies
+                const { data: existingMovie, error: searchError } = await supabaseClient
+                    .from('movies')
+                    .select('id')
+                    .eq('imdb_id', omdbData.imdbID)
+                    .single();
 
-            const movie = movies[index];
-            const title = movie.Title || movie.title || movie;
-            
-            await enrichMovieByTitle(title, 'message');
-        }
+                let movieId;
 
-        async function enrichAllIncomplete() {
-            if (!apiKey) {
-                showMessage('importMessage', 'Veuillez d\'abord sauvegarder votre clé API', 'error');
-                return;
-            }
+                if (existingMovie) {
+                    // Film existe déjà
+                    movieId = existingMovie.id;
+                } else {
+                    // Créer le film dans movies
+                    const movieData = {
+                        imdb_id: omdbData.imdbID,
+                        title: omdbData.Title,
+                        year: omdbData.Year,
+                        rated: omdbData.Rated,
+                        released: omdbData.Released,
+                        runtime: omdbData.Runtime,
+                        genre: omdbData.Genre,
+                        director: omdbData.Director,
+                        writer: omdbData.Writer,
+                        actors: omdbData.Actors,
+                        plot: omdbData.Plot,
+                        language: omdbData.Language,
+                        country: omdbData.Country,
+                        awards: omdbData.Awards,
+                        poster: omdbData.Poster,
+                        metascore: parseFloat(omdbData.Metascore) || null,
+                        imdb_rating: parseFloat(omdbData.imdbRating) || null,
+                        imdb_votes: omdbData.imdbVotes,
+                        type: omdbData.Type,
+                        dvd: omdbData.DVD,
+                        box_office: omdbData.BoxOffice,
+                        production: omdbData.Production,
+                        total_seasons: parseInt(omdbData.totalSeasons) || null
+                    };
 
-            const incompleteMovies = movies.filter(m => !isMovieComplete(m));
-            if (incompleteMovies.length === 0) {
-                showMessage('importMessage', 'Tous les films sont déjà enrichis !', 'info');
-                return;
-            }
+                    const { data: newMovie, error: insertError } = await supabaseClient
+                        .from('movies')
+                        .insert(movieData)
+                        .select()
+                        .single();
 
-            showMessage('importMessage', `Enrichissement de ${incompleteMovies.length} films...`, 'info');
-            
-            let enriched = 0;
-            let errors = 0;
-
-            for (const movie of incompleteMovies) {
-                const title = movie.Title || movie.title || movie;
-                const index = movies.findIndex(m => (m.Title || m.title || m) === title);
-                
-                try {
-                    const url = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(title)}&plot=full`;
-                    const response = await fetch(url);
-                    const data = await response.json();
-                    
-                    if (data.Response === 'True') {
-                        movies[index] = data;
-                        enriched++;
-                    } else {
-                        errors++;
-                    }
-                    
-                    await new Promise(resolve => setTimeout(resolve, 300));
-                } catch (error) {
-                    errors++;
+                    if (insertError) throw insertError;
+                    movieId = newMovie.id;
                 }
-            }
 
-            saveMovies();
-            displayMovies();
-            showMessage('importMessage', `✅ ${enriched} films enrichis, ${errors} erreurs`, 'success');
+                // 2. Vérifier si déjà dans user_movies
+                const { data: existingUserMovie } = await supabaseClient
+                    .from('user_movies')
+                    .select('id')
+                    .eq('user_id', currentUser.id)
+                    .eq('movie_id', movieId)
+                    .single();
+
+                if (existingUserMovie) {
+                    console.log('Film déjà dans votre watchlist');
+                    return;
+                }
+
+                // 3. Ajouter à user_movies
+                const { error: userMovieError } = await supabaseClient
+                    .from('user_movies')
+                    .insert({
+                        user_id: currentUser.id,
+                        movie_id: movieId,
+                        status: 'to_watch',
+                        favorite: false
+                    });
+
+                if (userMovieError) throw userMovieError;
+
+            } catch (error) {
+                console.error('Erreur sauvegarde:', error);
+                throw error;
+            }
+        }
+
+        // Import CSV
+        document.getElementById('csvFile').addEventListener('change', handleCSVUpload);
+
+        function handleCSVUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    const csvText = e.target.result;
+                    const movies = parseCSV(csvText);
+                    
+                    if (movies.length === 0) {
+                        showMessage('importMessage', 'Aucun film trouvé dans le CSV', 'error');
+                        return;
+                    }
+
+                    const mode = document.querySelector('input[name="importMode"]:checked').value;
+
+                    if (mode === 'replace') {
+                        // Supprimer toute la watchlist
+                        const { error } = await supabaseClient
+                            .from('user_movies')
+                            .delete()
+                            .eq('user_id', currentUser.id);
+
+                        if (error) throw error;
+                    }
+
+                    showMessage('importMessage', '⏳ Import en cours de ' + movies.length + ' films...', 'info');
+
+                    let imported = 0;
+                    let skipped = 0;
+
+                    for (const movie of movies) {
+                        try {
+                            if (movie.imdbID && movie.Title) {
+                                await saveMovieToSupabase(movie);
+                                imported++;
+                            } else {
+                                skipped++;
+                            }
+                        } catch (error) {
+                            console.error('Erreur film:', movie.Title, error);
+                            skipped++;
+                        }
+                    }
+
+                    await loadStats();
+                    showMessage('importMessage', '✅ ' + imported + ' films importés, ' + skipped + ' ignorés', 'success');
+                    event.target.value = '';
+
+                } catch (error) {
+                    showMessage('importMessage', 'Erreur lors de l\'import: ' + error.message, 'error');
+                }
+            };
+            reader.readAsText(file);
         }
 
         function parseCSV(text) {
-            const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+            const lines = text.split('\n').map(function(l) { return l.trim(); }).filter(function(l) { return l; });
             if (lines.length === 0) return [];
 
-            const parseLine = (line) => {
+            const parseLine = function(line) {
                 const result = [];
                 let current = '';
                 let inQuotes = false;
                 
                 for (let i = 0; i < line.length; i++) {
                     const char = line[i];
-                    
                     if (char === '"') {
                         inQuotes = !inQuotes;
                     } else if (char === ',' && !inQuotes) {
@@ -578,256 +544,101 @@
                     }
                 }
                 result.push(current.trim());
-                return result.map(v => v.replace(/^"|"$/g, ''));
+                return result.map(function(v) { return v.replace(/^"|"$/g, ''); });
             };
 
-            const firstLine = parseLine(lines[0]);
-            const hasHeaders = firstLine.some(col => {
-                const lower = col.toLowerCase();
-                return ['title', 'name', 'year', 'director', 'genre', 'actors', 'date', 'letterboxd', 'uri'].includes(lower);
-            });
-
-            if (hasHeaders) {
-                const headers = firstLine.map(h => h.trim());
-                const titleIndex = headers.findIndex(h => {
-                    const lower = h.toLowerCase();
-                    return lower === 'title' || lower === 'name';
+            const headers = parseLine(lines[0]);
+            
+            return lines.slice(1).map(function(line) {
+                const values = parseLine(line);
+                const movie = {};
+                
+                headers.forEach(function(header, index) {
+                    if (values[index]) {
+                        movie[header] = values[index];
+                    }
                 });
                 
-                return lines.slice(1).map(line => {
-                    const values = parseLine(line);
-                    const movie = {};
-                    
-                    headers.forEach((header, index) => {
-                        if (values[index]) {
-                            let key = header.charAt(0).toUpperCase() + header.slice(1);
-                            if (header.toLowerCase() === 'name') {
-                                key = 'Title';
-                            }
-                            movie[key] = values[index];
-                        }
-                    });
-                    
-                    return movie;
-                }).filter(m => m.Title);
-            } else {
-                return lines.map(line => {
-                    const values = parseLine(line);
-                    return {Title: values[0]};
-                }).filter(m => m.Title);
-            }
+                return movie;
+            }).filter(function(m) { return m.Title || m.title; });
         }
 
-        function handleCSVUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+        // Export CSV
+        async function exportMovies() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('user_movies')
+                    .select('*, movies(*)')
+                    .eq('user_id', currentUser.id);
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const csvText = e.target.result;
-                    const importedMovies = parseCSV(csvText);
-                    
-                    if (importedMovies.length === 0) {
-                        showMessage('importMessage', 'Aucun film trouvé dans le CSV', 'error');
-                        return;
-                    }
+                if (error) throw error;
 
-                    importedMovies.forEach(newMovie => {
-                        const existingIndex = movies.findIndex(m => 
-                            (m.Title || '').toLowerCase() === (newMovie.Title || '').toLowerCase()
-                        );
-                        
-                        if (existingIndex >= 0) {
-                            const existing = movies[existingIndex];
-                            if (!isMovieComplete(existing)) {
-                                movies[existingIndex] = {...existing, ...newMovie};
-                            }
-                        } else {
-                            movies.push(newMovie);
-                        }
-                    });
-
-                    saveMovies();
-                    displayMovies();
-                    
-                    const incomplete = movies.filter(m => !isMovieComplete(m)).length;
-                    showMessage('importMessage', `✅ ${importedMovies.length} films importés. ${incomplete} à enrichir via l'API.`, 'success');
-                    
-                    event.target.value = '';
-                } catch (error) {
-                    showMessage('importMessage', 'Erreur lors de la lecture du CSV: ' + error.message, 'error');
+                if (data.length === 0) {
+                    showMessage('importMessage', 'Aucun film à exporter', 'error');
+                    return;
                 }
-            };
-            reader.readAsText(file);
-        }
 
-        function exportMovies() {
-            if (movies.length === 0) {
-                showMessage('importMessage', 'Aucun film à exporter', 'error');
-                return;
-            }
+                let csv = 'Title,Year,Rated,Released,Runtime,Genre,Director,Writer,Actors,Plot,Language,Country,Awards,Poster,Metascore,imdbRating,imdbVotes,imdbID,Type,Status,Favorite,PersonalRating\n';
 
-            const allKeys = new Set();
-            movies.forEach(movie => {
-                Object.keys(movie).forEach(key => allKeys.add(key));
-            });
-            
-            const headers = Array.from(allKeys);
-            const csvLines = [headers.join(',')];
-            
-            movies.forEach(movie => {
-                const row = headers.map(header => {
-                    const value = movie[header] || '';
-                    const escaped = String(value).replace(/"/g, '""');
-                    return escaped.includes(',') || escaped.includes('"') || escaped.includes('\n') 
-                        ? `"${escaped}"` 
-                        : escaped;
+                data.forEach(function(item) {
+                    const m = item.movies;
+                    const row = [
+                        m.title, m.year, m.rated, m.released, m.runtime, m.genre,
+                        m.director, m.writer, m.actors, m.plot, m.language, m.country,
+                        m.awards, m.poster, m.metascore, m.imdb_rating, m.imdb_votes,
+                        m.imdb_id, m.type, item.status, item.favorite, item.personal_rating || ''
+                    ].map(function(v) {
+                        const str = String(v || '');
+                        return str.includes(',') || str.includes('"') ? '"' + str.replace(/"/g, '""') + '"' : str;
+                    });
+                    csv += row.join(',') + '\n';
                 });
-                csvLines.push(row.join(','));
-            });
 
-            const csvContent = csvLines.join('\n');
-            const dataBlob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `movies_${new Date().toISOString().split('T')[0]}.csv`;
-            link.click();
-            URL.revokeObjectURL(url);
-            
-            showMessage('importMessage', 'Liste CSV exportée !', 'success');
-        }
+                const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'my_watchlist_' + new Date().toISOString().split('T')[0] + '.csv';
+                link.click();
+                URL.revokeObjectURL(url);
+                
+                showMessage('importMessage', 'Liste CSV exportée !', 'success');
 
-        function saveMovies() {
-            localStorage.setItem('movies_list', JSON.stringify(movies));
-            updateStats();
-        }
-
-        function loadMovies() {
-            const saved = localStorage.getItem('movies_list');
-            if (saved) {
-                movies = JSON.parse(saved);
-            }
-            displayMovies();
-        }
-
-        function updateStats() {
-            const total = movies.length;
-            const enriched = movies.filter(m => isMovieComplete(m)).length;
-            const incomplete = total - enriched;
-
-            document.getElementById('totalMovies').textContent = total;
-            document.getElementById('enrichedMovies').textContent = enriched;
-            document.getElementById('incompleteMovies').textContent = incomplete;
-        }
-
-        function displayMovies() {
-            const grid = document.getElementById('moviesGrid');
-            updateStats();
-            
-            if (movies.length === 0) {
-                grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1; font-size: 1.2rem;">🎥️ Aucun film dans la liste. Importez-en ou ajoutez-en un !</p>';
-                return;
-            }
-
-            grid.innerHTML = movies.map((movie, index) => {
-                const isComplete = isMovieComplete(movie);
-                const title = movie.Title || movie.title || movie;
-                const year = movie.Year || '';
-                const poster = movie.Poster && movie.Poster !== 'N/A' ? movie.Poster : '';
-                const rating = movie.imdbRating && movie.imdbRating !== 'N/A' ? movie.imdbRating : null;
-                const genre = movie.Genre || '';
-
-                return `
-                    <div class="movie-card ${!isComplete ? 'incomplete' : ''}" onclick="showMovieDetails(${index})">
-                        ${!isComplete ? '<div class="incomplete-badge">⚠️ Incomplet</div>' : ''}
-                        ${poster ? `<img src="${poster}" alt="${title}" class="movie-poster" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div style="display:none; width:100%; height:400px; background:#e0e0e0; align-items:center; justify-content:center; color:#999; font-size:3rem;">🎬</div>` : 
-                        `<div style="width:100%; height:400px; background:#e0e0e0; display:flex; align-items:center; justify-content:center; color:#999; font-size:3rem;">🎬</div>`}
-                        <div class="movie-info">
-                            <div class="movie-title">${title}</div>
-                            ${year ? `<div class="movie-year">${year}</div>` : ''}
-                            ${rating ? `<span class="movie-rating">⭐ ${rating}/10</span>` : ''}
-                            ${genre ? `<div class="movie-genre">${genre}</div>` : ''}
-                            <div class="action-buttons">
-                                ${!isComplete ? `<button class="enrich-btn" onclick="enrichMovie(${index}); event.stopPropagation()">✨ Enrichir</button>` : ''}
-                                <button class="delete-btn" onclick="deleteMovie(${index}, event)">🗑️ Supprimer</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function showMovieDetails(index) {
-            const movie = movies[index];
-            const title = movie.Title || movie.title || movie;
-            document.getElementById('modalTitle').textContent = title;
-            
-            if (!isMovieComplete(movie)) {
-                document.getElementById('modalBody').innerHTML = `
-                    <p style="text-align: center; color: #666; padding: 20px;">
-                        ⚠️ Ce film n'a pas encore été enrichi.<br>
-                        Cliquez sur le bouton "Enrichir" pour récupérer les informations depuis l'API OMDb.
-                    </p>
-                `;
-                document.getElementById('movieModal').style.display = 'block';
-                return;
-            }
-
-            const details = [
-                {label: 'Année', value: movie.Year},
-                {label: 'Réalisateur', value: movie.Director},
-                {label: 'Acteurs', value: movie.Actors},
-                {label: 'Genre', value: movie.Genre},
-                {label: 'Durée', value: movie.Runtime},
-                {label: 'Note IMDb', value: movie.imdbRating !== 'N/A' ? `${movie.imdbRating}/10 (${movie.imdbVotes} votes)` : 'N/A'},
-                {label: 'Synopsis', value: movie.Plot},
-                {label: 'Langue', value: movie.Language},
-                {label: 'Pays', value: movie.Country},
-                {label: 'Récompenses', value: movie.Awards},
-                {label: 'Box Office', value: movie.BoxOffice},
-                {label: 'Production', value: movie.Production},
-                {label: 'Scénariste', value: movie.Writer}
-            ].filter(d => d.value && d.value !== 'N/A' && d.value !== 'N/A');
-
-            document.getElementById('modalBody').innerHTML = `
-                ${movie.Poster && movie.Poster !== 'N/A' ? `<img src="${movie.Poster}" alt="${title}" class="modal-poster" onerror="this.style.display='none'">` : ''}
-                ${details.map(d => `
-                    <div class="detail-row">
-                        <div class="detail-label">${d.label}</div>
-                        <div class="detail-value">${d.value}</div>
-                    </div>
-                `).join('')}
-            `;
-
-            document.getElementById('movieModal').style.display = 'block';
-        }
-
-        function closeModal(event) {
-            if (!event || event.target.id === 'movieModal') {
-                document.getElementById('movieModal').style.display = 'none';
+            } catch (error) {
+                showMessage('importMessage', 'Erreur lors de l\'export', 'error');
+                console.error(error);
             }
         }
 
-        function deleteMovie(index, event) {
-            event.stopPropagation();
-            
-            if (confirm('Êtes-vous sûr de vouloir supprimer ce film ?')) {
-                movies.splice(index, 1);
-                saveMovies();
-                displayMovies();
-                showMessage('message', 'Film supprimé avec succès', 'success');
+        // Stats
+        async function loadStats() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('user_movies')
+                    .select('status, favorite')
+                    .eq('user_id', currentUser.id);
+
+                if (error) throw error;
+
+                const total = data.length;
+                const watched = data.filter(function(m) { return m.status === 'watched'; }).length;
+                const favorites = data.filter(function(m) { return m.favorite; }).length;
+
+                document.getElementById('totalMovies').textContent = total;
+                document.getElementById('watchedMovies').textContent = watched;
+                document.getElementById('favoriteMovies').textContent = favorites;
+
+            } catch (error) {
+                console.error('Erreur stats:', error);
             }
         }
 
-        loadMovies();
-
-        document.getElementById('csvFile').addEventListener('change', handleCSVUpload);
-        document.getElementById('movieTitle').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') searchMovie();
-        });
+        // Initialisation
+        (async function() {
+            if (await checkAuth()) {
+                await loadStats();
+            }
+        })();
     </script>
 </body>
 </html>
