@@ -307,6 +307,56 @@
         ::-webkit-scrollbar-track { background: var(--surface-alt); border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* Modal Backoffice */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .modal-overlay.show { display: flex; }
+        .modal-content { background: var(--white); border-radius: 16px; max-width: 800px; width: 100%; max-height: 85vh; overflow: hidden; display: flex; flex-direction: column; }
+        .modal-header { padding: 20px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h2 { font-size: 1.3em; font-weight: 700; }
+        .modal-close { background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1.2em; }
+        .modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+
+        /* Catégories Backoffice */
+        .category-section { margin-bottom: 25px; }
+        .category-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding: 10px 15px; border-radius: 10px; font-weight: 600; }
+        .category-header.cat-frais { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); color: #1565C0; }
+        .category-header.cat-sec { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); color: #E65100; }
+        .category-header.cat-congele { background: linear-gradient(135deg, #E0F7FA, #B2EBF2); color: #00838F; }
+        .category-header.cat-nonclasse { background: linear-gradient(135deg, #F5F5F5, #EEEEEE); color: #616161; }
+        .category-icon { font-size: 1.3em; }
+        .category-count { margin-left: auto; background: rgba(0,0,0,0.1); padding: 2px 10px; border-radius: 12px; font-size: 0.85em; }
+
+        .ingredients-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+        .ingredient-chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; background: var(--white); border: 2px solid var(--border); border-radius: 20px; font-size: 0.85em; cursor: pointer; transition: all 0.2s; }
+        .ingredient-chip:hover { border-color: var(--primary); background: var(--primary-light); }
+        .ingredient-chip.selected { background: var(--primary); color: white; border-color: var(--primary); }
+        .ingredient-chip .chip-category { width: 8px; height: 8px; border-radius: 50%; }
+        .ingredient-chip .chip-category.cat-frais { background: #1976D2; }
+        .ingredient-chip .chip-category.cat-sec { background: #F57C00; }
+        .ingredient-chip .chip-category.cat-congele { background: #00ACC1; }
+        .ingredient-chip .chip-category.cat-nonclasse { background: #9E9E9E; }
+
+        /* Actions catégorie */
+        .category-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; padding: 15px; background: var(--surface-alt); border-radius: 10px; }
+        .category-actions span { color: var(--text-medium); font-size: 0.9em; margin-right: 10px; align-self: center; }
+        .cat-btn { padding: 8px 16px; border-radius: 8px; border: 2px solid transparent; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Montserrat', sans-serif; }
+        .cat-btn.cat-frais { background: #E3F2FD; color: #1565C0; border-color: #90CAF9; }
+        .cat-btn.cat-frais:hover { background: #1976D2; color: white; }
+        .cat-btn.cat-sec { background: #FFF3E0; color: #E65100; border-color: #FFCC80; }
+        .cat-btn.cat-sec:hover { background: #F57C00; color: white; }
+        .cat-btn.cat-congele { background: #E0F7FA; color: #00838F; border-color: #80DEEA; }
+        .cat-btn.cat-congele:hover { background: #00ACC1; color: white; }
+        .cat-btn.cat-nonclasse { background: #F5F5F5; color: #616161; border-color: #BDBDBD; }
+        .cat-btn.cat-nonclasse:hover { background: #9E9E9E; color: white; }
+
+        /* Liste de courses par catégorie */
+        .shopping-category { margin-bottom: 20px; }
+        .shopping-category-header { display: flex; align-items: center; gap: 8px; padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; font-weight: 600; font-size: 0.95em; }
+        .shopping-category-header.cat-frais { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); color: #1565C0; }
+        .shopping-category-header.cat-sec { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); color: #E65100; }
+        .shopping-category-header.cat-congele { background: linear-gradient(135deg, #E0F7FA, #B2EBF2); color: #00838F; }
+        .shopping-category-header.cat-nonclasse { background: linear-gradient(135deg, #F5F5F5, #EEEEEE); color: #616161; }
     </style>
 </head>
 <body>
@@ -324,6 +374,9 @@
                     <span class="user-email" id="userEmail">...</span>
                     <button class="header-btn" onclick="toggleOptionsMenu()">⚙️ Options</button>
                     <div class="options-menu" id="optionsMenu">
+                        <div class="options-menu-item" onclick="openBackoffice(); closeOptionsMenu();">
+                            <svg class="icon icon-sm"><use href="#icon-list"/></svg> Catégories ingrédients
+                        </div>
                         <label class="options-menu-item">
                             <svg class="icon icon-sm"><use href="#icon-upload"/></svg> Importer CSV
                             <input type="file" id="csvImport" accept=".csv">
@@ -535,6 +588,34 @@
         <symbol id="icon-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
         <symbol id="icon-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol>
     </svg>
+
+    <!-- Modal Backoffice Catégories -->
+    <div class="modal-overlay" id="backofficeModal" onclick="if(event.target===this)closeBackoffice()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📦 Catégories d'ingrédients</h2>
+                <button class="modal-close" onclick="closeBackoffice()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--text-medium); margin-bottom: 15px; font-size: 0.9em;">
+                    Cliquez sur les ingrédients pour les sélectionner, puis assignez-les à une catégorie.
+                    Les catégories serviront de séparateurs dans votre liste de courses.
+                </p>
+
+                <div class="category-actions" id="categoryActions" style="display: none;">
+                    <span><strong id="selectedCountBO">0</strong> sélectionné(s) →</span>
+                    <button class="cat-btn cat-frais" onclick="assignCategory('frais')">🥬 Frais</button>
+                    <button class="cat-btn cat-sec" onclick="assignCategory('sec')">🥫 Sec</button>
+                    <button class="cat-btn cat-congele" onclick="assignCategory('congele')">🧊 Congelé</button>
+                    <button class="cat-btn cat-nonclasse" onclick="assignCategory('nonclasse')">📦 Non classé</button>
+                </div>
+
+                <div id="backofficeContent">
+                    <!-- Contenu généré dynamiquement -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -790,7 +871,7 @@
         
         function renderCompactRecipe(r) {
             const sel = selectedRecipes.has(r.id);
-            const exp = expandedRecipeId === r.id;
+            const exp = currentView === 'detailed' || expandedRecipeId === r.id;
             
             let html = `<div class="recipe-compact-wrapper" data-id="${r.id}">
                 <div class="swipe-actions">
@@ -866,8 +947,17 @@
             });
         }
         
-        function toggleExp(id) { expandedRecipeId = expandedRecipeId === id ? null : id; renderRecipes(); }
-        function setView(v) { currentView = v; expandedRecipeId = null; document.querySelectorAll('.view-toggle button').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase().includes(v))); renderRecipes(); }
+        function toggleExp(id) {
+            if (currentView === 'detailed') return; // En mode détaillé, tout est déjà ouvert
+            expandedRecipeId = expandedRecipeId === id ? null : id;
+            renderRecipes();
+        }
+        function setView(v) {
+            currentView = v;
+            if (v === 'compact') expandedRecipeId = null; // Reset seulement en mode compact
+            document.querySelectorAll('.view-toggle button').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase().includes(v)));
+            renderRecipes();
+        }
         function setSort(s) { currentSort = s; document.querySelectorAll('.sort-toggle button').forEach(b => b.classList.toggle('active', (s === 'alpha' && b.textContent.includes('A-Z')) || (s === 'usage' && b.textContent.includes('Usage')))); renderRecipes(); }
         function toggleSelection(id) { selectedRecipes.has(id) ? selectedRecipes.delete(id) : selectedRecipes.add(id); updateStats(); updateButtonStates(); renderRecipes(); }
         function clearSelection() { selectedRecipes.clear(); updateStats(); updateButtonStates(); renderRecipes(); }
@@ -1094,18 +1184,46 @@
                 document.getElementById('listTitleContainer').style.display = 'none';
                 return;
             }
-            c.innerHTML = shoppingOrder.map((name, idx) => {
-                const q = currentShoppingList[name] || 0;
-                return `<div class="shopping-item ${q === 0 ? 'zero' : ''}" draggable="true" data-name="${name}" data-idx="${idx}">
-                    <div class="drag-handle"><svg class="icon"><use href="#icon-grip"/></svg></div>
-                    <span class="shopping-item-name">${name}</span>
-                    <div class="shopping-item-controls">
-                        <button class="qty-btn minus" onclick="changeQty('${name}',-1)">−</button>
-                        <span class="shopping-item-count">×${q}</span>
-                        <button class="qty-btn plus" onclick="changeQty('${name}',1)">+</button>
-                    </div>
-                </div>`;
-            }).join('');
+
+            // Grouper par catégorie
+            const grouped = { frais: [], sec: [], congele: [], nonclasse: [] };
+            shoppingOrder.forEach((name, idx) => {
+                const cat = getIngredientCategory(name);
+                grouped[cat].push({ name, idx });
+            });
+
+            let html = '';
+            let globalIdx = 0;
+            CATEGORY_ORDER.forEach(cat => {
+                const items = grouped[cat];
+                if (!items.length) return;
+
+                const info = CATEGORY_LABELS[cat];
+                html += `<div class="shopping-category">
+                    <div class="shopping-category-header cat-${cat}">
+                        <span>${info.icon}</span>
+                        <span>${info.name}</span>
+                        <span style="margin-left: auto; opacity: 0.7; font-size: 0.85em;">${items.length} article${items.length > 1 ? 's' : ''}</span>
+                    </div>`;
+
+                items.forEach(item => {
+                    const q = currentShoppingList[item.name] || 0;
+                    html += `<div class="shopping-item ${q === 0 ? 'zero' : ''}" draggable="true" data-name="${item.name}" data-idx="${globalIdx}">
+                        <div class="drag-handle"><svg class="icon"><use href="#icon-grip"/></svg></div>
+                        <span class="shopping-item-name">${item.name}</span>
+                        <div class="shopping-item-controls">
+                            <button class="qty-btn minus" onclick="changeQty('${item.name.replace(/'/g, "\\'")}',-1)">−</button>
+                            <span class="shopping-item-count">×${q}</span>
+                            <button class="qty-btn plus" onclick="changeQty('${item.name.replace(/'/g, "\\'")}',1)">+</button>
+                        </div>
+                    </div>`;
+                    globalIdx++;
+                });
+
+                html += '</div>';
+            });
+
+            c.innerHTML = html;
             setupDragDrop();
         }
         
@@ -1250,9 +1368,28 @@
             updateButtonStates();
         }
         function copyShoppingList() {
+            // Grouper par catégorie pour la copie
+            const grouped = { frais: [], sec: [], congele: [], nonclasse: [] };
+            shoppingOrder.forEach(name => {
+                const q = currentShoppingList[name];
+                if (q > 0) {
+                    const cat = getIngredientCategory(name);
+                    grouped[cat].push({ name, q });
+                }
+            });
+
             let t = '';
-            shoppingOrder.forEach(n => { const q = currentShoppingList[n]; if (q > 0) t += `☐ ${n} ×${q}\n`; });
-            navigator.clipboard.writeText(t).then(() => alert('Liste copiée !'));
+            CATEGORY_ORDER.forEach(cat => {
+                const items = grouped[cat];
+                if (!items.length) return;
+                const info = CATEGORY_LABELS[cat];
+                t += `\n${info.icon} ${info.name.toUpperCase()}\n`;
+                items.forEach(item => {
+                    t += `☐ ${item.name} ×${item.q}\n`;
+                });
+            });
+
+            navigator.clipboard.writeText(t.trim()).then(() => alert('Liste copiée !'));
         }
 
         // ============================================
@@ -1420,6 +1557,154 @@
         }
 
         // ============================================
+        // BACKOFFICE CATEGORIES (Supabase)
+        // ============================================
+        const CATEGORY_ORDER = ['frais', 'sec', 'congele', 'nonclasse'];
+        const CATEGORY_LABELS = {
+            frais: { icon: '🥬', name: 'Frais', desc: 'Fruits, légumes, viandes, produits laitiers...' },
+            sec: { icon: '🥫', name: 'Sec', desc: 'Pâtes, riz, conserves, épices...' },
+            congele: { icon: '🧊', name: 'Congelé', desc: 'Produits surgelés' },
+            nonclasse: { icon: '📦', name: 'Non classé', desc: 'Ingrédients pas encore classés' }
+        };
+        let ingredientCategories = {};
+        let selectedIngredientsBO = new Set();
+
+        async function loadIngredientCategories() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('ingredient_categories')
+                    .select('ingredient_name, category');
+
+                if (error) throw error;
+
+                ingredientCategories = {};
+                (data || []).forEach(row => {
+                    ingredientCategories[row.ingredient_name] = row.category;
+                });
+            } catch (e) {
+                console.error('Erreur chargement catégories:', e);
+                // Fallback localStorage si table n'existe pas encore
+                try {
+                    const saved = localStorage.getItem('ingredientCategories');
+                    ingredientCategories = saved ? JSON.parse(saved) : {};
+                } catch (e2) {
+                    ingredientCategories = {};
+                }
+            }
+        }
+
+        async function saveIngredientCategory(ingredientName, category) {
+            try {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (!session?.user?.id) return;
+
+                const { error } = await supabaseClient
+                    .from('ingredient_categories')
+                    .upsert({
+                        user_id: session.user.id,
+                        ingredient_name: ingredientName,
+                        category: category
+                    }, {
+                        onConflict: 'user_id,ingredient_name'
+                    });
+
+                if (error) throw error;
+            } catch (e) {
+                console.error('Erreur sauvegarde catégorie:', e);
+                // Fallback localStorage
+                localStorage.setItem('ingredientCategories', JSON.stringify(ingredientCategories));
+            }
+        }
+
+        function getIngredientCategory(name) {
+            const nameNorm = normalize(name);
+            for (const [ing, cat] of Object.entries(ingredientCategories)) {
+                if (normalize(ing) === nameNorm) return cat;
+            }
+            return 'nonclasse';
+        }
+
+        function openBackoffice() {
+            selectedIngredientsBO.clear();
+            document.getElementById('backofficeModal').classList.add('show');
+            renderBackoffice();
+        }
+
+        function closeBackoffice() {
+            document.getElementById('backofficeModal').classList.remove('show');
+        }
+
+        function renderBackoffice() {
+            const content = document.getElementById('backofficeContent');
+            const ingredients = Array.from(allIngredients).sort((a, b) => a.localeCompare(b));
+
+            // Grouper par catégorie
+            const grouped = { frais: [], sec: [], congele: [], nonclasse: [] };
+            ingredients.forEach(ing => {
+                const cat = getIngredientCategory(ing);
+                grouped[cat].push(ing);
+            });
+
+            let html = '';
+            CATEGORY_ORDER.forEach(cat => {
+                const info = CATEGORY_LABELS[cat];
+                const items = grouped[cat];
+
+                html += `<div class="category-section">
+                    <div class="category-header cat-${cat}">
+                        <span class="category-icon">${info.icon}</span>
+                        <span>${info.name}</span>
+                        <span class="category-count">${items.length}</span>
+                    </div>
+                    <div class="ingredients-grid">
+                        ${items.length ? items.map(ing => `
+                            <div class="ingredient-chip ${selectedIngredientsBO.has(ing) ? 'selected' : ''}" onclick="toggleIngredientBO('${ing.replace(/'/g, "\\'")}')">
+                                <span class="chip-category cat-${cat}"></span>
+                                ${ing}
+                            </div>
+                        `).join('') : '<span style="color: var(--text-light); font-style: italic; padding: 10px;">Aucun ingrédient</span>'}
+                    </div>
+                </div>`;
+            });
+
+            content.innerHTML = html;
+            updateCategoryActions();
+        }
+
+        function toggleIngredientBO(name) {
+            if (selectedIngredientsBO.has(name)) {
+                selectedIngredientsBO.delete(name);
+            } else {
+                selectedIngredientsBO.add(name);
+            }
+            renderBackoffice();
+        }
+
+        function updateCategoryActions() {
+            const actionsDiv = document.getElementById('categoryActions');
+            const countSpan = document.getElementById('selectedCountBO');
+            const count = selectedIngredientsBO.size;
+
+            actionsDiv.style.display = count > 0 ? 'flex' : 'none';
+            countSpan.textContent = count;
+        }
+
+        async function assignCategory(category) {
+            setSyncStatus('syncing');
+            const promises = [];
+
+            selectedIngredientsBO.forEach(ing => {
+                ingredientCategories[ing] = category;
+                promises.push(saveIngredientCategory(ing, category));
+            });
+
+            await Promise.all(promises);
+            setSyncStatus('synced');
+            selectedIngredientsBO.clear();
+            renderBackoffice();
+        }
+
+        // ============================================
         // EVENT LISTENERS
         // ============================================
         document.getElementById('searchBox').addEventListener('input', renderRecipes);
@@ -1431,6 +1716,7 @@
         (async () => {
             setupAutocomplete();
             if (await checkAuth()) {
+                await loadIngredientCategories();
                 await loadRecipes();
             }
         })();
